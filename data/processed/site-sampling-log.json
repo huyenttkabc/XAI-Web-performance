@@ -1,0 +1,766 @@
+{
+  "generated_at": "2026-10-07T16:25:00.976Z",
+  "seed": 42,
+  "total": 40,
+  "wave1": 12,
+  "frame_stores": 819,
+  "tbt_tertile_cuts_ms": [
+    3695.0123333333336,
+    7115.188833333345
+  ],
+  "quotas_after_pilot": {
+    "light": 13,
+    "medium": 12,
+    "heavy": 12
+  },
+  "pilot": [
+    {
+      "site": "adresmedikal.net",
+      "stratum": "light"
+    },
+    {
+      "site": "amixstore.com",
+      "stratum": "medium"
+    },
+    {
+      "site": "bark.co",
+      "stratum": "heavy"
+    }
+  ],
+  "probes": [
+    {
+      "site": "pepco.ro",
+      "stratum": "light",
+      "ref_tbt_ms": 3328,
+      "ok": true,
+      "homeUrl": "https://pepco.ro/",
+      "productUrl": "https://pepco.ro/products/tricou-baieti-minecraft-100-bumbac-637371",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.joone.fr",
+      "stratum": "medium",
+      "ref_tbt_ms": 6080,
+      "ok": true,
+      "homeUrl": "https://www.joone.fr/",
+      "productUrl": "https://www.joone.fr/products/shampooing-croute-de-lait",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "shop.angel.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8873,
+      "ok": true,
+      "homeUrl": "https://shop.angel.com/",
+      "productUrl": "https://shop.angel.com/products/tuttle-twins-season-4-blu-ray-or-dvd",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.campusshoes.com",
+      "stratum": "light",
+      "ref_tbt_ms": 639,
+      "ok": true,
+      "homeUrl": "https://www.campusshoes.com/",
+      "productUrl": "https://www.campusshoes.com/products/bell-off-wht-brnz-womens-sneakers",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "pampili.com.br",
+      "stratum": "medium",
+      "ref_tbt_ms": 3791,
+      "ok": true,
+      "homeUrl": "https://pampili.com.br/",
+      "productUrl": "https://pampili.com.br/products/sandalia-infantil-pampili-iris-texturizada-dourada",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "kumkumaditailam.in",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": false,
+      "reason": "home:cross_host_redirect"
+    },
+    {
+      "site": "www.miniclub.com.pk",
+      "stratum": "light",
+      "ref_tbt_ms": 2389,
+      "ok": true,
+      "homeUrl": "https://www.miniclub.com.pk/",
+      "productUrl": "https://www.miniclub.com.pk/products/pack-of-3-boys-t-shirts",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.livreeleve.com.br",
+      "stratum": "medium",
+      "ref_tbt_ms": 6580,
+      "ok": true,
+      "homeUrl": "https://www.livreeleve.com.br/",
+      "productUrl": "https://www.livreeleve.com.br/products/top-com-bolso-nas-costas-laranja",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "verysmart.ca",
+      "stratum": "heavy",
+      "ref_tbt_ms": 17592,
+      "ok": true,
+      "homeUrl": "https://verysmart.ca/",
+      "productUrl": "https://verysmart.ca/products/eres",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "shopusa.season-of-mist.com",
+      "stratum": "light",
+      "ref_tbt_ms": 3523,
+      "ok": true,
+      "homeUrl": "https://shopusa.season-of-mist.com/",
+      "productUrl": "https://shopusa.season-of-mist.com/products/cropped-hoodie-black",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "matcha-karu.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 5609,
+      "ok": true,
+      "homeUrl": "https://matcha-karu.com/",
+      "productUrl": "https://matcha-karu.com/products/matcha-besenhalter-glas-frosted",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "wearme.ua",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://wearme.ua/",
+      "productUrl": "https://wearme.ua/products/25-26-002-16659-zhilet-den-nezalezhnosti-16659",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.pichara.cl",
+      "stratum": "light",
+      "ref_tbt_ms": 2992,
+      "ok": true,
+      "homeUrl": "https://www.pichara.cl/",
+      "productUrl": "https://www.pichara.cl/products/sachet-shampoo-yes-daily-everday-10ml-elgon",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "vegane-fleischerei.de",
+      "stratum": "medium",
+      "ref_tbt_ms": 5881,
+      "ok": true,
+      "homeUrl": "https://vegane-fleischerei.de/",
+      "productUrl": "https://vegane-fleischerei.de/products/vanozza-brie-pfeffer",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "stevemadden.co.za",
+      "stratum": "heavy",
+      "ref_tbt_ms": 7464,
+      "ok": true,
+      "homeUrl": "https://stevemadden.co.za/",
+      "productUrl": "https://stevemadden.co.za/products/rollout-l-white",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "elitecarz.in",
+      "stratum": "light",
+      "ref_tbt_ms": 3108,
+      "ok": true,
+      "homeUrl": "https://elitecarz.in/",
+      "productUrl": "https://elitecarz.in/products/2018-toyota-corolla-altis-g-at",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "buyniconi.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 6437,
+      "ok": true,
+      "homeUrl": "https://buyniconi.com/",
+      "productUrl": "https://buyniconi.com/products/epitight-thicc-hair-transform-thin-hair-to-thick-full-with-2x-heat-protection-200ml",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.newera.mx",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://www.newera.mx/",
+      "productUrl": "https://www.newera.mx/products/15444117",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "lukmed.cl",
+      "stratum": "light",
+      "ref_tbt_ms": 2569,
+      "ok": true,
+      "homeUrl": "https://lukmed.cl/",
+      "productUrl": "https://lukmed.cl/products/anestesia-2-alphacaina-1-100-000-dfl",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.pinko.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 5276,
+      "ok": true,
+      "homeUrl": "https://www.pinko.com/",
+      "productUrl": "https://www.pinko.com/products/maglia-body-in-lana-merino-107271a3fyz99",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "naturaltein.in",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": false,
+      "reason": "probe_error:TypeError"
+    },
+    {
+      "site": "www.puropelle.com",
+      "stratum": "light",
+      "ref_tbt_ms": 1862,
+      "ok": true,
+      "homeUrl": "https://www.puropelle.com/",
+      "productUrl": "https://www.puropelle.com/products/gt01",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.cherrykitten.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 5924,
+      "ok": true,
+      "homeUrl": "https://www.cherrykitten.com/",
+      "productUrl": "https://www.cherrykitten.com/products/red-anatomical-hearts-y2k-mesh-crop-top-cherrykitten",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "musclerepublic.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 11400,
+      "ok": true,
+      "homeUrl": "https://musclerepublic.com/",
+      "productUrl": "https://musclerepublic.com/products/kids-off-road-trucker-cap-vintage-camo-print",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "mssaz.com",
+      "stratum": "light",
+      "ref_tbt_ms": 3336,
+      "ok": true,
+      "homeUrl": "https://mssaz.com/",
+      "productUrl": "https://mssaz.com/products/oblique-shoulder-decorative-flower-solid-mini-dress",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "misterradio-gps.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4021,
+      "ok": true,
+      "homeUrl": "https://misterradio-gps.com/",
+      "productUrl": "https://misterradio-gps.com/products/mini-cooper-s-r50-r52-r53-2000-2007",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "miraggiolife.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 22722,
+      "ok": true,
+      "homeUrl": "https://miraggiolife.com/",
+      "productUrl": "https://miraggiolife.com/products/lois-crossbody-bag",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.ayntec.com",
+      "stratum": "light",
+      "ref_tbt_ms": 3601,
+      "ok": true,
+      "homeUrl": "https://www.ayntec.com/",
+      "productUrl": "https://www.ayntec.com/products/thor-self-adhesive-stylus",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "rdstudio.co",
+      "stratum": "medium",
+      "ref_tbt_ms": 5180,
+      "ok": true,
+      "homeUrl": "https://rdstudio.co/",
+      "productUrl": "https://rdstudio.co/products/revit-retail-clothing-rack-01",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "vimergy.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8017,
+      "ok": true,
+      "homeUrl": "https://vimergy.com/",
+      "productUrl": "https://vimergy.com/products/skin-potion-kit",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.quadlockcase.eu",
+      "stratum": "light",
+      "ref_tbt_ms": 3308,
+      "ok": true,
+      "homeUrl": "https://www.quadlockcase.eu/",
+      "productUrl": "https://www.quadlockcase.eu/products/ev-kits-galaxy",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.natori.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4753,
+      "ok": true,
+      "homeUrl": "https://www.natori.com/",
+      "productUrl": "https://www.natori.com/products/enchant-slip-dress-black",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "itspixie.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 9931,
+      "ok": true,
+      "homeUrl": "https://itspixie.com/",
+      "productUrl": "https://itspixie.com/products/individual-wipes-lavender-escape",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.musikalcol.store",
+      "stratum": "light",
+      "ref_tbt_ms": 2760,
+      "ok": true,
+      "homeUrl": "https://www.musikalcol.store/",
+      "productUrl": "https://www.musikalcol.store/products/micro-ingredients-testosterone-advanced-15-in-1-la-formula-multifuncional-para-complementar-la-vitalidad-energia-y-bienestar-masculino-desde-el-interior",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "par2.pa",
+      "stratum": "medium",
+      "ref_tbt_ms": 4493,
+      "ok": true,
+      "homeUrl": "https://par2.pa/",
+      "productUrl": "https://par2.pa/products/30094644-botas-magnum-para-hombre-color-negro",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "kabegamiyahonpo.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 18064,
+      "ok": true,
+      "homeUrl": "https://kabegamiyahonpo.com/",
+      "productUrl": "https://kabegamiyahonpo.com/products/jkik-ssfc-zc-05",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "pgservice.cc",
+      "stratum": "light",
+      "ref_tbt_ms": 1065,
+      "ok": true,
+      "homeUrl": "https://pgservice.cc/",
+      "productUrl": "https://pgservice.cc/products/delonghi-nespresso-motore-apertura-macchina-prodigio-u-pulse-en110-en210-en270",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "stealplug.com.my",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8555,
+      "ok": true,
+      "homeUrl": "https://stealplug.com.my/",
+      "productUrl": "https://stealplug.com.my/products/fear-of-god-essentials-merch-long-sleeve-tee-seal-ss26",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.bajaao.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://www.bajaao.com/",
+      "productUrl": "https://www.bajaao.com/products/line-6-pod-go-ultra-portable-guitar-processor-open-box",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.goodmonk.in",
+      "stratum": "medium",
+      "ref_tbt_ms": 4788,
+      "ok": true,
+      "homeUrl": "https://www.goodmonk.in/",
+      "productUrl": "https://www.goodmonk.in/products/plant-protein-for-rotis",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "housewor.com",
+      "stratum": "light",
+      "ref_tbt_ms": 1262,
+      "ok": true,
+      "homeUrl": "https://housewor.com/",
+      "productUrl": "https://housewor.com/products/dkd",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "kamito.vn",
+      "stratum": "medium",
+      "ref_tbt_ms": 4488,
+      "ok": false,
+      "reason": "home:not_shopify"
+    },
+    {
+      "site": "ship.erewhon.com",
+      "stratum": "light",
+      "ref_tbt_ms": 2717,
+      "ok": true,
+      "homeUrl": "https://ship.erewhon.com/",
+      "productUrl": "https://ship.erewhon.com/products/beach-towel-plush-orange",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.linkcart.in",
+      "stratum": "medium",
+      "ref_tbt_ms": 4584,
+      "ok": true,
+      "homeUrl": "https://www.linkcart.in/",
+      "productUrl": "https://www.linkcart.in/products/link-30mm-new-round-steel-body-small-padlock-bags-backpack-luggage-suitcase-padlock-silver",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "codebrwn.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://codebrwn.com/",
+      "productUrl": "https://codebrwn.com/products/kal-dekenge-relaxed-fit-embroidered-jersey",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "kyzo.in",
+      "stratum": "light",
+      "ref_tbt_ms": 3693,
+      "ok": true,
+      "homeUrl": "https://kyzo.in/",
+      "productUrl": "https://kyzo.in/products/ebco-j-profile-shutter-handle-3mtr",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "pepperfield.cz",
+      "stratum": "medium",
+      "ref_tbt_ms": 6082,
+      "ok": true,
+      "homeUrl": "https://pepperfield.cz/",
+      "productUrl": "https://pepperfield.cz/products/klub-zacinam-peprove-predplatne",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.beauteprivee.fr",
+      "stratum": "heavy",
+      "ref_tbt_ms": 7405,
+      "ok": true,
+      "homeUrl": "https://www.beauteprivee.fr/",
+      "productUrl": "https://www.beauteprivee.fr/products/margot-tita_nous-les-femmes-eau-de-parfum-gourmand",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.eden-park.com",
+      "stratum": "light",
+      "ref_tbt_ms": 3149,
+      "ok": true,
+      "homeUrl": "https://www.eden-park.com/",
+      "productUrl": "https://www.eden-park.com/products/chemise-en-coton-ecru-a-imprime-vegetal-coupe-droite-h26checl0082_ecc",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "hatley.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4734,
+      "ok": true,
+      "homeUrl": "https://hatley.com/",
+      "productUrl": "https://hatley.com/products/womens-winter-cardinals-crew-socks",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "reebok.com.ar",
+      "stratum": "heavy",
+      "ref_tbt_ms": 7568,
+      "ok": true,
+      "homeUrl": "https://reebok.com.ar/",
+      "productUrl": "https://reebok.com.ar/products/zapatillas-shaq-attaq-rbk1100032830",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "nqcart.ae",
+      "stratum": "light",
+      "ref_tbt_ms": 2548,
+      "ok": true,
+      "homeUrl": "https://nqcart.ae/",
+      "productUrl": "https://nqcart.ae/products/shri-led-panel-light-15w-6500k-cool-white",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.myfonts.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 5901,
+      "ok": true,
+      "homeUrl": "https://www.myfonts.com/",
+      "productUrl": "https://www.myfonts.com/products/regular-vendalyx-1194487",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.dunns.co.za",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://www.dunns.co.za/",
+      "productUrl": "https://www.dunns.co.za/products/stevie-tiered-skirt-1",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "petiscope.fr",
+      "stratum": "light",
+      "ref_tbt_ms": 2034,
+      "ok": true,
+      "homeUrl": "https://petiscope.fr/",
+      "productUrl": "https://petiscope.fr/products/petite-vue-cadeau",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.rampage.com.tr",
+      "stratum": "medium",
+      "ref_tbt_ms": 4093,
+      "ok": true,
+      "homeUrl": "https://www.rampage.com.tr/",
+      "productUrl": "https://www.rampage.com.tr/products/rj-01-pearl-beyaz-bt-2-4-ghz-telefon-tutuculu-gamepad",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.jdsports.co.th",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8571,
+      "ok": true,
+      "homeUrl": "https://www.jdsports.co.th/",
+      "productUrl": "https://www.jdsports.co.th/products/รองเท้าผู้หญิง-hyperboost-run-120825590",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "hosjosefine.no",
+      "stratum": "light",
+      "ref_tbt_ms": 3003,
+      "ok": true,
+      "homeUrl": "https://hosjosefine.no/",
+      "productUrl": "https://hosjosefine.no/products/13560056-matinique-mahellson-z-black",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.chumbak.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 6770,
+      "ok": true,
+      "homeUrl": "https://www.chumbak.com/",
+      "productUrl": "https://www.chumbak.com/products/travel-journaling-gift-set-of-2-comes-in-a-gift-bag",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.thecasecompany.in",
+      "stratum": "heavy",
+      "ref_tbt_ms": 22470,
+      "ok": true,
+      "homeUrl": "https://www.thecasecompany.in/",
+      "productUrl": "https://www.thecasecompany.in/products/what-the-duck-tangerine-glossy-hard-case",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "shop.comofootball.com",
+      "stratum": "light",
+      "ref_tbt_ms": 2637,
+      "ok": true,
+      "homeUrl": "https://shop.comofootball.com/",
+      "productUrl": "https://shop.comofootball.com/products/como-1907-curva-skate-deck",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "leathergallery.co.za",
+      "stratum": "medium",
+      "ref_tbt_ms": 6603,
+      "ok": true,
+      "homeUrl": "https://leathergallery.co.za/",
+      "productUrl": "https://leathergallery.co.za/products/austin-leather-l-sectional-4-seater-sofa",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.redapplefireworks.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://www.redapplefireworks.com/",
+      "productUrl": "https://www.redapplefireworks.com/products/club-red-apple-membership",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "gruv.com",
+      "stratum": "light",
+      "ref_tbt_ms": 935,
+      "ok": true,
+      "homeUrl": "https://gruv.com/",
+      "productUrl": "https://gruv.com/products/tuttle-twins-season-4-blu-ray-_1000865147",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "timeconcept.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4265,
+      "ok": true,
+      "homeUrl": "https://timeconcept.com/",
+      "productUrl": "https://timeconcept.com/products/alexandre-christie-star-wars-r2d2-limited-edition-acf6629mcrrd1",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "candyfunhouse.ca",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8923,
+      "ok": true,
+      "homeUrl": "https://candyfunhouse.ca/",
+      "productUrl": "https://candyfunhouse.ca/products/albanese-apple-crisp-fall-bears-5lbs",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "dalbe.fr",
+      "stratum": "light",
+      "ref_tbt_ms": 3374,
+      "ok": true,
+      "homeUrl": "https://dalbe.fr/",
+      "productUrl": "https://dalbe.fr/products/set-de-5-pinceaux-scolaire-da-vinci",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "jockey.com.au",
+      "stratum": "medium",
+      "ref_tbt_ms": 6526,
+      "ok": true,
+      "homeUrl": "https://jockey.com.au/",
+      "productUrl": "https://jockey.com.au/products/skimmies-smooth-racer-bralette-black",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "kalaubeauty.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": null,
+      "ok": true,
+      "homeUrl": "https://kalaubeauty.com/",
+      "productUrl": "https://kalaubeauty.com/products/morning-glow-eye-patches-by-kalaubeauty",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "iyaksticker.in",
+      "stratum": "light",
+      "ref_tbt_ms": 669,
+      "ok": true,
+      "homeUrl": "https://iyaksticker.in/",
+      "productUrl": "https://iyaksticker.in/products/customised-design-iyak-cd278-only-sticker",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "seoidin.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4814,
+      "ok": true,
+      "homeUrl": "https://seoidin.com/",
+      "productUrl": "https://seoidin.com/products/gold-pebble-beaded-ring",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.diabolique.es",
+      "stratum": "heavy",
+      "ref_tbt_ms": 8669,
+      "ok": true,
+      "homeUrl": "https://www.diabolique.es/",
+      "productUrl": "https://www.diabolique.es/products/banador-dorado-con-lazo-frontal",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "saysky.co.uk",
+      "stratum": "light",
+      "ref_tbt_ms": 3012,
+      "ok": true,
+      "homeUrl": "https://saysky.co.uk/",
+      "productUrl": "https://saysky.co.uk/products/pace-long-sleeve-pack-men",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.orionride.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 6557,
+      "ok": true,
+      "homeUrl": "https://www.orionride.com/",
+      "productUrl": "https://www.orionride.com/products/orionride-fern-like-texture-zipper-pockets-ultra-lightweight-short-sleeves-gravel-shirt",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "simorra.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 9548,
+      "ok": true,
+      "homeUrl": "https://simorra.com/",
+      "productUrl": "https://simorra.com/products/vestido-punto-bicolor-i27514409848-91",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "www.phonebay.ae",
+      "stratum": "light",
+      "ref_tbt_ms": 1127,
+      "ok": true,
+      "homeUrl": "https://www.phonebay.ae/",
+      "productUrl": "https://www.phonebay.ae/products/apple-iphone-13-black",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "vedix.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 6360,
+      "ok": true,
+      "homeUrl": "https://vedix.com/",
+      "productUrl": "https://vedix.com/products/avas-niraj-drithi",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "www.revesderecho.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 15347,
+      "ok": true,
+      "homeUrl": "https://www.revesderecho.com/",
+      "productUrl": "https://www.revesderecho.com/products/patron-beret-carmen",
+      "note": "product URL refreshed from /products.json"
+    },
+    {
+      "site": "ajantashoes.com",
+      "stratum": "medium",
+      "ref_tbt_ms": 4753,
+      "ok": true,
+      "homeUrl": "https://ajantashoes.com/",
+      "productUrl": "https://ajantashoes.com/products/ajanta-anti-skid-waterproof-slip-on-shoes-for-men-perfect-for-formal-wear-casual-wear-jg1156",
+      "note": "reference product URL live"
+    },
+    {
+      "site": "store.seikowatches.com",
+      "stratum": "heavy",
+      "ref_tbt_ms": 18085,
+      "ok": true,
+      "homeUrl": "https://store.seikowatches.com/",
+      "productUrl": "https://store.seikowatches.com/products/hdb013j",
+      "note": "reference product URL live"
+    }
+  ],
+  "wave_note": "wave 0 = 3 pilot stores (already measured); wave 1 = first 4 accepted stores per stratum; wave 2 = remaining 25",
+  "extensions": [
+    {
+      "generated_at": "2026-10-08T02:15:17.942Z",
+      "seed": 42,
+      "total": 80,
+      "frame_stores": 819,
+      "tbt_tertile_cuts_ms": [
+        3695.0123333333336,
+        7115.188833333345
+      ],
+      "quotas_after_pilot": {
+        "light": 26,
+        "medium": 26,
+        "heavy": 25
+      },
+      "wave": 3,
+      "kept": 37
+    }
+  ]
+}

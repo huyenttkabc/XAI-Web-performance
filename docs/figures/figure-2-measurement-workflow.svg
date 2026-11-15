@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" width="1600" height="860" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Figure 2. Measurement workflow and controlled testbed</title>
+<desc id="d">Per-measurement workflow from plan builder through Chrome launch, Lighthouse, raw artifacts, parser and validity rules to one dataset row; inset shows the slot-based testbed, fault conditions, and the matched first-party versus third-party long-task pair.</desc>
+<defs>
+<marker id="arr8A8A8A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8A8A8A"/></marker>
+</defs>
+<rect x="0" y="0" width="1600" height="860" fill="#FFFFFF"/>
+<g>
+<text x="24" y="36" font-size="15" font-weight="bold" fill="#222222">(a) Measurement and parsing workflow (all arms)</text>
+<rect x="238" y="52" width="1124" height="380" rx="10" fill="none" stroke="#8A8A8A" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="250" y="76" font-size="13" font-weight="bold" fill="#555555">For each measurement, in shuffled order, one at a time</text>
+<rect x="24" y="100" width="196" height="316" rx="8" fill="#FFFFFF" stroke="#222222" stroke-width="1.2"/>
+<text x="34" y="125" font-size="15" font-weight="bold" fill="#222222">1 Plan builder</text>
+<text font-size="13" fill="#222222"><tspan x="34" y="147" font-weight="bold">Inputs</tspan><tspan x="34" y="165">Experiment manifest</tspan><tspan x="34" y="183" fill="#0072B2">+ site list (A)</tspan><tspan x="34" y="201" fill="#A86B00">or fault catalog (B)</tspan><tspan x="34" y="227" font-weight="bold">Output</tspan><tspan x="34" y="245">Measurements × 5 runs</tspan><tspan x="34" y="263">Shuffled, seed 42</tspan><tspan x="34" y="281">Run sequentially</tspan><tspan x="34" y="307" font-weight="bold">Testbed plan</tspan><tspan x="34" y="325">2 pages × 19 conditions</tspan><tspan x="34" y="343">× 5 runs = 190</tspan></text>
+<rect x="250" y="100" width="196" height="316" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="260" y="125" font-size="15" font-weight="bold" fill="#222222">2 Chrome launch</text>
+<text font-size="13" fill="#222222"><tspan x="260" y="147">Fresh temporary profile</tspan><tspan x="260" y="165">Chrome stable, headless</tspan><tspan x="260" y="191" font-weight="bold">Cold cache</tspan><tspan x="260" y="209">Lighthouse clears HTTP</tspan><tspan x="260" y="227">cache and storage</tspan><tspan x="260" y="253" font-weight="bold">Logged per row</tspan><tspan x="260" y="271">Chrome version (UA)</tspan><tspan x="260" y="289">Order index, batch id</tspan></text>
+<rect x="476" y="100" width="196" height="316" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="486" y="125" font-size="15" font-weight="bold" fill="#222222">3 Lighthouse run</text>
+<text font-size="13" fill="#222222"><tspan x="486" y="147">Lighthouse 12.8.2</tspan><tspan x="486" y="165">Navigation mode</tspan><tspan x="486" y="183">Mobile, 412×823, touch</tspan><tspan x="486" y="209" font-weight="bold">DevTools throttling</tspan><tspan x="486" y="227">CPU 4× slowdown</tspan><tspan x="486" y="245">Slow 4G: 562.5 ms</tspan><tspan x="486" y="263">latency, 1.47 Mbps down</tspan><tspan x="486" y="289" font-weight="bold">Limits</tspan><tspan x="486" y="307">maxWaitForLoad 60 s</tspan><tspan x="486" y="325">Hard cap 150 s</tspan><tspan x="486" y="351" font-weight="bold">Host check</tspan><tspan x="486" y="369">CPU benchmark index</tspan><tspan x="486" y="387">(never a feature)</tspan></text>
+<rect x="702" y="100" width="196" height="316" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="712" y="125" font-size="15" font-weight="bold" fill="#222222">4 Raw artifacts</text>
+<text font-size="13" fill="#222222"><tspan x="712" y="147" font-weight="bold">lhr.json.gz</tspan><tspan x="712" y="165">Lighthouse report</tspan><tspan x="712" y="191" font-weight="bold">trace.json.gz</tspan><tspan x="712" y="209">Full DevTools trace</tspan><tspan x="712" y="235" font-weight="bold">context.json</tspan><tspan x="712" y="253">URL, status, timing,</tspan><tspan x="712" y="271">errors (every attempt)</tspan><tspan x="712" y="297" fill="#555555">Re-parseable offline;</tspan><tspan x="712" y="315" fill="#555555">dataset rebuilt from</tspan><tspan x="712" y="333" fill="#555555">raw by one command</tspan></text>
+<rect x="928" y="100" width="196" height="316" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="938" y="125" font-size="15" font-weight="bold" fill="#222222">5 Parser</text>
+<text font-size="13" fill="#222222"><tspan x="938" y="147" font-weight="bold">Lighthouse audits</tspan><tspan x="938" y="165">Resource summary,</tspan><tspan x="938" y="183">third-party, boot-up,</tspan><tspan x="938" y="201">main-thread breakdown,</tspan><tspan x="938" y="219">unused JS/CSS, DOM size</tspan><tspan x="938" y="245" font-weight="bold">Trace extractor</tspan><tspan x="938" y="263">Top-level main-thread</tspan><tspan x="938" y="281">tasks in [FCP, 30 s]</tspan><tspan x="938" y="299">→ tbt_30s_ms,</tspan><tspan x="938" y="317">long-task statistics</tspan></text>
+<rect x="1154" y="100" width="196" height="316" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="1164" y="125" font-size="15" font-weight="bold" fill="#222222">6 Validity rules</text>
+<text font-size="13" fill="#222222"><tspan x="1164" y="147" font-weight="bold">Per row</tspan><tspan x="1164" y="165">V1 same site</tspan><tspan x="1164" y="183">V2 HTTP status &lt; 400</tspan><tspan x="1164" y="201">V3 Shopify assets</tspan><tspan x="1164" y="227" font-weight="bold">Per batch</tspan><tspan x="1164" y="245">V4 host contention:</tspan><tspan x="1164" y="263">benchmark index &lt;</tspan><tspan x="1164" y="281">0.6 × batch median</tspan><tspan x="1164" y="307" fill="#555555">Fail → status invalid,</tspan><tspan x="1164" y="325" fill="#555555">reason kept, excluded</tspan></text>
+<rect x="1380" y="100" width="196" height="316" rx="8" fill="#FFFFFF" stroke="#222222" stroke-width="1.2"/>
+<text x="1390" y="125" font-size="15" font-weight="bold" fill="#222222">7 Dataset row</text>
+<text font-size="13" fill="#222222"><tspan x="1390" y="147" font-weight="bold">Metadata</tspan><tspan x="1390" y="165">site, page, run, fault,</tspan><tspan x="1390" y="183">severity, order, batch</tspan><tspan x="1390" y="209" font-weight="bold">Targets</tspan><tspan x="1390" y="227">LCP, TBT30</tspan><tspan x="1390" y="245">+ secondary LH metrics</tspan><tspan x="1390" y="271" font-weight="bold">Features</tspan><tspan x="1390" y="289">S (12) + R (14)</tspan><tspan x="1390" y="315" font-weight="bold">Diagnostics</tspan><tspan x="1390" y="333">Benchmark index,</tspan><tspan x="1390" y="351">trace window end,</tspan><tspan x="1390" y="369">quality flags</tspan></text>
+<path d="M220,258 L248,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M446,258 L474,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M672,258 L700,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M898,258 L926,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M1124,258 L1152,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M1350,258 L1378,258" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<text x="24" y="472" font-size="15" font-weight="bold" fill="#222222">(b) Controlled testbed (arm B): one fault at a time, known cause</text>
+<rect x="24" y="488" width="420" height="352" rx="10" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="38" y="514" font-size="15" font-weight="bold" fill="#222222">Page template with slots</text>
+<rect x="38" y="532" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="48" y="553" font-size="13" fill="#222222">&lt;head&gt; stylesheet slot</text>
+<text x="420" y="553" font-size="13" fill="#555555" text-anchor="end">render-blocking-css</text>
+<rect x="38" y="572" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="48" y="593" font-size="13" fill="#222222">Hero image (LCP element)</text>
+<text x="420" y="593" font-size="13" fill="#555555" text-anchor="end">lcp-heavy-image</text>
+<rect x="38" y="612" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="48" y="633" font-size="13" fill="#222222">DOM slot below hero</text>
+<text x="420" y="633" font-size="13" fill="#555555" text-anchor="end">dom-bloat</text>
+<rect x="38" y="652" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="48" y="673" font-size="13" fill="#222222">Long-task JS, 1st party</text>
+<text x="420" y="673" font-size="13" fill="#555555" text-anchor="end">js-long-task</text>
+<rect x="38" y="692" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="48" y="713" font-size="13" fill="#222222">Long-task JS, 3rd party</text>
+<text x="420" y="713" font-size="13" fill="#555555" text-anchor="end">third-party-long-task</text>
+<rect x="38" y="732" width="392" height="32" rx="5" fill="#FFFFFF" stroke="#B5B5B5" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="48" y="753" font-size="13" fill="#222222">30 third-party script slots</text>
+<text x="420" y="753" font-size="13" fill="#555555" text-anchor="end">third-party-scripts</text>
+<text x="38" y="788" font-size="13" fill="#555555">Inactive slots are inert, so DOM size and</text>
+<text x="38" y="806" font-size="13" fill="#555555">HTML bytes stay constant across conditions.</text>
+<text x="38" y="824" font-size="13" fill="#555555">Dashed: served from the third-party origin.</text>
+<rect x="468" y="488" width="552" height="352" rx="10" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="482" y="514" font-size="15" font-weight="bold" fill="#222222">Conditions: 6 faults, 5 cause groups, 3 severities</text>
+<text x="482" y="540" font-size="13" fill="#222222"><tspan font-weight="bold">Baseline:</tspan> every slot at its neutral level (dose 0)</text>
+<text x="482" y="560" font-size="13" fill="#222222"><tspan font-weight="bold">Fault condition:</tspan> exactly one slot at severity 1, 2 or 3</text>
+<rect x="476" y="578" width="536" height="26" rx="4" fill="#E9E9E9" stroke="none" stroke-width="1.2"/>
+<text x="482" y="596" font-size="13" font-weight="bold" fill="#222222">Fault</text>
+<text x="662" y="596" font-size="13" font-weight="bold" fill="#222222">Cause group</text>
+<text x="790" y="596" font-size="13" font-weight="bold" fill="#222222">Severity 1 / 2 / 3</text>
+<text x="482" y="624" font-size="13" fill="#222222">js-long-task</text>
+<text x="662" y="624" font-size="13" fill="#222222">main_thread_js</text>
+<text x="790" y="624" font-size="13" fill="#222222">100 / 250 / 500 ms × 4 tasks</text>
+<line x1="476" y1="634" x2="1012" y2="634" stroke="#E9E9E9" stroke-width="1"/>
+<text x="482" y="652" font-size="13" fill="#222222">dom-bloat</text>
+<text x="662" y="652" font-size="13" fill="#222222">dom_layout</text>
+<text x="790" y="652" font-size="13" fill="#222222">+1.5k / 4k / 10k elements</text>
+<line x1="476" y1="662" x2="1012" y2="662" stroke="#E9E9E9" stroke-width="1"/>
+<text x="482" y="680" font-size="13" fill="#222222">lcp-heavy-image</text>
+<text x="662" y="680" font-size="13" fill="#222222">lcp_resource</text>
+<text x="790" y="680" font-size="13" fill="#222222">300 / 900 / 2000 KB image</text>
+<line x1="476" y1="690" x2="1012" y2="690" stroke="#E9E9E9" stroke-width="1"/>
+<text x="482" y="708" font-size="13" fill="#222222">render-blocking-css</text>
+<text x="662" y="708" font-size="13" fill="#222222">render_blocking</text>
+<text x="790" y="708" font-size="13" fill="#222222">150 / 500 / 1200 KB CSS</text>
+<line x1="476" y1="718" x2="1012" y2="718" stroke="#E9E9E9" stroke-width="1"/>
+<text x="482" y="736" font-size="13" fill="#222222">third-party-scripts</text>
+<text x="662" y="736" font-size="13" fill="#222222">third_party</text>
+<text x="790" y="736" font-size="13" fill="#222222">4 / 12 / 30 async scripts</text>
+<line x1="476" y1="746" x2="1012" y2="746" stroke="#E9E9E9" stroke-width="1"/>
+<text x="482" y="764" font-size="13" fill="#222222">third-party-long-task</text>
+<text x="662" y="764" font-size="13" fill="#222222">third_party</text>
+<text x="790" y="764" font-size="13" fill="#222222">100 / 250 / 500 ms × 4 tasks</text>
+<text x="482" y="800" font-size="13" fill="#555555">2 pages × (1 baseline + 18 fault conditions) × 5 runs = 190 runs.</text>
+<text x="482" y="818" font-size="13" fill="#555555">Each fault is checked against its mechanism feature (ρ ≥ 0.97).</text>
+<rect x="1044" y="488" width="532" height="352" rx="10" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="1058" y="514" font-size="15" font-weight="bold" fill="#222222">Matched first- vs third-party JS pair</text>
+<rect x="1058" y="532" width="232" height="66" rx="8" fill="#FFFFFF" stroke="#222222" stroke-width="1.2"/>
+<text font-size="13" fill="#222222"><tspan x="1068" y="555" font-weight="bold">First-party origin</tspan><tspan x="1068" y="573">127.0.0.1:4173</tspan></text>
+<rect x="1330" y="532" width="232" height="66" rx="8" fill="#FFFFFF" stroke="#222222" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text font-size="13" fill="#222222"><tspan x="1340" y="555" font-weight="bold">Third-party origin</tspan><tspan x="1340" y="573">localhost:4174</tspan></text>
+<rect x="1058" y="638" width="232" height="66" rx="8" fill="#FFFFFF" stroke="#E69F00" stroke-width="1.6"/>
+<text font-size="13" fill="#222222"><tspan x="1068" y="661" font-weight="bold">js-long-task</tspan><tspan x="1068" y="679">→ main_thread_js</tspan></text>
+<rect x="1330" y="638" width="232" height="66" rx="8" fill="#FFFFFF" stroke="#E69F00" stroke-width="1.6" stroke-dasharray="5 3"/>
+<text font-size="13" fill="#222222"><tspan x="1340" y="661" font-weight="bold">third-party-long-task</tspan><tspan x="1340" y="679">→ third_party</tspan></text>
+<path d="M1174,598 L1174,636" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M1446,598 L1446,636" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<text x="1310" y="676" font-size="18" font-weight="bold" fill="#555555" text-anchor="middle">=</text>
+<text x="1058" y="740" font-size="13" fill="#222222">Same script, same doses (100 / 250 / 500 ms × 4),</text>
+<text x="1058" y="758" font-size="13" fill="#222222">same requests and bytes on every page: only the</text>
+<text x="1058" y="776" font-size="13" fill="#222222">origin of the long tasks differs. Tests whether</text>
+<text x="1058" y="794" font-size="13" fill="#222222">SHAP ranks the correct group first (chance 0.5).</text>
+</g>
+</svg>

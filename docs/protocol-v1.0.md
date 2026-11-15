@@ -16,7 +16,7 @@
 | Khung chọn mẫu | Origin Shopify từ HTTP Archive (crawl tham chiếu 2026-08) |
 | Loại trang | `home`, `product` |
 | Pilot | 3 store: adresmedikal.net, amixstore.com (nhẹ), bark.co (nặng) × 2 trang — `config/pilot-sites.csv` |
-| Nghiên cứu chính | ≥ 30 store × 2 trang, chọn ngẫu nhiên phân tầng theo mức TBT tham chiếu (thực hiện ở W3) |
+| Nghiên cứu chính | ≥ 30 store × 2 trang, chọn ngẫu nhiên phân tầng theo mức TBT tham chiếu. Thực hiện (`scripts/build-main-study-site-sample.js`, seed 42): **khung mẫu** 819 store có cả home và product hợp lệ trong crawl tham chiếu; **tầng** = tertile median TBT tham chiếu của home, cắt tại 3.695 / 7.115 ms, store thiếu TBT (không đạt TTI) xếp vào heavy; **cỡ mẫu** 80 store (27 light / 27 medium / 26 heavy, gồm 3 store pilot) × 2 trang × 5 lần = **800 phép đo**; **thứ tự rút** xáo trộn trong từng tầng rồi xen kẽ light → medium → heavy; **probe** ≤ 4 GET tuần tự, loại store chết / bị chặn / chuyển hướng sang domain khác, sản phẩm đã gỡ thì thay bằng sản phẩm đầu tiên trong `/products.json`; **wave** 0 = 3 store pilot, 1 = 4 store đầu mỗi tầng, 2 = 25 store còn lại của bản 40 store, 3 = 40 store mở rộng. Danh sách: `config/main-study-sites.csv`; nhật ký probe: `data/processed/site-sampling-log.json` |
 | Luật hợp lệ | **V1** tài liệu chính hoặc URL hiển thị rời site được yêu cầu (cho phép subdomain hai chiều) → `cross_host_redirect`; trang password/challenge/checkpoint → `storefront_blocked`. **V2** status ≥ 400 → `http_error`. **V3** không có asset từ `cdn.shopify.com` hoặc `/cdn/shop/` → `not_shopify`. **V4** `benchmark_index` < 0,6 × median của batch → `host_contention`. Dòng vi phạm có `status = invalid`, bị loại khỏi phân tích. V1–V3 xét từng dòng khi parse; V4 xét cả batch khi `npm run reparse` |
 | Đạo đức | Không vượt cơ chế chặn bot. Mỗi site chỉ nhận vài chục request mỗi đợt, tuần tự |
 
@@ -65,9 +65,11 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 
 ## 6. Predictor (X)
 
-- **Bộ S (structural, 12):** `request_count`, `transfer_bytes_total`, `script_requests`, `script_bytes`, `stylesheet_bytes`, `image_bytes`, `font_bytes`, `document_bytes`, `third_party_requests`, `third_party_bytes`, `origin_count`, `dom_elements`.
-- **Bộ R (runtime, 14):** `mt_script_eval_ms`, `mt_script_parse_ms`, `mt_gc_ms`, `mt_style_layout_ms`, `mt_rendering_ms`, `mt_parse_html_ms`, `render_blocking_count`, `bootup_js_ms`, `third_party_main_thread_ms`, `unused_js_bytes`, `unused_css_bytes`, `trace_long_task_count`, `trace_long_task_total_ms`, `trace_long_task_max_ms`.
+- **Bộ S (structural, 15):** `request_count`, `transfer_bytes_total`, `script_requests`, `script_bytes`, `stylesheet_bytes`, `image_bytes`, `font_bytes`, `document_bytes`, `third_party_requests`, `third_party_bytes`, `origin_count`, `dom_elements`, `lcp_has_resource`, `lcp_lazy_loaded`, `lcp_not_discoverable` (3 cờ 0/1 thêm theo amendment 09/10/2026).
+- **Bộ R (runtime, 15):** `mt_script_eval_ms`, `mt_script_parse_ms`, `mt_gc_ms`, `mt_style_layout_ms`, `mt_rendering_ms`, `mt_parse_html_ms`, `render_blocking_count`, `bootup_js_ms`, `third_party_main_thread_ms`, `unused_js_bytes`, `unused_css_bytes`, `server_response_time_ms` (amendment 09/10/2026; **không** gồm RTT giả lập 562,5 ms), `trace_long_task_count`, `trace_long_task_total_ms`, `trace_long_task_max_ms`.
 - **Nhóm `mixed`:** `request_count`, `transfer_bytes_total`, `mt_parse_html_ms` là tổng toàn trang, mọi cơ chế đều làm đổi ⇒ vẫn ở X (RQ1–RQ2) nhưng **không** cộng vào điểm nhóm khi chấm Hit@k (RQ3).
+- **Nhóm `server`:** chỉ `server_response_time_ms`. Testbed chạy localhost nên gần như hằng số và không có fault tương ứng ⇒ dùng khi giải thích site thật, **không** nằm trong 5 nhóm xếp hạng ở RQ3.
+- **Không đưa vào X** các đoạn phân rã LCP tính bằng ms (load delay, load duration, render delay): tổng của chúng bằng đúng LCP (leakage, cùng lý do L5).
 - Ablation RQ2: **S** so với **S+R**, cùng fold.
 - **Không bao giờ vào X:** toàn bộ metadata (`site`, `page_type`, `fault_*`, `severity_level`, `cause_group`, `run`, `order_index`, `benchmark_index`, …); diagnostic (`trace_window_end_ms`, `mt_total_ms`, `render_blocking_fcp_savings_ms`); các outcome khác.
 - **Loại trừ theo target (L5):** `trace_long_task_*` bị loại khi target là `tbt_30s_ms` hoặc `lh_tbt_ms` (cùng các task ≥ 50 ms). Chi tiết: `docs/leakage-checklist.md`.
@@ -95,7 +97,8 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 ## 9. Toàn vẹn dữ liệu
 
 - `measurement_id` duy nhất; mọi lần thử (kể cả lỗi) đều có `context.json`.
-- Dataset dựng lại hoàn toàn từ raw: `npm run reports` (reparse → dictionary → noise report → leakage checklist).
+- Dataset dựng lại hoàn toàn từ raw: `npm run reports` (reparse → dictionary → noise report → leakage checklist → QC → EDA). Snapshot `data/processed/dataset-<version>.csv` chỉ được ghi khi Gate G3 đạt (dựng lại giống từng byte) và không bao giờ bị ghi đè.
+- Site lockbox bị loại khỏi EDA và leakage screen (amendment 09/10/2026 (3)).
 - Dữ liệu tuần 1 (profile `mobile_cpu4x_slow4g`, protocol cũ) ở `data/archive/`, không trộn với dữ liệu v1.0 (`reparse` lọc theo `profile_id`).
 
 ## 10. Amendment log
@@ -103,6 +106,11 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 | Ngày | Thay đổi | Lý do |
 |---|---|---|
 | 06/10/2026 | Phát hành v1.0 (FROZEN). So với bản nháp 05/10: thêm `third-party-long-task` (ghép cặp với `js-long-task`); font ra ngoài phạm vi testbed (§4); thêm luật V4 `host_contention` | Fault bên thứ ba cũ không gây long task, trong khi chặn main thread là tác hại phổ biến nhất của app bên thứ ba. 15/190 phép đo testbed có `benchmark_index` tụt (máy bận). Chưa có mô hình nào được huấn luyện ⇒ chưa xem kết quả test nào |
+| 07/10/2026 | Làm rõ (không đổi luật): chi tiết thực hiện chọn mẫu và chia wave ở §2 | Chi tiết vận hành của "chọn ngẫu nhiên phân tầng" đã có từ trước; target, label, predictor, split không đổi |
+| 08/10/2026 | Tăng cỡ mẫu site thật từ 40 lên 80 store (vẫn thỏa "≥ 30 store"; số lần lặp, target, label, predictor, split không đổi). Mở rộng bằng `--extend`: rút tiếp theo đúng thứ tự seeded cũ, 40 store cũ giữ nguyên | Đơn vị độc lập của RQ1–RQ2 là **store**: 40 store chỉ còn ≈ 30 store phát triển sau lockbox, quá ít so với 26 feature. Pilot: chênh lệch giữa store (LCP 2,7–31,8 s) lớn hơn nhiều nhiễu giữa lần lặp (CV trung vị 6–17%) ⇒ thêm store có lợi hơn thêm lần lặp. Quyết định trước khi huấn luyện mô hình nào |
+| 09/10/2026 | Thêm 4 predictor: S + `lcp_has_resource`, `lcp_lazy_loaded`, `lcp_not_discoverable`; R + `server_response_time_ms` (S 12 → 15, R 14 → 15, tổng 26 → 30). Nhóm cause mới `server`, loại khỏi xếp hạng RQ3 như `mixed` | EDA cho thấy feature set chỉ phủ phần *render delay* và một phần *load duration* của LCP; TTFB và *resource load delay* (ảnh LCP lazy-load hoặc do JS chèn) không có biến nào. Cả 4 lấy từ report đã lưu (`npm run reparse`), không đo lại. Đoạn phân rã LCP không được thêm vì cộng lại bằng LCP. Quyết định trước khi huấn luyện mô hình nào |
+| 09/10/2026 (3) | EDA và leakage checklist **loại site lockbox** từ nay | **Công bố:** EDA ngày 08–09/10 (căn cứ thêm 4 predictor) đã dùng cả site lockbox ⇒ kết quả lockbox có thể hơi lạc quan. Feature thêm vào là feature cơ chế chuẩn của LCP, không chọn theo tương quan, nhưng vẫn ghi nhận |
+| 09/10/2026 (4) | **Sửa bug** tính `tbt_30s_ms` và `trace_long_task_*`: khi store redirect phía server, code lấy navigationStart *cuối cùng* có cờ main frame (thường là iframe chat/tracking lúc 47–58 s, khác process) thay cho lần tải trang. Nay chỉ xét navigation có URL tài liệu thật, lấy lần đầu, vẫn ưu tiên khớp chính xác URL. Có regression test | Phát hiện qua pinko.com: TBT30 = 0 trong khi Lighthouse TBT 9–18 s. Bug đo lường, không phải đổi thiết kế. Ảnh hưởng 27 dòng site thật ở 4 site; testbed 0 dòng. Dataset trước khi sửa (v0.3) bị thay bằng **v0.3.1** |
 
 ## 11. Kết luận pilot làm căn cứ freeze
 

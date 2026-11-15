@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" width="520" height="300">
+<rect width="520" height="300" fill="#fff"/>
+<text x="48" y="20" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" font-weight="bold">TBT (30 s window), real Shopify pages (n = 74)</text>
+<rect x="49.0" y="245.0" width="36.0" height="7.0" fill="#0072B2"/>
+<rect x="87.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="125.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="163.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="201.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="239.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="277.0" y="252.0" width="36.0" height="0.0" fill="#0072B2"/>
+<rect x="315.0" y="245.0" width="36.0" height="7.0" fill="#0072B2"/>
+<rect x="353.0" y="245.0" width="36.0" height="7.0" fill="#0072B2"/>
+<rect x="391.0" y="112.6" width="36.0" height="139.4" fill="#0072B2"/>
+<rect x="429.0" y="112.6" width="36.0" height="139.4" fill="#0072B2"/>
+<rect x="467.0" y="36.0" width="36.0" height="216.0" fill="#0072B2"/>
+<line x1="48" y1="252" x2="504" y2="252" stroke="#444"/>
+<text x="48" y="268" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">5</text>
+<text x="162" y="268" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">34</text>
+<text x="276" y="268" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">250</text>
+<text x="390" y="268" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">1.8k</text>
+<text x="504" y="268" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">13.5k</text>
+<text x="40" y="40" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="end">31</text>
+<text x="40" y="252" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="end">0</text>
+<text x="276" y="290" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#222" text-anchor="middle">TBT (30 s window) (ms) (log scale)</text>
+</svg>

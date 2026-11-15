@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" width="1600" height="700" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+<title id="t">Figure 1. Research pipeline</title>
+<desc id="d">Three study arms (Shopify storefronts, controlled testbed, staging store) share one Lighthouse measurement protocol, parsing and quality control, regression modelling and SHAP explanation, evaluated against RQ1-RQ4.</desc>
+<defs>
+<marker id="arr0072B2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0072B2"/></marker>
+<marker id="arrE69F00" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E69F00"/></marker>
+<marker id="arr009E73" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#009E73"/></marker>
+<marker id="arr8A8A8A" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8A8A8A"/></marker>
+</defs>
+<rect x="0" y="0" width="1600" height="700" fill="#FFFFFF"/>
+<g>
+<text x="24" y="46" font-size="15" font-weight="bold" fill="#222222">(a) Study objects</text>
+<text x="288" y="46" font-size="15" font-weight="bold" fill="#222222">(b) Measurement</text>
+<text x="552" y="46" font-size="15" font-weight="bold" fill="#222222">(c) Parsing &amp; QC</text>
+<text x="816" y="46" font-size="15" font-weight="bold" fill="#222222">(d) Modelling</text>
+<text x="1080" y="46" font-size="15" font-weight="bold" fill="#222222">(e) Explanation</text>
+<text x="1344" y="46" font-size="15" font-weight="bold" fill="#222222">(f) Evaluation</text>
+<rect x="24" y="62" width="232" height="177.33333333333334" rx="8" fill="#E6F1F8" stroke="#0072B2" stroke-width="1.6"/>
+<text x="36" y="89" font-size="15" font-weight="bold" fill="#222222">A · Shopify stores</text>
+<text font-size="13" fill="#222222"><tspan x="36" y="111">HTTP Archive Shopify frame</tspan><tspan x="36" y="129">Random sample stratified</tspan><tspan x="36" y="147">by reference TBT</tspan><tspan x="36" y="165">≥ 30 stores × home/product</tspan><tspan x="36" y="183">× 5 runs per page</tspan><tspan x="36" y="207" font-weight="bold" fill="#0072B2">Observational → RQ1, RQ2</tspan></text>
+<rect x="24" y="257.33333333333337" width="232" height="177.33333333333334" rx="8" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="36" y="284.33333333333337" font-size="15" font-weight="bold" fill="#222222">B · Controlled testbed</text>
+<text font-size="13" fill="#222222"><tspan x="36" y="306.33333333333337">6 faults in 5 cause groups</tspan><tspan x="36" y="324.33333333333337">× 3 severities + baseline</tspan><tspan x="36" y="342.33333333333337">One factor at a time</tspan><tspan x="36" y="360.33333333333337">Known ground-truth cause</tspan><tspan x="36" y="378.33333333333337">2 pages × 19 conditions × 5</tspan><tspan x="36" y="402.33333333333337" font-weight="bold" fill="#A86B00">Fault injection → RQ3</tspan></text>
+<rect x="24" y="452.6666666666667" width="232" height="177.33333333333334" rx="8" fill="#E3F4EE" stroke="#009E73" stroke-width="1.6"/>
+<text x="36" y="479.6666666666667" font-size="15" font-weight="bold" fill="#222222">C · Staging store</text>
+<text font-size="13" fill="#222222"><tspan x="36" y="501.6666666666667">Shopify development store</tspan><tspan x="36" y="519.6666666666667">Measure → diagnose (XAI)</tspan><tspan x="36" y="537.6666666666667">→ fix → re-measure</tspan><tspan x="36" y="561.6666666666667" font-weight="bold" fill="#007A58">Case study → RQ4</tspan></text>
+<rect x="288" y="62" width="232" height="568" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="300" y="89" font-size="15" font-weight="bold" fill="#222222">Lighthouse 12.8.2</text>
+<text font-size="13" fill="#222222"><tspan x="300" y="111" font-weight="bold">Profile (all arms)</tspan><tspan x="300" y="129">Mobile emulation 412×823</tspan><tspan x="300" y="147">CPU 4× slowdown (devtools)</tspan><tspan x="300" y="165">Slow 4G: 562.5 ms latency,</tspan><tspan x="300" y="183">1.47 Mbps down</tspan><tspan x="300" y="201">Cold cache: fresh Chrome</tspan><tspan x="300" y="219">profile per measurement</tspan><tspan x="300" y="245" font-weight="bold">Execution</tspan><tspan x="300" y="263">Seeded shuffled order</tspan><tspan x="300" y="281">(seed 42), sequential</tspan><tspan x="300" y="299">5 runs per page/condition</tspan><tspan x="300" y="317">Timeout 60 s load / 150 s</tspan><tspan x="300" y="343" font-weight="bold">Raw artifacts (per run)</tspan><tspan x="300" y="361">Lighthouse report (lhr)</tspan><tspan x="300" y="379">Full DevTools trace</tspan><tspan x="300" y="397">Run context</tspan><tspan x="300" y="423" fill="#555555">Dataset rebuilt from raw</tspan><tspan x="300" y="441" fill="#555555">by one command</tspan></text>
+<rect x="552" y="62" width="232" height="568" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="564" y="89" font-size="15" font-weight="bold" fill="#222222">One row per run</text>
+<text font-size="13" fill="#222222"><tspan x="564" y="111" font-weight="bold">Targets (Y)</tspan><tspan x="564" y="129">LCP (Lighthouse)</tspan><tspan x="564" y="147">TBT30: TBT from the raw</tspan><tspan x="564" y="165">trace, window [FCP, 30 s]</tspan><tspan x="564" y="191" font-weight="bold">Predictors (X)</tspan><tspan x="564" y="209">S: 12 structural features</tspan><tspan x="564" y="227">R: 14 runtime features</tspan><tspan x="564" y="245">Each mapped to 1 of 5</tspan><tspan x="564" y="263">cause groups (or mixed)</tspan><tspan x="564" y="289" font-weight="bold">Validity rules</tspan><tspan x="564" y="307">V1 same site, V2 HTTP &lt; 400</tspan><tspan x="564" y="325">V3 Shopify assets</tspan><tspan x="564" y="343">V4 host contention (batch)</tspan><tspan x="564" y="361">Invalid rows excluded</tspan><tspan x="564" y="387" font-weight="bold">Leakage exclusions</tspan><tspan x="564" y="405">Metadata, diagnostics and</tspan><tspan x="564" y="423">other targets never in X</tspan><tspan x="564" y="441">Long-task features dropped</tspan><tspan x="564" y="459">for TBT targets</tspan></text>
+<rect x="816" y="62" width="232" height="568" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="828" y="89" font-size="15" font-weight="bold" fill="#222222">Regression models</text>
+<text font-size="13" fill="#222222"><tspan x="828" y="111" font-weight="bold">Models (per target)</tspan><tspan x="828" y="129">Median baseline</tspan><tspan x="828" y="147">Ridge</tspan><tspan x="828" y="165">Random Forest, XGBoost</tspan><tspan x="828" y="191" font-weight="bold">RQ1–RQ2 splits (sites)</tspan><tspan x="828" y="209">GroupKFold by site, k = 5</tspan><tspan x="828" y="227">LOSO if &lt; 25 sites</tspan><tspan x="828" y="245">Lockbox ≈ 20% of sites,</tspan><tspan x="828" y="263">evaluated once at the end</tspan><tspan x="828" y="289" font-weight="bold">RQ3 splits (testbed)</tspan><tspan x="828" y="307">GroupKFold by run index</tspan><tspan x="828" y="325">Leave-one-severity-out</tspan><tspan x="828" y="351" font-weight="bold">Tuning</tspan><tspan x="828" y="369">Inner CV within training</tspan><tspan x="828" y="387">folds only; S vs S+R on</tspan><tspan x="828" y="405">identical folds</tspan></text>
+<rect x="1080" y="62" width="232" height="568" rx="8" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.2"/>
+<text x="1092" y="89" font-size="15" font-weight="bold" fill="#222222">SHAP attributions</text>
+<text font-size="13" fill="#222222"><tspan x="1092" y="111" font-weight="bold">Attribution</tspan><tspan x="1092" y="129">TreeSHAP (RF, XGBoost)</tspan><tspan x="1092" y="147">Linear SHAP (Ridge)</tspan><tspan x="1092" y="165">Values in target units (ms)</tspan><tspan x="1092" y="191" font-weight="bold">Local</tspan><tspan x="1092" y="209">φ per feature per run</tspan><tspan x="1092" y="235" font-weight="bold">Global</tspan><tspan x="1092" y="253">Mean |φ| per feature</tspan><tspan x="1092" y="271">and per cause group</tspan><tspan x="1092" y="297" font-weight="bold">Cause-group score</tspan><tspan x="1092" y="315">Σ φ over the group features</tspan><tspan x="1092" y="333">minus the baseline φ of</tspan><tspan x="1092" y="351">the same page (train fold)</tspan><tspan x="1092" y="369">Mixed totals excluded</tspan><tspan x="1092" y="387">Rank the 5 groups</tspan></text>
+<rect x="1344" y="62" width="232" height="130" rx="8" fill="#E6F1F8" stroke="#0072B2" stroke-width="1.6"/>
+<text x="1356" y="89" font-size="15" font-weight="bold" fill="#222222">RQ1 Accuracy</text>
+<text font-size="13" fill="#222222"><tspan x="1356" y="111">MAE, RMSE, R² vs median</tspan><tspan x="1356" y="129">baseline, per fold and site</tspan><tspan x="1356" y="147">Bootstrap 95% CI (sites)</tspan></text>
+<rect x="1344" y="208" width="232" height="130" rx="8" fill="#E6F1F8" stroke="#0072B2" stroke-width="1.6"/>
+<text x="1356" y="235" font-size="15" font-weight="bold" fill="#222222">RQ2 Generalisation</text>
+<text font-size="13" fill="#222222"><tspan x="1356" y="257">Unseen sites (CV, lockbox)</tspan><tspan x="1356" y="275">Ablation: ΔMAE, ΔR²</tspan><tspan x="1356" y="293">S vs S+R</tspan></text>
+<rect x="1344" y="354" width="232" height="130" rx="8" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="1356" y="381" font-size="15" font-weight="bold" fill="#222222">RQ3 Cause recovery</text>
+<text font-size="13" fill="#222222"><tspan x="1356" y="403">Hit@1, Hit@3, MRR vs chance</tspan><tspan x="1356" y="421">Dose–response (Spearman)</tspan><tspan x="1356" y="439">Matched pair: 1st- vs</tspan><tspan x="1356" y="457">3rd-party JS (chance 0.5)</tspan></text>
+<rect x="1344" y="500" width="232" height="130" rx="8" fill="#E3F4EE" stroke="#009E73" stroke-width="1.6"/>
+<text x="1356" y="527" font-size="15" font-weight="bold" fill="#222222">RQ4 Actionability</text>
+<text font-size="13" fill="#222222"><tspan x="1356" y="549">Before/after fixes:</tspan><tspan x="1356" y="567">median, IQR, % improved</tspan><tspan x="1356" y="585">Paired test / bootstrap CI</tspan></text>
+<path d="M256,150.66666666666669 L286,150.66666666666669" fill="none" stroke="#0072B2" stroke-width="1.6" marker-end="url(#arr0072B2)"/>
+<path d="M256,346.00000000000006 L286,346.00000000000006" fill="none" stroke="#E69F00" stroke-width="1.6" marker-end="url(#arrE69F00)"/>
+<path d="M256,541.3333333333334 L286,541.3333333333334" fill="none" stroke="#009E73" stroke-width="1.6" marker-end="url(#arr009E73)"/>
+<path d="M520,346 L550,346" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M784,346 L814,346" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M1048,346 L1078,346" fill="none" stroke="#8A8A8A" stroke-width="1.6" marker-end="url(#arr8A8A8A)"/>
+<path d="M1312,127 L1342,127" fill="none" stroke="#0072B2" stroke-width="1.6" marker-end="url(#arr0072B2)"/>
+<path d="M1312,273 L1342,273" fill="none" stroke="#0072B2" stroke-width="1.6" marker-end="url(#arr0072B2)"/>
+<path d="M1312,419 L1342,419" fill="none" stroke="#E69F00" stroke-width="1.6" marker-end="url(#arrE69F00)"/>
+<path d="M1312,565 L1342,565" fill="none" stroke="#009E73" stroke-width="1.6" marker-end="url(#arr009E73)"/>
+<rect x="24" y="654" width="16" height="16" rx="3" fill="#E6F1F8" stroke="#0072B2" stroke-width="1.6"/>
+<text x="48" y="667" font-size="13" fill="#222222">A  Observational arm (associational)</text>
+<rect x="362" y="654" width="16" height="16" rx="3" fill="#FDF3E1" stroke="#E69F00" stroke-width="1.6"/>
+<text x="386" y="667" font-size="13" fill="#222222">B  Controlled arm (causal, known cause)</text>
+<rect x="722.5" y="654" width="16" height="16" rx="3" fill="#E3F4EE" stroke="#009E73" stroke-width="1.6"/>
+<text x="746.5" y="667" font-size="13" fill="#222222">C  Case study (intervention)</text>
+<rect x="1000.5" y="654" width="16" height="16" rx="3" fill="#F4F4F4" stroke="#B5B5B5" stroke-width="1.6"/>
+<text x="1024.5" y="667" font-size="13" fill="#222222">Shared stages, one protocol</text>
+<text x="1576" y="667" font-size="13" fill="#555555" text-anchor="end">Protocol v1.0 (frozen)</text>
+</g>
+</svg>

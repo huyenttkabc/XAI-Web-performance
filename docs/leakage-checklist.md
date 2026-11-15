@@ -26,68 +26,76 @@
 
 ## C. Sàng lọc thực nghiệm — |ρ Spearman| ≥ 0.95
 
-Dữ liệu: 29 dòng Shopify thật (ok), 174 dòng testbed (ok).
+Dữ liệu: 309 dòng Shopify thật (ok), 174 dòng testbed (ok).
 Trên **testbed**, ρ cao với đặc trưng cơ chế là *chủ ý thiết kế* (fault điều khiển trực tiếp cơ chế) → chỉ để tham khảo.
-Trên **site thật** (3 site), |ρ| ≥ 0,95 nghĩa là đặc trưng gần như là một phép biến đổi của target → phải xem xét loại. Kiểm tra lại khi có ≥ 30 site (W3).
+Trên **site thật** (44 site, đã loại lockbox), |ρ| ≥ 0,95 nghĩa là đặc trưng gần như là một phép biến đổi của target → phải xem xét loại.
 
 ### Target `lh_lcp_ms`
 
 | feature | family | group | ρ real | ρ testbed | cờ |
 |---|---|---|---|---|---|
-| `script_bytes` | structural | main_thread_js | 0.82 | 0.14 |  |
-| `origin_count` | structural | third_party | 0.81 | – |  |
-| `script_requests` | structural | main_thread_js | 0.79 | 0.14 |  |
-| `third_party_requests` | structural | third_party | 0.79 | 0.14 |  |
-| `document_bytes` | structural | dom_layout | 0.78 | -0.06 |  |
-| `request_count` | structural | mixed | 0.71 | 0.14 |  |
-| `third_party_bytes` | structural | third_party | 0.71 | 0.14 |  |
-| `mt_script_eval_ms` | runtime | main_thread_js | 0.70 | -0.52 |  |
-| `bootup_js_ms` | runtime | main_thread_js | 0.68 | -0.55 |  |
-| `font_bytes` | structural | render_blocking | 0.66 | – |  |
-| `render_blocking_count` | runtime | render_blocking | 0.63 | -0.17 |  |
-| `transfer_bytes_total` | structural | mixed | 0.63 | 0.91 |  |
-| `dom_elements` | structural | dom_layout | 0.61 | -0.06 |  |
-| `stylesheet_bytes` | structural | render_blocking | 0.60 | 0.46 |  |
-| `mt_parse_html_ms` | runtime | mixed | 0.48 | 0.25 |  |
-| `trace_long_task_max_ms` | runtime | main_thread_js | 0.46 | -0.42 |  |
-| `mt_gc_ms` | runtime | main_thread_js | 0.44 | -0.02 |  |
-| `unused_css_bytes` | runtime | render_blocking | -0.43 | 0.46 |  |
-| `trace_long_task_total_ms` | runtime | main_thread_js | 0.41 | -0.55 |  |
-| `mt_script_parse_ms` | runtime | main_thread_js | 0.31 | -0.03 |  |
-| `trace_long_task_count` | runtime | main_thread_js | 0.29 | -0.51 |  |
-| `third_party_main_thread_ms` | runtime | third_party | 0.25 | -0.30 |  |
-| `image_bytes` | structural | lcp_resource | 0.18 | 0.58 |  |
-| `mt_style_layout_ms` | runtime | dom_layout | 0.17 | 0.13 |  |
+| `image_bytes` | structural | lcp_resource | 0.54 | 0.58 |  |
+| `transfer_bytes_total` | structural | mixed | 0.48 | 0.91 |  |
+| `third_party_main_thread_ms` | runtime | third_party | 0.42 | -0.30 |  |
+| `lcp_lazy_loaded` | structural | lcp_resource | 0.39 | – |  |
+| `bootup_js_ms` | runtime | main_thread_js | 0.37 | -0.55 |  |
+| `mt_script_eval_ms` | runtime | main_thread_js | 0.37 | -0.52 |  |
+| `lcp_has_resource` | structural | lcp_resource | 0.36 | – |  |
+| `mt_script_parse_ms` | runtime | main_thread_js | 0.36 | -0.03 |  |
+| `third_party_bytes` | structural | third_party | 0.32 | 0.14 |  |
+| `mt_gc_ms` | runtime | main_thread_js | 0.32 | -0.02 |  |
+| `trace_long_task_count` | runtime | main_thread_js | 0.31 | -0.51 |  |
+| `document_bytes` | structural | dom_layout | 0.31 | -0.06 |  |
+| `trace_long_task_total_ms` | runtime | main_thread_js | 0.30 | -0.55 |  |
+| `origin_count` | structural | third_party | 0.30 | – |  |
+| `mt_parse_html_ms` | runtime | mixed | 0.28 | 0.25 |  |
+| `lcp_not_discoverable` | structural | lcp_resource | 0.26 | – |  |
+| `script_bytes` | structural | main_thread_js | 0.26 | 0.14 |  |
+| `dom_elements` | structural | dom_layout | 0.26 | -0.06 |  |
+| `script_requests` | structural | main_thread_js | 0.26 | 0.14 |  |
+| `mt_rendering_ms` | runtime | dom_layout | 0.24 | -0.02 |  |
+| `server_response_time_ms` | runtime | server | -0.23 | -0.00 |  |
+| `third_party_requests` | structural | third_party | 0.22 | 0.14 |  |
+| `font_bytes` | structural | render_blocking | 0.19 | – |  |
+| `request_count` | structural | mixed | 0.19 | 0.14 |  |
+| `trace_long_task_max_ms` | runtime | main_thread_js | 0.18 | -0.42 |  |
+| `render_blocking_count` | runtime | render_blocking | 0.16 | -0.17 |  |
+| `mt_style_layout_ms` | runtime | dom_layout | 0.14 | 0.13 |  |
+| `unused_css_bytes` | runtime | render_blocking | -0.07 | 0.46 |  |
 | `unused_js_bytes` | runtime | main_thread_js | 0.06 | – |  |
-| `mt_rendering_ms` | runtime | dom_layout | -0.01 | -0.02 |  |
+| `stylesheet_bytes` | structural | render_blocking | -0.06 | 0.46 |  |
 
 ### Target `tbt_30s_ms`
 
 | feature | family | group | ρ real | ρ testbed | cờ |
 |---|---|---|---|---|---|
-| `trace_long_task_total_ms` | runtime | main_thread_js | 0.99 | 0.86 | loại (L5) |
-| `trace_long_task_count` | runtime | main_thread_js | 0.92 | 0.89 | loại (L5) |
-| `mt_script_parse_ms` | runtime | main_thread_js | 0.90 | -0.09 |  |
-| `bootup_js_ms` | runtime | main_thread_js | 0.75 | 0.83 |  |
-| `mt_script_eval_ms` | runtime | main_thread_js | 0.74 | 0.76 |  |
-| `third_party_main_thread_ms` | runtime | third_party | 0.73 | 0.34 |  |
-| `document_bytes` | structural | dom_layout | 0.68 | 0.10 |  |
-| `script_requests` | structural | main_thread_js | 0.67 | -0.29 |  |
-| `mt_parse_html_ms` | runtime | mixed | 0.66 | -0.31 |  |
-| `origin_count` | structural | third_party | 0.65 | – |  |
-| `script_bytes` | structural | main_thread_js | 0.61 | -0.29 |  |
-| `third_party_requests` | structural | third_party | 0.60 | -0.29 |  |
-| `third_party_bytes` | structural | third_party | 0.56 | -0.29 |  |
-| `dom_elements` | structural | dom_layout | 0.53 | -0.05 |  |
-| `stylesheet_bytes` | structural | render_blocking | 0.53 | -0.31 |  |
-| `mt_rendering_ms` | runtime | dom_layout | 0.50 | -0.11 |  |
-| `font_bytes` | structural | render_blocking | 0.50 | – |  |
-| `request_count` | structural | mixed | 0.49 | -0.29 |  |
+| `trace_long_task_total_ms` | runtime | main_thread_js | 0.98 | 0.86 | loại (L5) |
+| `bootup_js_ms` | runtime | main_thread_js | 0.80 | 0.83 |  |
+| `trace_long_task_max_ms` | runtime | main_thread_js | 0.80 | 0.64 | loại (L5) |
+| `mt_script_eval_ms` | runtime | main_thread_js | 0.80 | 0.76 |  |
+| `trace_long_task_count` | runtime | main_thread_js | 0.79 | 0.89 | loại (L5) |
+| `third_party_main_thread_ms` | runtime | third_party | 0.76 | 0.34 |  |
+| `mt_parse_html_ms` | runtime | mixed | 0.71 | -0.31 |  |
+| `mt_script_parse_ms` | runtime | main_thread_js | 0.69 | -0.09 |  |
+| `unused_js_bytes` | runtime | main_thread_js | 0.63 | – |  |
+| `mt_style_layout_ms` | runtime | dom_layout | 0.61 | -0.16 |  |
+| `script_bytes` | structural | main_thread_js | 0.60 | -0.29 |  |
+| `origin_count` | structural | third_party | 0.60 | – |  |
+| `request_count` | structural | mixed | 0.55 | -0.29 |  |
+| `third_party_requests` | structural | third_party | 0.54 | -0.29 |  |
+| `third_party_bytes` | structural | third_party | 0.51 | -0.29 |  |
+| `script_requests` | structural | main_thread_js | 0.48 | -0.29 |  |
 | `mt_gc_ms` | runtime | main_thread_js | 0.48 | -0.03 |  |
-| `mt_style_layout_ms` | runtime | dom_layout | 0.47 | -0.16 |  |
-| `transfer_bytes_total` | structural | mixed | 0.46 | -0.66 |  |
-| `trace_long_task_max_ms` | runtime | main_thread_js | 0.40 | 0.64 | loại (L5) |
-| `render_blocking_count` | runtime | render_blocking | 0.24 | -0.24 |  |
-| `unused_css_bytes` | runtime | render_blocking | 0.23 | -0.31 |  |
-| `image_bytes` | structural | lcp_resource | 0.20 | -0.34 |  |
-| `unused_js_bytes` | runtime | main_thread_js | 0.12 | – |  |
+| `mt_rendering_ms` | runtime | dom_layout | 0.47 | -0.11 |  |
+| `transfer_bytes_total` | structural | mixed | 0.45 | -0.66 |  |
+| `dom_elements` | structural | dom_layout | 0.43 | -0.05 |  |
+| `document_bytes` | structural | dom_layout | 0.41 | 0.10 |  |
+| `stylesheet_bytes` | structural | render_blocking | 0.35 | -0.31 |  |
+| `font_bytes` | structural | render_blocking | 0.32 | – |  |
+| `unused_css_bytes` | runtime | render_blocking | 0.29 | -0.31 |  |
+| `image_bytes` | structural | lcp_resource | 0.24 | -0.34 |  |
+| `render_blocking_count` | runtime | render_blocking | 0.16 | -0.24 |  |
+| `server_response_time_ms` | runtime | server | -0.16 | 0.07 |  |
+| `lcp_has_resource` | structural | lcp_resource | 0.15 | – |  |
+| `lcp_lazy_loaded` | structural | lcp_resource | 0.06 | – |  |
+| `lcp_not_discoverable` | structural | lcp_resource | 0.00 | – |  |
