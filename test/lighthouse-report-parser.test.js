@@ -78,3 +78,26 @@ test('runtime error and missing report give status=error', () => {
   assert.equal(failed.status, 'error');
   assert.match(failed.error_message, /NO_FCP/);
 });
+
+test('LCP-element and server-response features (amendment 2026-10-09)', () => {
+  const breakdown = (subparts) => ({ details: { type: 'list', items: [{ type: 'table', items: subparts.map((subpart) => ({ subpart, duration: 1 })) }] } });
+  const discovery = (checks) => ({ details: { type: 'list', items: [{ type: 'checklist', items: Object.fromEntries(Object.entries(checks).map(([k, v]) => [k, { value: v }])) }] } });
+  const image = parseMeasurement({ ...lhr, audits: { ...lhr.audits,
+    'server-response-time': { numericValue: 36.5 },
+    'lcp-breakdown-insight': breakdown(['timeToFirstByte', 'resourceLoadDelay', 'resourceLoadDuration', 'elementRenderDelay']),
+    'lcp-discovery-insight': discovery({ eagerlyLoaded: false, requestDiscoverable: true, priorityHinted: false }),
+  } }, storefront);
+  assert.equal(image.server_response_time_ms, 36.5);
+  assert.equal(image.lcp_has_resource, 1);
+  assert.equal(image.lcp_lazy_loaded, 1); // check failed → 1
+  assert.equal(image.lcp_not_discoverable, 0);
+
+  const text = parseMeasurement({ ...lhr, audits: { ...lhr.audits,
+    'lcp-breakdown-insight': breakdown(['timeToFirstByte', 'elementRenderDelay']),
+    'lcp-discovery-insight': { scoreDisplayMode: 'notApplicable' },
+  } }, storefront);
+  assert.deepEqual([text.lcp_has_resource, text.lcp_lazy_loaded, text.lcp_not_discoverable], [0, 0, 0]); // text LCP: nothing to lazy-load
+
+  const missing = parseMeasurement(lhr, storefront); // insights absent → null, not 0
+  assert.deepEqual([missing.server_response_time_ms, missing.lcp_has_resource, missing.lcp_lazy_loaded], [null, null, null]);
+});

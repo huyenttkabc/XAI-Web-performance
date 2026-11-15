@@ -8,3 +8,4 @@ plans/
 data/archive/*-raw/
 data/processed/pilot-batch-latest.csv
 data/processed/pilot-run-log.json
+data/external/

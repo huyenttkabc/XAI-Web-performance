@@ -12,9 +12,9 @@ export function measurementId(batchId, url, run) {
 
 const repeat = (runs, make) => Array.from({ length: runs }, (_, i) => make(i + 1));
 
-/** Trang Shopify thật: dữ liệu quan sát, không gài lỗi. */
-async function realSitePlan(sitesCsv, runs) {
-  const sites = await readCsv(sitesCsv);
+/** Trang Shopify thật: dữ liệu quan sát, không gài lỗi. `wave` (tùy chọn) chỉ giữ một đợt thu thập. */
+async function realSitePlan(sitesCsv, runs, wave) {
+  const sites = (await readCsv(sitesCsv)).filter((site) => wave === undefined || site.wave === String(wave));
   return sites.flatMap((site) => repeat(runs, (run) => ({
     site: site.site, site_type: 'shopify_storefront', page_type: site.page_type, url: site.url, run, ...NO_FAULT,
   })));
@@ -35,9 +35,9 @@ export function testbedPlan(pageTypes, baseUrl, runs) {
 }
 
 /** scope: 'all' | 'real' | 'testbed'. Trả danh sách đã xáo trộn kèm order_index, batch_id, measurement_id. */
-export async function buildPilotPlan({ manifest, sitesCsv, testbedBaseUrl, batchId, scope, seed }) {
+export async function buildPilotPlan({ manifest, sitesCsv, testbedBaseUrl, batchId, scope, seed, wave }) {
   const plan = [
-    ...(scope !== 'testbed' ? await realSitePlan(sitesCsv, manifest.runs.real_site) : []),
+    ...(scope !== 'testbed' ? await realSitePlan(sitesCsv, manifest.runs.real_site, wave) : []),
     ...(scope !== 'real' ? testbedPlan(manifest.page_types, testbedBaseUrl, manifest.runs.testbed) : []),
   ];
   return shuffle(plan, seed).map((item, index) => ({

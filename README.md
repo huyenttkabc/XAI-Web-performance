@@ -8,26 +8,30 @@ Protocol hiện hành: **v1.0 (FROZEN 06/10/2026)** — [`docs/protocol-v1.0.md`
 ```
 config/
   experiment-manifest.json   # protocol v1.0 dạng máy đọc: profile, outcomes, luật V1–V4, predictors, splits
-  pilot-sites.csv            # 3 store × (home, product)
+  pilot-sites.csv            # 3 store pilot × (home, product)
+  main-study-sites.csv       # 80 store phân tầng light/medium/heavy, chia wave 0–3
 src/
   testbed/                   # testbed có kiểm soát
     fault-catalog.js         # 6 fault (5 cause group) × 3 mức, one-factor-at-a-time
     synthetic-asset-generators.js  # ảnh PNG, CSS chặn render, DOM, script bên thứ ba (tất định)
     testbed-server.js        # first-party 127.0.0.1:4173 + third-party localhost:4174
     site/                    # template trang home/product có các khe {{...}}
-  collector/                 # 1 phép đo = 1 Chrome mới; lưu lhr + trace + context
+  collector/                 # 1 phép đo = 1 Chrome mới trong 1 tiến trình riêng; lưu lhr + trace + context
+  sampling/                  # khung mẫu, chia tầng, thứ tự xen kẽ có seed, probe store
   parser/
     feature-definitions.js   # NGUỒN DUY NHẤT định nghĩa cột (metadata/target/feature/diagnostic)
     trace-main-thread-extractor.js  # tbt_30s_ms + long task từ trace thô
     host-contention-filter.js       # luật V4
     rebuild-dataset-from-raw.js     # raw → dataset (V1–V4)
-  analysis/descriptive-statistics.js
+  analysis/                  # thống kê mô tả, luật chia site (fold/lockbox), biểu đồ SVG
   pilot-plan-builder.js      # manifest + catalog → danh sách phép đo (xáo trộn có seed)
   run-pilot.js               # pipeline end-to-end
-scripts/                     # reparse, data dictionary, fault-matrix/noise report, leakage checklist, lint
+scripts/                     # chọn mẫu, reparse, data dictionary, noise, leakage, QC (Gate G3), EDA, lint
 data/
   raw/                       # (gitignored) raw artifacts protocol v1.0
-  processed/pilot-dataset.csv
+  processed/pilot-dataset.csv   # dataset hiện hành (dựng lại từ raw)
+  processed/dataset-v0.3.1.csv  # snapshot đóng băng khi Gate G3 đạt
+  logs/collector-error-log.jsonl
   archive/                   # dữ liệu tuần 1 (protocol cũ) — không trộn
 docs/                        # protocol, data dictionary, báo cáo (sinh tự động)
 test/                        # node:test
@@ -42,8 +46,14 @@ npm run lint                 # kiểm tra cú pháp
 npm run testbed              # vd: /home.html?fault=lcp-heavy-image&dose=900
 npm run pilot                # fault matrix (190) + 3 store × 2 trang × 5 lần (30), seed 42
 npm run pilot -- --scope=testbed
-npm run reports              # reparse → data dictionary → fault-matrix/noise → leakage checklist
+npm run sample:sites -- --total=80 --extend   # rút mẫu store phân tầng → config/main-study-sites.csv
+npm run collect:wave1        # đo theo wave (resume: -- --resume=<batch_id>)
+npm run reports              # reparse → dictionary → noise → leakage → QC (G3, snapshot) → EDA
 ```
+
+## Dataset v0.3.1 (tuần 3) — 612 phép đo
+
+- Pilot testbed 190 + Shopify thật 422 (wave 0–2 đầy đủ, wave 3 mới 22 phép đo) — xem [`docs/dataset-qc-report.md`](docs/dataset-qc-report.md), [`docs/eda-report.md`](docs/eda-report.md).
 
 ## Kết quả pilot v1.0 (220 phép đo, 05–06/10/2026)
 

@@ -41,6 +41,27 @@ export function auditFieldSum(lhr, auditId, field) {
   return sumField(auditItems(lhr, auditId), field);
 }
 
+/**
+ * Phần tử LCP có tải tài nguyên (ảnh, video, ảnh nền) hay chỉ là chữ. Đọc từ LCP breakdown:
+ * tài nguyên có 4 đoạn con, chữ chỉ có 2 (TTFB + render delay). null nếu không đọc được.
+ */
+export function lcpHasResource(lhr) {
+  const subparts = auditItems(lhr, 'lcp-breakdown-insight');
+  if (!subparts?.length) return null;
+  return subparts.some((item) => item.subpart === 'resourceLoadDuration') ? 1 : 0;
+}
+
+/**
+ * 1 khi một kiểm tra "khám phá LCP" THẤT BẠI (vd eagerlyLoaded=false → ảnh LCP bị lazy-load), 0 khi đạt
+ * hoặc LCP là chữ (không có gì để khám phá / lazy-load), null khi không đọc được.
+ */
+export function lcpDiscoveryFailure(lhr, check) {
+  if (lcpHasResource(lhr) === 0) return 0;
+  const checklist = lhr?.audits?.['lcp-discovery-insight']?.details?.items?.find((item) => item?.type === 'checklist')?.items;
+  const value = checklist?.[check]?.value;
+  return typeof value === 'boolean' ? Number(!value) : null;
+}
+
 /** Số host khác nhau đã kết nối (bỏ qua data:, blob:, chrome-extension:). */
 export function originCount(lhr) {
   const items = auditItems(lhr, 'network-requests');

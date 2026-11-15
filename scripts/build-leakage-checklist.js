@@ -6,12 +6,13 @@ import { fileURLToPath } from 'node:url';
 import { readCsv } from '../src/parser/csv-io.js';
 import { METADATA_COLUMNS, TARGET_COLUMNS, FEATURE_COLUMNS, DIAGNOSTIC_COLUMNS } from '../src/parser/feature-definitions.js';
 import { toNumber, spearman, fmt } from '../src/analysis/descriptive-statistics.js';
+import { isLockboxSite } from '../src/analysis/site-split-hash.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const NEAR_DETERMINISTIC = 0.95;
 const rows = (await readCsv(path.join(ROOT, 'data/processed/pilot-dataset.csv'))).filter((r) => r.status === 'ok');
 const subsets = {
-  real: rows.filter((r) => r.site_type === 'shopify_storefront'),
+  real: rows.filter((r) => r.site_type === 'shopify_storefront' && !isLockboxSite(r.site)), // lockbox bị giữ lại (protocol §8)
   testbed: rows.filter((r) => r.site_type === 'controlled_testbed'),
 };
 const primaryTargets = TARGET_COLUMNS.filter((t) => t.tier === 'primary').map((t) => t.name);
@@ -48,7 +49,7 @@ for (const f of FEATURE_COLUMNS.filter((c) => c.excludeFor.length)) {
 lines.push('', `## C. Sàng lọc thực nghiệm — |ρ Spearman| ≥ ${NEAR_DETERMINISTIC}`, '',
   `Dữ liệu: ${subsets.real.length} dòng Shopify thật (ok), ${subsets.testbed.length} dòng testbed (ok).`,
   'Trên **testbed**, ρ cao với đặc trưng cơ chế là *chủ ý thiết kế* (fault điều khiển trực tiếp cơ chế) → chỉ để tham khảo.',
-  `Trên **site thật** (${new Set(subsets.real.map((r) => r.site)).size} site), |ρ| ≥ 0,95 nghĩa là đặc trưng gần như là một phép biến đổi của target → phải xem xét loại. Kiểm tra lại khi có ≥ 30 site (W3).`, '');
+  `Trên **site thật** (${new Set(subsets.real.map((r) => r.site)).size} site, đã loại lockbox), |ρ| ≥ 0,95 nghĩa là đặc trưng gần như là một phép biến đổi của target → phải xem xét loại.`, '');
 for (const target of primaryTargets) {
   lines.push(`### Target \`${target}\``, '', '| feature | family | group | ρ real | ρ testbed | cờ |', '|---|---|---|---|---|---|');
   const scored = FEATURE_COLUMNS.map((f) => ({ f, real: rho(subsets.real, f.name, target), bed: rho(subsets.testbed, f.name, target) }))

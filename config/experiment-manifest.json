@@ -8,7 +8,9 @@
     "shopify_storefront": {
       "role": "observational data for RQ1/RQ2",
       "pilot_sites": "config/pilot-sites.csv",
-      "main_study": "≥ 30 stores × 2 pages, stratified random sample by reference TBT (W3)"
+      "main_study": "config/main-study-sites.csv (80 stores incl. 3 pilot; 27/27/26 per stratum; waves 0–3)",
+      "sampling_frame": "reference_dataset (HTTP Archive Shopify origins, crawl 2026-08)",
+      "planned_real_measurements": 800
     },
     "controlled_testbed": {
       "role": "one-factor-at-a-time fault injection with known cause for RQ3 (ground truth)",
@@ -21,7 +23,10 @@
       "status": "pending"
     }
   },
-  "page_types": ["home", "product"],
+  "page_types": [
+    "home",
+    "product"
+  ],
   "toolchain": {
     "node": "24 (pinned in .nvmrc)",
     "lighthouse": "12.8.2 (package-lock.json)",
@@ -42,7 +47,13 @@
       "lh_lcp_ms": "Largest Contentful Paint (Lighthouse)",
       "tbt_30s_ms": "Σ max(0, d − 50 ms) of top-level main-thread tasks clipped to [FCP, min(navigationStart + 30 s, end of trace)], from the raw trace"
     },
-    "secondary": ["lh_tbt_ms", "lh_fcp_ms", "lh_si_ms", "lh_cls", "lh_perf_score"],
+    "secondary": [
+      "lh_tbt_ms",
+      "lh_fcp_ms",
+      "lh_si_ms",
+      "lh_cls",
+      "lh_perf_score"
+    ],
     "rationale_tbt_30s": "Lighthouse TBT is undefined when TTI is never reached (heavy pages) — excluding them biases the sample toward fast sites."
   },
   "validity_rules": {
@@ -55,8 +66,8 @@
   "predictors": {
     "definitions": "src/parser/feature-definitions.js (FEATURE_COLUMNS) — documented in docs/data-dictionary.md",
     "sets": {
-      "S": "structural features (family=structural, 12)",
-      "S+R": "structural + runtime features (family=runtime, 14)"
+      "S": "structural features (family=structural, 15; 3 LCP-element flags added by amendment 2026-10-09)",
+      "S+R": "structural + runtime features (family=runtime, 15; server_response_time_ms added by amendment 2026-10-09)"
     },
     "never_in_X": [
       "all metadata (site, page_type, fault_*, severity_level, cause_group, run, order_index, benchmark_index, ...)",
@@ -64,14 +75,17 @@
       "other targets"
     ],
     "leakage_exclusions": "per-target excludeFor in feature-definitions.js (trace_long_task_* excluded for tbt_30s_ms and lh_tbt_ms); empirical check |Spearman ρ| ≥ 0.95 in docs/leakage-checklist.md",
-    "mixed_group": "request_count, transfer_bytes_total, mt_parse_html_ms: whole-page totals moved by every mechanism — kept in X, excluded from RQ3 group scores"
+    "mixed_group": "request_count, transfer_bytes_total, mt_parse_html_ms: whole-page totals moved by every mechanism — kept in X, excluded from RQ3 group scores",
+    "server_group": "server_response_time_ms: constant on the localhost testbed, no matching fault — used for real-site explanations, excluded from RQ3 group ranking",
+    "never_lcp_subparts": "LCP subpart durations (load delay / load duration / render delay) are never in X: they sum to LCP"
   },
   "cause_groups": {
     "main_thread_js": "JavaScript execution blocking the main thread",
     "dom_layout": "large DOM, style recalculation and layout work",
     "lcp_resource": "heavy/slow resource of the LCP element",
     "render_blocking": "CSS/font that delays first render (testbed injects CSS only; font out of scope, protocol §4)",
-    "third_party": "excessive third-party resources and their network/CPU cost"
+    "third_party": "excessive third-party resources and their network/CPU cost",
+    "server": "slow main-document server response (real sites only; not in the RQ3 ranking)"
   },
   "faults": "src/testbed/fault-catalog.js — 6 faults (5 cause groups) × 3 severities + 1 shared baseline; one fault per condition; third-party-long-task is dose-matched to js-long-task (only the origin of the long tasks differs)",
   "runs": {
@@ -88,5 +102,9 @@
       "primary": "GroupKFold over run index (5 folds): train on 4 repetitions of every condition, explain the held-out repetition",
       "robustness": "leave-one-severity-out (train on levels 0,1,3 → explain level 2)"
     }
+  },
+  "reference_dataset": {
+    "path": "data/external/lab_dataset.csv",
+    "use": "sampling frame and prior only; different throttling (CDP, RTT 150 ms) → not merged with v1.0 data"
   }
 }

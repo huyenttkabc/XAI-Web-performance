@@ -1,0 +1,161 @@
+site,page_type,url,stratum,wave,note
+adresmedikal.net,home,https://adresmedikal.net/,light,0,pilot store; light page (reference dataset); valid in 2026-10-04 probe
+adresmedikal.net,product,https://adresmedikal.net/products/cabs-bona-tessa-gel-250-ml-c-3467,light,0,pilot store; light page
+amixstore.com,home,https://amixstore.com/,medium,0,pilot store; light page; valid in 2026-10-04 probe
+amixstore.com,product,https://amixstore.com/products/pack-inicio-proteina-isoprime-creatina-monohidrato,medium,0,pilot store; light page
+bark.co,home,https://bark.co/,heavy,0,pilot store; heavy page (TTI often not reached)
+bark.co,product,https://bark.co/products/licksters-starter-kit,heavy,0,pilot store; heavy page
+pepco.ro,home,https://pepco.ro/,light,1,reference product URL live
+pepco.ro,product,https://pepco.ro/products/tricou-baieti-minecraft-100-bumbac-637371,light,1,reference product URL live
+www.joone.fr,home,https://www.joone.fr/,medium,1,reference product URL live
+www.joone.fr,product,https://www.joone.fr/products/shampooing-croute-de-lait,medium,1,reference product URL live
+shop.angel.com,home,https://shop.angel.com/,heavy,1,reference product URL live
+shop.angel.com,product,https://shop.angel.com/products/tuttle-twins-season-4-blu-ray-or-dvd,heavy,1,reference product URL live
+www.campusshoes.com,home,https://www.campusshoes.com/,light,1,reference product URL live
+www.campusshoes.com,product,https://www.campusshoes.com/products/bell-off-wht-brnz-womens-sneakers,light,1,reference product URL live
+pampili.com.br,home,https://pampili.com.br/,medium,1,product URL refreshed from /products.json
+pampili.com.br,product,https://pampili.com.br/products/sandalia-infantil-pampili-iris-texturizada-dourada,medium,1,product URL refreshed from /products.json
+www.miniclub.com.pk,home,https://www.miniclub.com.pk/,light,1,reference product URL live
+www.miniclub.com.pk,product,https://www.miniclub.com.pk/products/pack-of-3-boys-t-shirts,light,1,reference product URL live
+www.livreeleve.com.br,home,https://www.livreeleve.com.br/,medium,1,reference product URL live
+www.livreeleve.com.br,product,https://www.livreeleve.com.br/products/top-com-bolso-nas-costas-laranja,medium,1,reference product URL live
+verysmart.ca,home,https://verysmart.ca/,heavy,1,product URL refreshed from /products.json
+verysmart.ca,product,https://verysmart.ca/products/eres,heavy,1,product URL refreshed from /products.json
+shopusa.season-of-mist.com,home,https://shopusa.season-of-mist.com/,light,1,reference product URL live
+shopusa.season-of-mist.com,product,https://shopusa.season-of-mist.com/products/cropped-hoodie-black,light,1,reference product URL live
+matcha-karu.com,home,https://matcha-karu.com/,medium,1,reference product URL live
+matcha-karu.com,product,https://matcha-karu.com/products/matcha-besenhalter-glas-frosted,medium,1,reference product URL live
+wearme.ua,home,https://wearme.ua/,heavy,1,reference product URL live
+wearme.ua,product,https://wearme.ua/products/25-26-002-16659-zhilet-den-nezalezhnosti-16659,heavy,1,reference product URL live
+www.pichara.cl,home,https://www.pichara.cl/,light,2,product URL refreshed from /products.json
+www.pichara.cl,product,https://www.pichara.cl/products/sachet-shampoo-yes-daily-everday-10ml-elgon,light,2,product URL refreshed from /products.json
+vegane-fleischerei.de,home,https://vegane-fleischerei.de/,medium,2,reference product URL live
+vegane-fleischerei.de,product,https://vegane-fleischerei.de/products/vanozza-brie-pfeffer,medium,2,reference product URL live
+stevemadden.co.za,home,https://stevemadden.co.za/,heavy,1,reference product URL live
+stevemadden.co.za,product,https://stevemadden.co.za/products/rollout-l-white,heavy,1,reference product URL live
+elitecarz.in,home,https://elitecarz.in/,light,2,reference product URL live
+elitecarz.in,product,https://elitecarz.in/products/2018-toyota-corolla-altis-g-at,light,2,reference product URL live
+buyniconi.com,home,https://buyniconi.com/,medium,2,reference product URL live
+buyniconi.com,product,https://buyniconi.com/products/epitight-thicc-hair-transform-thin-hair-to-thick-full-with-2x-heat-protection-200ml,medium,2,reference product URL live
+www.newera.mx,home,https://www.newera.mx/,heavy,2,reference product URL live
+www.newera.mx,product,https://www.newera.mx/products/15444117,heavy,2,reference product URL live
+lukmed.cl,home,https://lukmed.cl/,light,2,reference product URL live
+lukmed.cl,product,https://lukmed.cl/products/anestesia-2-alphacaina-1-100-000-dfl,light,2,reference product URL live
+www.pinko.com,home,https://www.pinko.com/,medium,2,reference product URL live
+www.pinko.com,product,https://www.pinko.com/products/maglia-body-in-lana-merino-107271a3fyz99,medium,2,reference product URL live
+www.puropelle.com,home,https://www.puropelle.com/,light,2,product URL refreshed from /products.json
+www.puropelle.com,product,https://www.puropelle.com/products/gt01,light,2,product URL refreshed from /products.json
+www.cherrykitten.com,home,https://www.cherrykitten.com/,medium,2,reference product URL live
+www.cherrykitten.com,product,https://www.cherrykitten.com/products/red-anatomical-hearts-y2k-mesh-crop-top-cherrykitten,medium,2,reference product URL live
+musclerepublic.com,home,https://musclerepublic.com/,heavy,2,reference product URL live
+musclerepublic.com,product,https://musclerepublic.com/products/kids-off-road-trucker-cap-vintage-camo-print,heavy,2,reference product URL live
+mssaz.com,home,https://mssaz.com/,light,2,reference product URL live
+mssaz.com,product,https://mssaz.com/products/oblique-shoulder-decorative-flower-solid-mini-dress,light,2,reference product URL live
+misterradio-gps.com,home,https://misterradio-gps.com/,medium,2,reference product URL live
+misterradio-gps.com,product,https://misterradio-gps.com/products/mini-cooper-s-r50-r52-r53-2000-2007,medium,2,reference product URL live
+miraggiolife.com,home,https://miraggiolife.com/,heavy,2,reference product URL live
+miraggiolife.com,product,https://miraggiolife.com/products/lois-crossbody-bag,heavy,2,reference product URL live
+www.ayntec.com,home,https://www.ayntec.com/,light,2,reference product URL live
+www.ayntec.com,product,https://www.ayntec.com/products/thor-self-adhesive-stylus,light,2,reference product URL live
+rdstudio.co,home,https://rdstudio.co/,medium,2,reference product URL live
+rdstudio.co,product,https://rdstudio.co/products/revit-retail-clothing-rack-01,medium,2,reference product URL live
+vimergy.com,home,https://vimergy.com/,heavy,2,reference product URL live
+vimergy.com,product,https://vimergy.com/products/skin-potion-kit,heavy,2,reference product URL live
+www.quadlockcase.eu,home,https://www.quadlockcase.eu/,light,2,reference product URL live
+www.quadlockcase.eu,product,https://www.quadlockcase.eu/products/ev-kits-galaxy,light,2,reference product URL live
+www.natori.com,home,https://www.natori.com/,medium,2,reference product URL live
+www.natori.com,product,https://www.natori.com/products/enchant-slip-dress-black,medium,2,reference product URL live
+itspixie.com,home,https://itspixie.com/,heavy,2,reference product URL live
+itspixie.com,product,https://itspixie.com/products/individual-wipes-lavender-escape,heavy,2,reference product URL live
+www.musikalcol.store,home,https://www.musikalcol.store/,light,2,product URL refreshed from /products.json
+www.musikalcol.store,product,https://www.musikalcol.store/products/micro-ingredients-testosterone-advanced-15-in-1-la-formula-multifuncional-para-complementar-la-vitalidad-energia-y-bienestar-masculino-desde-el-interior,light,2,product URL refreshed from /products.json
+par2.pa,home,https://par2.pa/,medium,2,reference product URL live
+par2.pa,product,https://par2.pa/products/30094644-botas-magnum-para-hombre-color-negro,medium,2,reference product URL live
+kabegamiyahonpo.com,home,https://kabegamiyahonpo.com/,heavy,2,product URL refreshed from /products.json
+kabegamiyahonpo.com,product,https://kabegamiyahonpo.com/products/jkik-ssfc-zc-05,heavy,2,product URL refreshed from /products.json
+pgservice.cc,home,https://pgservice.cc/,light,2,reference product URL live
+pgservice.cc,product,https://pgservice.cc/products/delonghi-nespresso-motore-apertura-macchina-prodigio-u-pulse-en110-en210-en270,light,2,reference product URL live
+stealplug.com.my,home,https://stealplug.com.my/,heavy,2,reference product URL live
+stealplug.com.my,product,https://stealplug.com.my/products/fear-of-god-essentials-merch-long-sleeve-tee-seal-ss26,heavy,2,reference product URL live
+www.bajaao.com,home,https://www.bajaao.com/,heavy,2,reference product URL live
+www.bajaao.com,product,https://www.bajaao.com/products/line-6-pod-go-ultra-portable-guitar-processor-open-box,heavy,2,reference product URL live
+www.goodmonk.in,home,https://www.goodmonk.in/,medium,3,product URL refreshed from /products.json
+www.goodmonk.in,product,https://www.goodmonk.in/products/plant-protein-for-rotis,medium,3,product URL refreshed from /products.json
+housewor.com,home,https://housewor.com/,light,3,reference product URL live
+housewor.com,product,https://housewor.com/products/dkd,light,3,reference product URL live
+ship.erewhon.com,home,https://ship.erewhon.com/,light,3,product URL refreshed from /products.json
+ship.erewhon.com,product,https://ship.erewhon.com/products/beach-towel-plush-orange,light,3,product URL refreshed from /products.json
+www.linkcart.in,home,https://www.linkcart.in/,medium,3,reference product URL live
+www.linkcart.in,product,https://www.linkcart.in/products/link-30mm-new-round-steel-body-small-padlock-bags-backpack-luggage-suitcase-padlock-silver,medium,3,reference product URL live
+codebrwn.com,home,https://codebrwn.com/,heavy,3,reference product URL live
+codebrwn.com,product,https://codebrwn.com/products/kal-dekenge-relaxed-fit-embroidered-jersey,heavy,3,reference product URL live
+kyzo.in,home,https://kyzo.in/,light,3,reference product URL live
+kyzo.in,product,https://kyzo.in/products/ebco-j-profile-shutter-handle-3mtr,light,3,reference product URL live
+pepperfield.cz,home,https://pepperfield.cz/,medium,3,product URL refreshed from /products.json
+pepperfield.cz,product,https://pepperfield.cz/products/klub-zacinam-peprove-predplatne,medium,3,product URL refreshed from /products.json
+www.beauteprivee.fr,home,https://www.beauteprivee.fr/,heavy,3,product URL refreshed from /products.json
+www.beauteprivee.fr,product,https://www.beauteprivee.fr/products/margot-tita_nous-les-femmes-eau-de-parfum-gourmand,heavy,3,product URL refreshed from /products.json
+www.eden-park.com,home,https://www.eden-park.com/,light,3,reference product URL live
+www.eden-park.com,product,https://www.eden-park.com/products/chemise-en-coton-ecru-a-imprime-vegetal-coupe-droite-h26checl0082_ecc,light,3,reference product URL live
+hatley.com,home,https://hatley.com/,medium,3,reference product URL live
+hatley.com,product,https://hatley.com/products/womens-winter-cardinals-crew-socks,medium,3,reference product URL live
+reebok.com.ar,home,https://reebok.com.ar/,heavy,3,product URL refreshed from /products.json
+reebok.com.ar,product,https://reebok.com.ar/products/zapatillas-shaq-attaq-rbk1100032830,heavy,3,product URL refreshed from /products.json
+nqcart.ae,home,https://nqcart.ae/,light,3,reference product URL live
+nqcart.ae,product,https://nqcart.ae/products/shri-led-panel-light-15w-6500k-cool-white,light,3,reference product URL live
+www.myfonts.com,home,https://www.myfonts.com/,medium,3,reference product URL live
+www.myfonts.com,product,https://www.myfonts.com/products/regular-vendalyx-1194487,medium,3,reference product URL live
+www.dunns.co.za,home,https://www.dunns.co.za/,heavy,3,reference product URL live
+www.dunns.co.za,product,https://www.dunns.co.za/products/stevie-tiered-skirt-1,heavy,3,reference product URL live
+petiscope.fr,home,https://petiscope.fr/,light,3,reference product URL live
+petiscope.fr,product,https://petiscope.fr/products/petite-vue-cadeau,light,3,reference product URL live
+www.rampage.com.tr,home,https://www.rampage.com.tr/,medium,3,reference product URL live
+www.rampage.com.tr,product,https://www.rampage.com.tr/products/rj-01-pearl-beyaz-bt-2-4-ghz-telefon-tutuculu-gamepad,medium,3,reference product URL live
+www.jdsports.co.th,home,https://www.jdsports.co.th/,heavy,3,reference product URL live
+www.jdsports.co.th,product,https://www.jdsports.co.th/products/รองเท้าผู้หญิง-hyperboost-run-120825590,heavy,3,reference product URL live
+hosjosefine.no,home,https://hosjosefine.no/,light,3,reference product URL live
+hosjosefine.no,product,https://hosjosefine.no/products/13560056-matinique-mahellson-z-black,light,3,reference product URL live
+www.chumbak.com,home,https://www.chumbak.com/,medium,3,reference product URL live
+www.chumbak.com,product,https://www.chumbak.com/products/travel-journaling-gift-set-of-2-comes-in-a-gift-bag,medium,3,reference product URL live
+www.thecasecompany.in,home,https://www.thecasecompany.in/,heavy,3,reference product URL live
+www.thecasecompany.in,product,https://www.thecasecompany.in/products/what-the-duck-tangerine-glossy-hard-case,heavy,3,reference product URL live
+shop.comofootball.com,home,https://shop.comofootball.com/,light,3,reference product URL live
+shop.comofootball.com,product,https://shop.comofootball.com/products/como-1907-curva-skate-deck,light,3,reference product URL live
+leathergallery.co.za,home,https://leathergallery.co.za/,medium,3,reference product URL live
+leathergallery.co.za,product,https://leathergallery.co.za/products/austin-leather-l-sectional-4-seater-sofa,medium,3,reference product URL live
+www.redapplefireworks.com,home,https://www.redapplefireworks.com/,heavy,3,reference product URL live
+www.redapplefireworks.com,product,https://www.redapplefireworks.com/products/club-red-apple-membership,heavy,3,reference product URL live
+gruv.com,home,https://gruv.com/,light,3,reference product URL live
+gruv.com,product,https://gruv.com/products/tuttle-twins-season-4-blu-ray-_1000865147,light,3,reference product URL live
+timeconcept.com,home,https://timeconcept.com/,medium,3,reference product URL live
+timeconcept.com,product,https://timeconcept.com/products/alexandre-christie-star-wars-r2d2-limited-edition-acf6629mcrrd1,medium,3,reference product URL live
+candyfunhouse.ca,home,https://candyfunhouse.ca/,heavy,3,reference product URL live
+candyfunhouse.ca,product,https://candyfunhouse.ca/products/albanese-apple-crisp-fall-bears-5lbs,heavy,3,reference product URL live
+dalbe.fr,home,https://dalbe.fr/,light,3,reference product URL live
+dalbe.fr,product,https://dalbe.fr/products/set-de-5-pinceaux-scolaire-da-vinci,light,3,reference product URL live
+jockey.com.au,home,https://jockey.com.au/,medium,3,reference product URL live
+jockey.com.au,product,https://jockey.com.au/products/skimmies-smooth-racer-bralette-black,medium,3,reference product URL live
+kalaubeauty.com,home,https://kalaubeauty.com/,heavy,3,reference product URL live
+kalaubeauty.com,product,https://kalaubeauty.com/products/morning-glow-eye-patches-by-kalaubeauty,heavy,3,reference product URL live
+iyaksticker.in,home,https://iyaksticker.in/,light,3,reference product URL live
+iyaksticker.in,product,https://iyaksticker.in/products/customised-design-iyak-cd278-only-sticker,light,3,reference product URL live
+seoidin.com,home,https://seoidin.com/,medium,3,product URL refreshed from /products.json
+seoidin.com,product,https://seoidin.com/products/gold-pebble-beaded-ring,medium,3,product URL refreshed from /products.json
+www.diabolique.es,home,https://www.diabolique.es/,heavy,3,reference product URL live
+www.diabolique.es,product,https://www.diabolique.es/products/banador-dorado-con-lazo-frontal,heavy,3,reference product URL live
+saysky.co.uk,home,https://saysky.co.uk/,light,3,reference product URL live
+saysky.co.uk,product,https://saysky.co.uk/products/pace-long-sleeve-pack-men,light,3,reference product URL live
+www.orionride.com,home,https://www.orionride.com/,medium,3,reference product URL live
+www.orionride.com,product,https://www.orionride.com/products/orionride-fern-like-texture-zipper-pockets-ultra-lightweight-short-sleeves-gravel-shirt,medium,3,reference product URL live
+simorra.com,home,https://simorra.com/,heavy,3,product URL refreshed from /products.json
+simorra.com,product,https://simorra.com/products/vestido-punto-bicolor-i27514409848-91,heavy,3,product URL refreshed from /products.json
+www.phonebay.ae,home,https://www.phonebay.ae/,light,3,reference product URL live
+www.phonebay.ae,product,https://www.phonebay.ae/products/apple-iphone-13-black,light,3,reference product URL live
+vedix.com,home,https://vedix.com/,medium,3,reference product URL live
+vedix.com,product,https://vedix.com/products/avas-niraj-drithi,medium,3,reference product URL live
+www.revesderecho.com,home,https://www.revesderecho.com/,heavy,3,product URL refreshed from /products.json
+www.revesderecho.com,product,https://www.revesderecho.com/products/patron-beret-carmen,heavy,3,product URL refreshed from /products.json
+ajantashoes.com,home,https://ajantashoes.com/,medium,3,reference product URL live
+ajantashoes.com,product,https://ajantashoes.com/products/ajanta-anti-skid-waterproof-slip-on-shoes-for-men-perfect-for-formal-wear-casual-wear-jg1156,medium,3,reference product URL live
+store.seikowatches.com,home,https://store.seikowatches.com/,heavy,3,reference product URL live
+store.seikowatches.com,product,https://store.seikowatches.com/products/hdb013j,heavy,3,reference product URL live
