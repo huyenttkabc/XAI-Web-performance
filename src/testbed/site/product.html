@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testbed Store — Product</title>
+  <link rel="stylesheet" href="/assets/store.css">
+</head>
+<body>
+  <header class="topbar"><a href="/home.html">Testbed Store</a><nav><a href="/product.html">Shop</a></nav></header>
+  <main class="product">
+    <img src="/assets/hero.svg" alt="Wool scarf" width="800" height="800">
+    <div>
+      <h1>Wool scarf</h1>
+      <p class="price">€39.00</p>
+      <label>Colour <select><option>Mauve</option><option>Grey</option><option>Navy</option></select></label>
+      <button type="button" id="add-to-cart">Add to cart</button>
+      <p>Soft merino wool, 180 × 30 cm. Static content so that only the injected fault changes between runs.</p>
+    </div>
+  </main>
+  <section class="grid" id="product-grid"></section>
+  <script src="/assets/store.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+site,page_type,url,note
+awarebarcelona.com,home,https://awarebarcelona.com/,expected low TBT
+awarebarcelona.com,product,https://awarebarcelona.com/products/chal-verona-malva,expected low TBT
+bark.co,home,https://bark.co/,expected high TBT
+bark.co,product,https://bark.co/products/licksters-starter-kit,expected high TBT

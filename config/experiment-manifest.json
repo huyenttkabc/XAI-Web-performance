@@ -1,0 +1,78 @@
+{
+  "manifest_version": "0.1.0",
+  "status": "draft (sẽ FROZEN ở tuần 2 thành protocol v1.0)",
+  "study": "Detecting and explaining client-side Web performance degradation with Explainable ML",
+
+  "site_types": {
+    "shopify_storefront": {
+      "role": "observational data for RQ1/RQ2",
+      "pilot_sites": "config/pilot-sites.csv"
+    },
+    "controlled_testbed": {
+      "role": "fault injection with known cause for RQ3 (ground truth)",
+      "implementation": "src/testbed/",
+      "base_url": "http://127.0.0.1:4173"
+    },
+    "shopify_staging": {
+      "role": "case study before/after optimisation for RQ4",
+      "status": "pending"
+    }
+  },
+
+  "page_types": ["home", "product"],
+
+  "toolchain": {
+    "node": "24 (pinned in .nvmrc)",
+    "lighthouse": "12.8.2 (pinned in package-lock.json)",
+    "browser": "Google Chrome stable, headless (version recorded per row)"
+  },
+
+  "measurement_profile": {
+    "id": "mobile_cpu4x_slow4g",
+    "form_factor": "mobile",
+    "throttling_method": "devtools",
+    "cpu_slowdown": 4,
+    "network": "slow-4G: request latency 562.5 ms, download 1474.56 Kbps, upload 675 Kbps",
+    "note": "devtools throttling so an injected N ms busy-wait really costs N ms; fresh Chrome per measurement; order shuffled with a fixed seed"
+  },
+
+  "outcomes": {
+    "primary": ["lh_lcp_ms", "lh_tbt_ms"],
+    "secondary": ["lh_fcp_ms", "lh_si_ms", "lh_cls", "lh_perf_score"]
+  },
+
+  "feature_families": {
+    "structural": "what the page ships: requests, bytes by type, origins, DOM size",
+    "runtime": "what the browser does while loading: main-thread work, long tasks, render-blocking, unused code"
+  },
+
+  "cause_groups": {
+    "main_thread_js": "JavaScript execution blocking the main thread",
+    "render_blocking": "CSS/JS/font that delays first render",
+    "heavy_media": "oversized images delaying LCP",
+    "third_party": "third-party scripts and their network/CPU cost",
+    "dom_complexity": "large DOM, style and layout work"
+  },
+
+  "faults": [
+    {
+      "id": "js-long-task",
+      "status": "implemented",
+      "cause_group": "main_thread_js",
+      "mechanism": "after the load event, run `count` back-to-back tasks of `dose` ms busy-wait; dose 0 = baseline (same script, no work)",
+      "parameters": { "dose_ms": [0, 100, 250, 500], "count": 4 },
+      "expected_effect": "TBT ≈ count × (dose − 50) ms; LCP roughly unchanged"
+    },
+    { "id": "render-blocking-css", "status": "planned (W2)", "cause_group": "render_blocking" },
+    { "id": "lcp-heavy-image", "status": "planned (W2)", "cause_group": "heavy_media" },
+    { "id": "third-party-scripts", "status": "planned (W2)", "cause_group": "third_party" },
+    { "id": "dom-bloat", "status": "planned (W2)", "cause_group": "dom_complexity" }
+  ],
+
+  "runs": { "real_site_pilot": 1, "testbed_pilot": 3 },
+
+  "validation": {
+    "split": "GroupKFold by site (RQ2): no site appears in both train and test",
+    "uncertainty": "bootstrap 95% CI over sites"
+  }
+}

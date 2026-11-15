@@ -1,0 +1,22 @@
+{
+  "name": "xai-web-performance",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Detecting and explaining client-side Web performance degradation with Explainable ML",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "testbed": "node src/testbed/testbed-server.js",
+    "pilot": "node src/run-pilot.js",
+    "reparse": "node scripts/reparse-raw-artifacts.js",
+    "dictionary": "node scripts/build-data-dictionary.js",
+    "lint": "node scripts/check-syntax.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "chrome-launcher": "1.2.2",
+    "lighthouse": "12.8.2"
+  }
+}
