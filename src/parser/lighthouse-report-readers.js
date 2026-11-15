@@ -30,15 +30,6 @@ export function mainThreadGroup(lhr, group) {
   return items.find((item) => item.group === group)?.duration ?? 0;
 }
 
-/**
- * Độ dài (ms) các task cấp cao nhất ≥ 50 ms. Đọc từ `main-thread-tasks` chứ không phải `long-tasks`:
- * `long-tasks` chỉ liệt kê tối đa 20 task và báo lỗi cùng TBT khi không đạt được TTI.
- */
-export function longTaskDurations(lhr) {
-  const items = auditItems(lhr, 'main-thread-tasks');
-  return items ? items.map((item) => item.duration).filter((d) => Number.isFinite(d) && d >= 50) : null;
-}
-
 export function sumField(items, field) {
   if (!items) return null;
   return items.reduce((total, item) => total + (Number.isFinite(item?.[field]) ? item[field] : 0), 0);
@@ -76,4 +67,47 @@ export function qualityFlags(lhr, targetAuditIds) {
   }
   if ((lhr?.runWarnings ?? []).some((w) => /loaded too slowly/i.test(w))) flags.add('load_timeout');
   return [...flags].join(';');
+}
+
+// ---- Luật hợp lệ V1–V3 (protocol v1.0 §2) -------------------------------------------------------
+
+export const siteKey = (host) => host.replace(/^www\./, '');
+export const sameSite = (a, b) => a === b || a.endsWith(`.${b}`) || b.endsWith(`.${a}`); // cho phép subdomain hai chiều
+export const BLOCKED_PATH = /^\/(password|challenge|checkpoint)(\/|$)/; // cổng chặn của Shopify, thường trả 200
+
+/** Dòng của tài liệu chính: khớp đúng URL, nếu không thì request Document cuối cùng. */
+function mainDocumentRequest(lhr) {
+  const items = auditItems(lhr, 'network-requests') ?? [];
+  return items.find((item) => item.url === lhr.mainDocumentUrl) ?? items.filter((item) => item.resourceType === 'Document').at(-1);
+}
+
+/** Có asset từ CDN Shopify, xét theo host/path (không theo chuỗi con — tránh khớp nhầm query của beacon). */
+export function shopifyDetected(lhr) {
+  let mainHost = '';
+  try { mainHost = new URL(lhr.mainDocumentUrl).host; } catch { /* không có tài liệu chính */ }
+  return (auditItems(lhr, 'network-requests') ?? []).some((item) => {
+    try {
+      const { host, pathname } = new URL(item.url);
+      return host === 'cdn.shopify.com' || (host === mainHost && pathname.startsWith('/cdn/shop'));
+    } catch { return false; }
+  });
+}
+
+/**
+ *  V1 cross_host_redirect — tài liệu chính HOẶC URL hiển thị rời khỏi site được yêu cầu (vd: chống bot đẩy sang google.com)
+ *     storefront_blocked  — trang password / challenge / checkpoint của Shopify
+ *  V2 http_error          — status của tài liệu chính ≥ 400
+ *  V3 not_shopify         — storefront không có asset CDN Shopify (chỉ xét khi expectShopify)
+ */
+export function validityFailures(lhr, { expectShopify }) {
+  const failures = [];
+  try {
+    const requested = siteKey(new URL(lhr.requestedUrl).host);
+    const finals = [lhr.mainDocumentUrl, lhr.finalDisplayedUrl].filter(Boolean).map((u) => new URL(u));
+    if (finals.some((u) => !sameSite(requested, siteKey(u.host)))) failures.push('cross_host_redirect');
+    if (finals.some((u) => BLOCKED_PATH.test(u.pathname))) failures.push('storefront_blocked');
+  } catch { failures.push('cross_host_redirect'); }
+  if (mainDocumentRequest(lhr)?.statusCode >= 400) failures.push('http_error');
+  if (expectShopify && !shopifyDetected(lhr)) failures.push('not_shopify');
+  return failures;
 }

@@ -12,6 +12,7 @@
     "pilot": "node src/run-pilot.js",
     "reparse": "node scripts/reparse-raw-artifacts.js",
     "dictionary": "node scripts/build-data-dictionary.js",
+    "reports": "npm run reparse && npm run dictionary && node scripts/build-fault-matrix-noise-report.js && node scripts/build-leakage-checklist.js",
     "lint": "node scripts/check-syntax.js",
     "test": "node --test test/*.test.js"
   },

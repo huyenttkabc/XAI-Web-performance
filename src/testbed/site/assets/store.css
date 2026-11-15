@@ -7,3 +7,5 @@ body { margin: 0; font-family: system-ui, sans-serif; color: #222; }
 .product button { padding: 12px 20px; background: #222; color: #fff; border: 0; }
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 16px; }
 .card { border: 1px solid #ddd; padding: 12px; }
+.bloat-list { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 16px; }
+.bloat { display: flex; gap: 4px; padding: 4px; border: 1px solid #eee; font-size: 12px; }

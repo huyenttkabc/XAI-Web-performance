@@ -5,46 +5,71 @@ import { parseMeasurement } from '../src/parser/lighthouse-report-parser.js';
 const lhr = {
   lighthouseVersion: '12.8.2',
   fetchTime: '2026-10-04T00:00:00.000Z',
-  finalDisplayedUrl: 'http://127.0.0.1:4173/home.html',
-  environment: { hostUserAgent: 'HeadlessChrome/154' },
+  requestedUrl: 'https://shop.example.com/',
+  mainDocumentUrl: 'https://www.shop.example.com/',
+  environment: { hostUserAgent: 'HeadlessChrome/154', benchmarkIndex: 1500 },
   categories: { performance: { score: 0.9 } },
   audits: {
     'largest-contentful-paint': { numericValue: 2000 },
+    'first-contentful-paint': { numericValue: 1000 },
     'total-blocking-time': { numericValue: 600 },
     'resource-summary': { details: { items: [
       { resourceType: 'total', requestCount: 5, transferSize: 4000 },
       { resourceType: 'script', requestCount: 2, transferSize: 1600 },
     ] } },
-    'main-thread-tasks': { details: { items: [{ duration: 250 }, { duration: 60 }, { duration: 12 }] } },
     'third-party-summary': { scoreDisplayMode: 'notApplicable' },
     'speed-index': { errorMessage: 'Too slow (NO_TTI_CPU_IDLE_PERIOD)' },
     'mainthread-work-breakdown': { numericValue: 1200, details: { items: [{ group: 'scriptEvaluation', duration: 1000 }] } },
-    'network-requests': { details: { items: [{ url: 'http://127.0.0.1:4173/a' }, { url: 'https://cdn.example.com/b' }, { url: 'data:image/png;base64,x' }] } },
+    'network-requests': { details: { items: [
+      { url: 'https://www.shop.example.com/', statusCode: 200 },
+      { url: 'https://cdn.shopify.com/s/files/theme.js' },
+      { url: 'https://pixel.example.net/b?u=cdn.shopify.com/cdn/shop/x' },
+      { url: 'data:image/png;base64,x' },
+    ] } },
   },
 };
 
-test('extracts targets and features from a report', () => {
-  const row = parseMeasurement(lhr, { site: 'testbed', run: 1 });
+const storefront = { site: 'shop.example.com', site_type: 'shopify_storefront', run: 1 };
+
+test('extracts targets, features and diagnostics from a report', () => {
+  const row = parseMeasurement(lhr, storefront);
   assert.equal(row.status, 'ok');
   assert.equal(row.lh_lcp_ms, 2000);
   assert.equal(row.lh_tbt_ms, 600);
   assert.equal(row.lh_perf_score, 0.9);
   assert.equal(row.script_bytes, 1600);
-  assert.equal(row.long_task_count, 2);
-  assert.equal(row.long_task_total_ms, 310);
-  assert.equal(row.long_task_max_ms, 250);
   assert.equal(row.mt_script_eval_ms, 1000);
   assert.equal(row.mt_gc_ms, 0); // breakdown present but group absent → 0
-  assert.equal(row.origin_count, 2); // data: URL ignored
+  assert.equal(row.mt_total_ms, 1200); // diagnostic column, not a feature
+  assert.equal(row.origin_count, 3); // data: URL ignored
   assert.equal(row.third_party_main_thread_ms, 0); // no third party → 0, not null
+  assert.equal(row.benchmark_index, 1500);
+  assert.equal(row.shopify_detected, true);
   assert.equal(row.quality_flags, 'speed-index:NO_TTI_CPU_IDLE_PERIOD');
-  assert.equal(row.site, 'testbed');
+  assert.equal(row.tbt_30s_ms, null); // no trace supplied
 });
 
 test('missing audits become null, not zero', () => {
-  const row = parseMeasurement(lhr, {});
+  const row = parseMeasurement(lhr, storefront);
   assert.equal(row.dom_elements, null);
   assert.equal(row.unused_js_bytes, null);
+});
+
+test('validity rules: cross-origin redirect and non-Shopify storefront are invalid', () => {
+  const redirected = parseMeasurement({ ...lhr, mainDocumentUrl: 'https://www.google.com/' }, storefront);
+  assert.equal(redirected.status, 'invalid');
+  assert.match(redirected.quality_flags, /cross_host_redirect/);
+  const jsRedirect = parseMeasurement({ ...lhr, finalDisplayedUrl: 'https://www.google.com/' }, storefront);
+  assert.match(jsRedirect.quality_flags, /cross_host_redirect/); // displayed URL is checked too
+  assert.equal(parseMeasurement({ ...lhr, requestedUrl: 'https://example.com/' }, storefront).status, 'ok'); // apex ↔ subdomain
+  assert.match(parseMeasurement({ ...lhr, mainDocumentUrl: 'https://www.shop.example.com/password' }, storefront).quality_flags, /storefront_blocked/);
+
+  const noShopify = { ...lhr, audits: { ...lhr.audits, 'network-requests': { details: { items: [
+    { url: 'https://www.shop.example.com/', statusCode: 200 },
+    { url: 'https://pixel.example.net/b?u=cdn.shopify.com/cdn/shop/x' }, // substring only → not Shopify
+  ] } } } };
+  assert.match(parseMeasurement(noShopify, storefront).quality_flags, /not_shopify/);
+  assert.equal(parseMeasurement(noShopify, { site_type: 'controlled_testbed' }).status, 'ok'); // V3 only for storefronts
 });
 
 test('runtime error and missing report give status=error', () => {

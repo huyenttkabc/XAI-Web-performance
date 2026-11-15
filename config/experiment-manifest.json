@@ -1,78 +1,92 @@
 {
-  "manifest_version": "0.1.0",
-  "status": "draft (sẽ FROZEN ở tuần 2 thành protocol v1.0)",
+  "manifest_version": "1.0.0",
+  "status": "FROZEN",
+  "frozen_at": "2026-10-06",
+  "change_policy": "After freeze, targets, labels, predictor set and split rules change only via a dated amendment in docs/protocol-v1.0.md §10, with reason; never after looking at test-fold results.",
   "study": "Detecting and explaining client-side Web performance degradation with Explainable ML",
-
   "site_types": {
     "shopify_storefront": {
       "role": "observational data for RQ1/RQ2",
-      "pilot_sites": "config/pilot-sites.csv"
+      "pilot_sites": "config/pilot-sites.csv",
+      "main_study": "≥ 30 stores × 2 pages, stratified random sample by reference TBT (W3)"
     },
     "controlled_testbed": {
-      "role": "fault injection with known cause for RQ3 (ground truth)",
-      "implementation": "src/testbed/",
-      "base_url": "http://127.0.0.1:4173"
+      "role": "one-factor-at-a-time fault injection with known cause for RQ3 (ground truth)",
+      "implementation": "src/testbed/ (fault catalog: src/testbed/fault-catalog.js)",
+      "first_party_origin": "http://127.0.0.1:4173",
+      "third_party_origin": "http://localhost:4174"
     },
     "shopify_staging": {
       "role": "case study before/after optimisation for RQ4",
       "status": "pending"
     }
   },
-
   "page_types": ["home", "product"],
-
   "toolchain": {
     "node": "24 (pinned in .nvmrc)",
-    "lighthouse": "12.8.2 (pinned in package-lock.json)",
-    "browser": "Google Chrome stable, headless (version recorded per row)"
+    "lighthouse": "12.8.2 (package-lock.json)",
+    "chrome_launcher": "1.2.2",
+    "browser": "Google Chrome stable, headless=new; version recorded per row (chrome_user_agent)"
   },
-
   "measurement_profile": {
-    "id": "mobile_cpu4x_slow4g",
-    "form_factor": "mobile",
-    "throttling_method": "devtools",
-    "cpu_slowdown": 4,
-    "network": "slow-4G: request latency 562.5 ms, download 1474.56 Kbps, upload 675 Kbps",
-    "note": "devtools throttling so an injected N ms busy-wait really costs N ms; fresh Chrome per measurement; order shuffled with a fixed seed"
+    "id": "mobile_cpu4x_slow4g_cold",
+    "device": "Lighthouse mobile emulation (412×823 viewport, mobile UA, touch)",
+    "cpu": "4× slowdown (devtools)",
+    "network": "devtools throttling: request latency 562.5 ms, download 1474.56 Kbps, upload 675 Kbps (pinned in src/collector/lighthouse-collector.js)",
+    "cache": "cold — fresh Chrome profile per measurement; Lighthouse clears HTTP cache and storage",
+    "order": "all measurements of a batch shuffled with a fixed seed (default 42)",
+    "timeouts": "maxWaitForLoad 60 s; hard cap 150 s per measurement"
   },
-
   "outcomes": {
-    "primary": ["lh_lcp_ms", "lh_tbt_ms"],
-    "secondary": ["lh_fcp_ms", "lh_si_ms", "lh_cls", "lh_perf_score"]
+    "primary": {
+      "lh_lcp_ms": "Largest Contentful Paint (Lighthouse)",
+      "tbt_30s_ms": "Σ max(0, d − 50 ms) of top-level main-thread tasks clipped to [FCP, min(navigationStart + 30 s, end of trace)], from the raw trace"
+    },
+    "secondary": ["lh_tbt_ms", "lh_fcp_ms", "lh_si_ms", "lh_cls", "lh_perf_score"],
+    "rationale_tbt_30s": "Lighthouse TBT is undefined when TTI is never reached (heavy pages) — excluding them biases the sample toward fast sites."
   },
-
-  "feature_families": {
-    "structural": "what the page ships: requests, bytes by type, origins, DOM size",
-    "runtime": "what the browser does while loading: main-thread work, long tasks, render-blocking, unused code"
+  "validity_rules": {
+    "V1_cross_host_redirect": "main document or displayed URL leaves the requested site (subdomains allowed both ways) → invalid; Shopify /password, /challenge, /checkpoint → storefront_blocked (invalid)",
+    "V2_http_error": "main document status ≥ 400 → invalid",
+    "V3_not_shopify": "no asset from cdn.shopify.com or /cdn/shop on the main host → invalid",
+    "V4_host_contention": "benchmark_index < 0.6 × median benchmark_index of the batch → invalid (measuring machine busy; timings inflated). Applied when the dataset is rebuilt (npm run reparse)",
+    "no_evasion": "sites that block automated clients are excluded, never circumvented"
   },
-
+  "predictors": {
+    "definitions": "src/parser/feature-definitions.js (FEATURE_COLUMNS) — documented in docs/data-dictionary.md",
+    "sets": {
+      "S": "structural features (family=structural, 12)",
+      "S+R": "structural + runtime features (family=runtime, 14)"
+    },
+    "never_in_X": [
+      "all metadata (site, page_type, fault_*, severity_level, cause_group, run, order_index, benchmark_index, ...)",
+      "diagnostic columns (trace_window_end_ms, mt_total_ms, render_blocking_fcp_savings_ms)",
+      "other targets"
+    ],
+    "leakage_exclusions": "per-target excludeFor in feature-definitions.js (trace_long_task_* excluded for tbt_30s_ms and lh_tbt_ms); empirical check |Spearman ρ| ≥ 0.95 in docs/leakage-checklist.md",
+    "mixed_group": "request_count, transfer_bytes_total, mt_parse_html_ms: whole-page totals moved by every mechanism — kept in X, excluded from RQ3 group scores"
+  },
   "cause_groups": {
     "main_thread_js": "JavaScript execution blocking the main thread",
-    "render_blocking": "CSS/JS/font that delays first render",
-    "heavy_media": "oversized images delaying LCP",
-    "third_party": "third-party scripts and their network/CPU cost",
-    "dom_complexity": "large DOM, style and layout work"
+    "dom_layout": "large DOM, style recalculation and layout work",
+    "lcp_resource": "heavy/slow resource of the LCP element",
+    "render_blocking": "CSS/font that delays first render (testbed injects CSS only; font out of scope, protocol §4)",
+    "third_party": "excessive third-party resources and their network/CPU cost"
   },
-
-  "faults": [
-    {
-      "id": "js-long-task",
-      "status": "implemented",
-      "cause_group": "main_thread_js",
-      "mechanism": "after the load event, run `count` back-to-back tasks of `dose` ms busy-wait; dose 0 = baseline (same script, no work)",
-      "parameters": { "dose_ms": [0, 100, 250, 500], "count": 4 },
-      "expected_effect": "TBT ≈ count × (dose − 50) ms; LCP roughly unchanged"
+  "faults": "src/testbed/fault-catalog.js — 6 faults (5 cause groups) × 3 severities + 1 shared baseline; one fault per condition; third-party-long-task is dose-matched to js-long-task (only the origin of the long tasks differs)",
+  "runs": {
+    "testbed": 5,
+    "real_site": 5
+  },
+  "splits": {
+    "rq1_rq2_observational": {
+      "primary": "GroupKFold, k = 5, group = site (all pages and runs of a site in the same fold); fold = int(sha1('fold:' + site)[:8], 16) mod 5",
+      "lockbox": "sites with int(sha1('lockbox:' + site)[:8], 16) mod 5 == 0 (~20%) are held out until the final evaluation",
+      "uncertainty": "bootstrap 95% CI resampling sites (1000 resamples)"
     },
-    { "id": "render-blocking-css", "status": "planned (W2)", "cause_group": "render_blocking" },
-    { "id": "lcp-heavy-image", "status": "planned (W2)", "cause_group": "heavy_media" },
-    { "id": "third-party-scripts", "status": "planned (W2)", "cause_group": "third_party" },
-    { "id": "dom-bloat", "status": "planned (W2)", "cause_group": "dom_complexity" }
-  ],
-
-  "runs": { "real_site_pilot": 1, "testbed_pilot": 3 },
-
-  "validation": {
-    "split": "GroupKFold by site (RQ2): no site appears in both train and test",
-    "uncertainty": "bootstrap 95% CI over sites"
+    "rq3_testbed": {
+      "primary": "GroupKFold over run index (5 folds): train on 4 repetitions of every condition, explain the held-out repetition",
+      "robustness": "leave-one-severity-out (train on levels 0,1,3 → explain level 2)"
+    }
   }
 }

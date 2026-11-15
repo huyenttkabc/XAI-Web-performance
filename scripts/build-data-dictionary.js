@@ -24,23 +24,27 @@ const observed = await observedFillRate();
 const fillRate = (name) => (observed?.total ? `${Math.round((100 * observed.filled[name]) / observed.total)}%` : '–');
 
 const sections = [
-  ['metadata', 'Metadata (không đưa vào X)'],
+  ['metadata', 'Metadata (không bao giờ vào X)'],
   ['target', 'Outcomes / nhãn Y'],
-  ['feature', 'Features / X'],
+  ['feature', 'Predictors / X (danh sách chính thức v1.0)'],
+  ['diagnostic', 'Diagnostic (chỉ để phân tích, không vào X)'],
 ];
 const lines = [
-  '# Data dictionary — pilot dataset v0.1',
+  '# Data dictionary — protocol v1.0',
   '',
   '> Sinh tự động bởi `npm run dictionary` từ `src/parser/feature-definitions.js`. Không sửa tay.',
-  `> Dataset: \`data/processed/pilot-dataset.csv\` · grain: 1 dòng = 1 lần đo (url × fault condition × run)${observed ? ` · fill rate tính trên ${observed.total} dòng status=ok` : ''}.`,
+  `> Dataset: \`data/processed/pilot-dataset.csv\` · grain: 1 dòng = 1 lần đo (url × điều kiện × run)${observed ? ` · fill rate tính trên ${observed.total} dòng status=ok` : ''}.`,
   '',
 ];
 for (const [role, title] of sections) {
   const columns = ALL_COLUMNS.filter((c) => c.role === role);
   lines.push(`## ${title} — ${columns.length} cột`, '');
   if (role === 'feature') {
-    lines.push('| cột | family | cause group | đơn vị | nguồn (LH audit) | mô tả | fill rate | rủi ro leakage |', '|---|---|---|---|---|---|---|---|');
-    for (const c of columns) lines.push(`| \`${c.name}\` | ${c.family} | ${c.group} | ${c.unit} | ${c.source} | ${c.description} | ${fillRate(c.name)} | ${c.leakage || ''} |`);
+    lines.push('| cột | family | cause group | đơn vị | nguồn | mô tả | fill rate | loại khỏi X khi target là |', '|---|---|---|---|---|---|---|---|');
+    for (const c of columns) lines.push(`| \`${c.name}\` | ${c.family} | ${c.group} | ${c.unit} | ${c.source} | ${c.description} | ${fillRate(c.name)} | ${c.excludeFor.join(', ')} |`);
+  } else if (role === 'target') {
+    lines.push('| cột | tier | đơn vị | mô tả | fill rate |', '|---|---|---|---|---|');
+    for (const c of columns) lines.push(`| \`${c.name}\` | ${c.tier} | ${c.unit} | ${c.description} | ${fillRate(c.name)} |`);
   } else {
     lines.push('| cột | đơn vị | mô tả | fill rate |', '|---|---|---|---|');
     for (const c of columns) lines.push(`| \`${c.name}\` | ${c.unit || ''} | ${c.description} | ${fillRate(c.name)} |`);

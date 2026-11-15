@@ -1,5 +1,7 @@
 site,page_type,url,note
-awarebarcelona.com,home,https://awarebarcelona.com/,expected low TBT
-awarebarcelona.com,product,https://awarebarcelona.com/products/chal-verona-malva,expected low TBT
-bark.co,home,https://bark.co/,expected high TBT
-bark.co,product,https://bark.co/products/licksters-starter-kit,expected high TBT
+adresmedikal.net,home,https://adresmedikal.net/,light page (reference dataset); valid in 2026-10-04 probe
+adresmedikal.net,product,https://adresmedikal.net/products/cabs-bona-tessa-gel-250-ml-c-3467,light page
+amixstore.com,home,https://amixstore.com/,light page; valid in 2026-10-04 probe
+amixstore.com,product,https://amixstore.com/products/pack-inicio-proteina-isoprime-creatina-monohidrato,light page
+bark.co,home,https://bark.co/,heavy page (TTI often not reached)
+bark.co,product,https://bark.co/products/licksters-starter-kit,heavy page

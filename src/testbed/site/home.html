@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Testbed Store — Home</title>
   <link rel="stylesheet" href="/assets/store.css">
+  {{HEAD_SLOT}}
 </head>
 <body>
   <header class="topbar"><a href="/home.html">Testbed Store</a><nav><a href="/product.html">Shop</a></nav></header>
   <main>
     <section class="hero">
-      <img src="/assets/hero.svg" alt="Autumn collection" width="1200" height="600">
+      <img src="{{HERO_SRC}}" alt="Autumn collection" width="1200" height="600">
       <h1>Autumn collection</h1>
       <p>A deterministic page used as the controlled baseline for fault injection experiments.</p>
     </section>
+    {{AFTER_HERO_SLOT}}
     <section class="grid" id="product-grid"></section>
   </main>
   <script src="/assets/store.js" defer></script>
+  {{BODY_END_SLOT}}
 </body>
 </html>

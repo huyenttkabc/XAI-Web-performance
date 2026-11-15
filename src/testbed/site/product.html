@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Testbed Store — Product</title>
   <link rel="stylesheet" href="/assets/store.css">
+  {{HEAD_SLOT}}
 </head>
 <body>
   <header class="topbar"><a href="/home.html">Testbed Store</a><nav><a href="/product.html">Shop</a></nav></header>
   <main class="product">
-    <img src="/assets/hero.svg" alt="Wool scarf" width="800" height="800">
+    <img src="{{HERO_SRC}}" alt="Wool scarf" width="1200" height="600">
     <div>
       <h1>Wool scarf</h1>
       <p class="price">€39.00</p>
@@ -18,7 +19,9 @@
       <p>Soft merino wool, 180 × 30 cm. Static content so that only the injected fault changes between runs.</p>
     </div>
   </main>
+  {{AFTER_HERO_SLOT}}
   <section class="grid" id="product-grid"></section>
   <script src="/assets/store.js" defer></script>
+  {{BODY_END_SLOT}}
 </body>
 </html>

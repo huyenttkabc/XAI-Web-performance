@@ -7,9 +7,14 @@ function escapeCell(value) {
   return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-export async function writeCsv(filePath, columnNames, rows) {
+/** Nội dung CSV đúng như ghi ra đĩa (dùng để kiểm tra bản dựng lại có giống hệt từng byte không). */
+export function toCsvText(columnNames, rows) {
   const lines = [columnNames.join(','), ...rows.map((row) => columnNames.map((name) => escapeCell(row[name])).join(','))];
-  await writeFile(filePath, `${lines.join('\n')}\n`, 'utf8');
+  return `${lines.join('\n')}\n`;
+}
+
+export async function writeCsv(filePath, columnNames, rows) {
+  await writeFile(filePath, toCsvText(columnNames, rows), 'utf8');
 }
 
 /** Phân tích CSV thành mảng object theo header (ô trống → ''). */

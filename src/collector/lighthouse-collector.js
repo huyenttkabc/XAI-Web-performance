@@ -10,7 +10,7 @@ const NAVIGATION_TIMEOUT_MS = 60_000;
 const MEASUREMENT_TIMEOUT_MS = 150_000; // chốt chặn cứng: Lighthouse có thể treo sau load với trang rất nặng
 
 /**
- * Cấu hình Lighthouse cho profile `mobile_cpu4x_slow4g` (xem config/experiment-manifest.json).
+ * Cấu hình Lighthouse cho profile `mobile_cpu4x_slow4g_cold` (xem config/experiment-manifest.json).
  * Ghi rõ từng giá trị throttling (preset slow-4G của Lighthouse) để nếu thư viện đổi mặc định
  * thì profile đã chốt cũng không bị đổi ngầm.
  */
@@ -48,7 +48,7 @@ function withTimeout(promise, ms, label) {
 /**
  * Đo một URL trong Chrome riêng và lưu raw artifacts vào `rawDir/<measurementId>/`.
  * `context.json` được ghi TRƯỚC (và cập nhật lỗi nếu thất bại) để lần đo nào cũng truy vết được.
- * Trả về Lighthouse result (lhr); ném lỗi nếu thất bại.
+ * Trả về { lhr, trace } (trace cần cho tbt_30s_ms); ném lỗi nếu thất bại.
  */
 export async function collectMeasurement({ url, measurementId, rawDir, context = {} }) {
   const rawPath = path.join(rawDir, measurementId);
@@ -64,7 +64,7 @@ export async function collectMeasurement({ url, measurementId, rawDir, context =
     await writeFile(path.join(rawPath, 'lhr.json.gz'), gzipSync(JSON.stringify(result.lhr)));
     const trace = result.artifacts?.Trace;
     if (trace) await writeFile(path.join(rawPath, 'trace.json.gz'), gzipSync(JSON.stringify(trace)));
-    return result.lhr;
+    return { lhr: result.lhr, trace: trace ?? null };
   } catch (error) {
     await saveContext({ error_message: error.message });
     throw error;

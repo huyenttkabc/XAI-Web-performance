@@ -1,83 +1,103 @@
-// Testbed có kiểm soát: phục vụ một cửa hàng mini tĩnh và chèn script lỗi (fault) khi URL yêu cầu,
-// ví dụ /home.html?fault=js-long-task&dose=250&count=4 (dose=0 là baseline).
-// Mọi thứ khác giống hệt nhau giữa các điều kiện ⇒ fault là nguyên nhân DUY NHẤT của thay đổi.
+// Testbed có kiểm soát: phục vụ cửa hàng mini tất định, trang được dựng cho đúng MỘT điều kiện
+// (?fault=<id>&dose=<n>, xem fault-catalog.js; không có fault = baseline), cùng các asset tổng hợp.
+// Một listener thứ hai trên host khác (localhost:<port+1>) đóng vai origin "bên thứ ba".
 import http from 'node:http';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseCondition, renderPage, FAULTS, BASELINE_HERO_KB, THIRD_PARTY_SCRIPT, MAX_THIRD_PARTY_SLOTS } from './fault-catalog.js';
+import { heroPng, blockingCss, thirdPartyScript } from './synthetic-asset-generators.js';
 
 const SITE_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), 'site');
 const DEFAULT_PORT = 4173;
-const KNOWN_FAULTS = new Set(['js-long-task']);
+const MAX_KB = 5000;
 const CONTENT_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
-  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
 };
+const generatedCache = new Map(); // asset sinh ra là tất định → dựng một lần cho mỗi URL
 
-/** Ép giá trị nguyên vào khoảng [min, max]; giá trị rác → fallback. */
-function clampInt(raw, fallback, min, max) {
-  const value = Number.parseInt(raw ?? '', 10);
-  return Number.isFinite(value) ? Math.min(Math.max(value, min), max) : fallback;
-}
+const boundedInt = (value, max) => Math.min(Math.max(parseInt(value ?? '0', 10) || 0, 0), max);
 
-/**
- * Đọc tham số fault từ query string; trả null nếu không có fault hợp lệ.
- * Giữ dose = 0 (không trả null): baseline vẫn tải script fault nhưng script không làm gì,
- * nên baseline và fault chỉ khác nhau ở công việc main thread — không khác request hay bytes.
- */
-export function parseFault(searchParams) {
-  const id = searchParams.get('fault');
-  if (!id || !KNOWN_FAULTS.has(id)) return null;
-  return {
-    id,
-    dose: clampInt(searchParams.get('dose'), 0, 0, 5000),
-    count: clampInt(searchParams.get('count'), 1, 1, 50),
-  };
-}
-
-/** Chèn thẻ <script> của fault ngay trước </body>. */
-export function injectFault(html, fault) {
-  if (!fault) return html;
-  const tag = `<script src="/faults/${fault.id}.js" data-dose="${fault.dose}" data-count="${fault.count}"></script>`;
-  return html.replace('</body>', `  ${tag}\n</body>`);
-}
-
-async function handleRequest(req, res) {
-  try {
-    const url = new URL(req.url, 'http://testbed');
-    const pathname = url.pathname === '/' ? '/home.html' : url.pathname;
-    const filePath = path.normalize(path.join(SITE_DIR, pathname));
-    // Chặn path traversal (vd: /../../etc/passwd) — chỉ được đọc file bên trong SITE_DIR.
-    if (!filePath.startsWith(SITE_DIR + path.sep)) {
-      res.writeHead(403).end();
-      return;
-    }
-    const ext = path.extname(filePath);
-    let body = await readFile(filePath, 'utf8'); // asset của testbed đều là text
-    if (ext === '.html') body = injectFault(body, parseFault(url.searchParams));
-    res.writeHead(200, {
-      'content-type': CONTENT_TYPES[ext] ?? 'application/octet-stream',
-      'cache-control': 'no-store', // không cho cache ⇒ mọi lần đo đều tải lại như nhau
-    });
-    res.end(body);
-  } catch (error) {
-    res.writeHead(['ENOENT', 'EISDIR'].includes(error.code) ? 404 : 500).end();
+/** Asset tổng hợp được định danh bằng query string; null nếu path không phải asset sinh ra. */
+function generatedAsset(url) {
+  const kb = boundedInt(url.searchParams.get('kb'), MAX_KB);
+  switch (url.pathname) {
+    case '/assets/hero.png': return heroPng(kb);
+    case '/faults/blocking.css': return blockingCss(kb);
+    case '/tp-script.js': return thirdPartyScript(boundedInt(url.searchParams.get('i'), 1000), kb, boundedInt(url.searchParams.get('cpu'), 1000));
+    default: return null;
   }
 }
 
-/** Khởi động testbed; resolve { server, baseUrl } để collector dùng. */
-export function startTestbed(port = DEFAULT_PORT) {
+/** Dựng sẵn mọi asset của fault matrix để không lần đo nào phải trả thời gian sinh asset. */
+function prewarm() {
+  const urls = [
+    ...[BASELINE_HERO_KB, ...FAULTS['lcp-heavy-image'].severities].map((kb) => `/assets/hero.png?kb=${kb}`),
+    ...[0, ...FAULTS['render-blocking-css'].severities].map((kb) => `/faults/blocking.css?kb=${kb}`),
+    ...Array.from({ length: MAX_THIRD_PARTY_SLOTS }, (_, i) =>
+      `/tp-script.js?i=${String(i).padStart(2, '0')}&kb=${THIRD_PARTY_SCRIPT.kb}&cpu=${THIRD_PARTY_SCRIPT.cpuMs}`),
+  ];
+  for (const href of urls) {
+    const url = new URL(href, 'http://testbed');
+    generatedCache.set(`${url.pathname}?${url.searchParams}`, generatedAsset(url));
+  }
+}
+
+function send(res, ext, body) {
+  res.writeHead(200, { 'content-type': CONTENT_TYPES[ext] ?? 'application/octet-stream', 'cache-control': 'no-store' });
+  res.end(body);
+}
+
+function createHandler(thirdPartyOrigin) {
+  return async (req, res) => {
+    try {
+      const url = new URL(req.url, 'http://testbed');
+      const pathname = url.pathname === '/' ? '/home.html' : url.pathname;
+      const ext = path.extname(pathname);
+      const cacheKey = `${pathname}?${url.searchParams}`;
+      if (!generatedCache.has(cacheKey)) {
+        const asset = generatedAsset(url);
+        if (asset !== null) generatedCache.set(cacheKey, asset);
+      }
+      if (generatedCache.has(cacheKey)) return send(res, ext, generatedCache.get(cacheKey));
+
+      const filePath = path.normalize(path.join(SITE_DIR, pathname));
+      if (!filePath.startsWith(SITE_DIR + path.sep)) return res.writeHead(403).end(); // chặn path traversal
+      const body = await readFile(filePath, 'utf8'); // file tĩnh của testbed đều là text
+      return send(res, ext, ext === '.html' ? renderPage(body, parseCondition(url.searchParams), thirdPartyOrigin) : body);
+    } catch (error) {
+      return res.writeHead(['ENOENT', 'EISDIR'].includes(error.code) ? 404 : 500).end();
+    }
+  };
+}
+
+function listen(server, port, host) {
   return new Promise((resolve, reject) => {
-    const server = http.createServer(handleRequest);
     server.once('error', reject);
-    server.listen(port, '127.0.0.1', () => resolve({ server, baseUrl: `http://127.0.0.1:${port}` }));
+    server.listen(port, host, resolve);
   });
 }
 
-// Chỉ tự chạy server khi gọi trực tiếp `node testbed-server.js` (không chạy khi được import).
+/** Mở listener first-party (127.0.0.1:port) và third-party (localhost:port+1). */
+export async function startTestbed(port = DEFAULT_PORT) {
+  prewarm();
+  const thirdPartyOrigin = `http://localhost:${port + 1}`;
+  const handler = createHandler(thirdPartyOrigin);
+  const firstParty = http.createServer(handler);
+  const thirdParty = http.createServer(handler);
+  await listen(firstParty, port, '127.0.0.1');
+  await listen(thirdParty, port + 1, 'localhost');
+  return {
+    baseUrl: `http://127.0.0.1:${port}`,
+    thirdPartyOrigin,
+    close: () => { firstParty.close(); thirdParty.close(); },
+  };
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const { baseUrl } = await startTestbed(Number(process.env.PORT) || DEFAULT_PORT);
-  console.log(`testbed listening on ${baseUrl} (try ${baseUrl}/home.html?fault=js-long-task&dose=250&count=4)`);
+  console.log(`testbed on ${baseUrl} — e.g. ${baseUrl}/home.html?fault=lcp-heavy-image&dose=900`);
 }
