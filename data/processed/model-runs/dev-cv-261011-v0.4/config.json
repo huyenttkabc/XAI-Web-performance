@@ -1,0 +1,210 @@
+{
+  "run_id": "dev-cv-261011-v0.4",
+  "created_at": "2026-10-11T09:59:25.130054+00:00",
+  "seed": 42,
+  "protocol": "docs/protocol-v1.0.md §8.1",
+  "code": {
+    "git_commit": "b4ba40125ca26b063cfd1af63b445e4801e63113",
+    "source_sha256": {
+      "requirements.txt": "402898778149f5f0a48614e11c6bd16ddaddc02f74a15aa994fc915842058daa",
+      "scripts/train_preliminary_models.py": "183cf1dba1dcb83df84cdd889b978b6105c981f2f8067311d0fe6cc49c1e46b5",
+      "src/ml/evaluation_metrics.py": "b83904d291bf406c198ba5b3b7ca6c1128f2cae5c60a9b13a0a080ef67f07b2c",
+      "src/ml/group_cross_validation.py": "bdc5ba2265b8881357868e2ea28a1801ec8a733ccab32de71be54d6ff2739f0c",
+      "src/ml/model_report_writer.py": "8203d5af2892d14f7af1e624189720602ddb8224c2c96862194dde120b87491d",
+      "src/ml/model_specs.py": "2d5356df4f6cff259dad339d9abf6fdb7b96be959feeb99a5ff8a7504b0c6696",
+      "src/ml/modeling_dataset.py": "6f9db04b44d250b948a8506a2362824e37b922ed62a843604932d54aee478aab",
+      "src/parser/feature-definitions.js": "b428f20b3197b6195b6ca9680ecab442166536c9ed6e6664169b59a9157b4321"
+    }
+  },
+  "dataset": {
+    "dataset_csv": "data/processed/dataset-v0.4.csv",
+    "dataset_sha256": "3163db4de4fece6210d76153609d20c3c3c3007cecdefaa26846fde6919e09e4",
+    "valid_rows": 767,
+    "pages_valid": 160,
+    "pages_dropped_lt_min_runs": 4,
+    "lockbox_sites": [
+      "bark.co",
+      "buyniconi.com",
+      "codebrwn.com",
+      "elitecarz.in",
+      "hosjosefine.no",
+      "housewor.com",
+      "itspixie.com",
+      "kalaubeauty.com",
+      "matcha-karu.com",
+      "misterradio-gps.com",
+      "musclerepublic.com",
+      "nqcart.ae",
+      "pampili.com.br",
+      "reebok.com.ar",
+      "ship.erewhon.com",
+      "shop.angel.com",
+      "www.dunns.co.za",
+      "www.miniclub.com.pk",
+      "www.rampage.com.tr"
+    ],
+    "dev_rows": 570,
+    "dev_pages": 118,
+    "dev_sites": 60,
+    "dev_sites_per_fold": {
+      "0": 8,
+      "1": 12,
+      "2": 14,
+      "3": 14,
+      "4": 12
+    },
+    "dev_sites_per_stratum": {
+      "heavy": 18,
+      "light": 20,
+      "medium": 22
+    },
+    "lcp_near_window_rows": 5
+  },
+  "feature_sets": {
+    "lh_lcp_ms|S": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority"
+    ],
+    "lh_lcp_ms|S+R": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority",
+      "mt_script_eval_ms",
+      "mt_script_parse_ms",
+      "mt_gc_ms",
+      "mt_style_layout_ms",
+      "mt_rendering_ms",
+      "mt_parse_html_ms",
+      "render_blocking_count",
+      "bootup_js_ms",
+      "third_party_main_thread_ms",
+      "unused_js_bytes",
+      "unused_css_bytes",
+      "bytes_before_lcp_request",
+      "server_response_time_ms",
+      "trace_long_task_count",
+      "trace_long_task_total_ms",
+      "trace_long_task_max_ms"
+    ],
+    "tbt_30s_ms|S": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority"
+    ],
+    "tbt_30s_ms|S+R": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority",
+      "mt_script_eval_ms",
+      "mt_script_parse_ms",
+      "mt_gc_ms",
+      "mt_style_layout_ms",
+      "mt_rendering_ms",
+      "mt_parse_html_ms",
+      "render_blocking_count",
+      "bootup_js_ms",
+      "third_party_main_thread_ms",
+      "unused_js_bytes",
+      "unused_css_bytes",
+      "bytes_before_lcp_request",
+      "server_response_time_ms"
+    ]
+  },
+  "grids": {
+    "baseline": {},
+    "ridge": {
+      "model__alpha": [
+        0.1,
+        1,
+        10,
+        100,
+        1000
+      ]
+    },
+    "random_forest": {
+      "model__min_samples_leaf": [
+        2,
+        5,
+        10
+      ],
+      "model__max_features": [
+        0.33,
+        1.0
+      ]
+    },
+    "xgboost": {
+      "model__max_depth": [
+        2,
+        4
+      ],
+      "model__learning_rate": [
+        0.03,
+        0.1
+      ]
+    }
+  },
+  "versions": {
+    "python": "3.14.8",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1"
+  }
+}
