@@ -65,9 +65,9 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 
 ## 6. Predictor (X)
 
-- **Bộ S (structural, 15):** `request_count`, `transfer_bytes_total`, `script_requests`, `script_bytes`, `stylesheet_bytes`, `image_bytes`, `font_bytes`, `document_bytes`, `third_party_requests`, `third_party_bytes`, `origin_count`, `dom_elements`, `lcp_has_resource`, `lcp_lazy_loaded`, `lcp_not_discoverable` (3 cờ 0/1 thêm theo amendment 09/10/2026).
-- **Bộ R (runtime, 15):** `mt_script_eval_ms`, `mt_script_parse_ms`, `mt_gc_ms`, `mt_style_layout_ms`, `mt_rendering_ms`, `mt_parse_html_ms`, `render_blocking_count`, `bootup_js_ms`, `third_party_main_thread_ms`, `unused_js_bytes`, `unused_css_bytes`, `server_response_time_ms` (amendment 09/10/2026; **không** gồm RTT giả lập 562,5 ms), `trace_long_task_count`, `trace_long_task_total_ms`, `trace_long_task_max_ms`.
-- **Nhóm `mixed`:** `request_count`, `transfer_bytes_total`, `mt_parse_html_ms` là tổng toàn trang, mọi cơ chế đều làm đổi ⇒ vẫn ở X (RQ1–RQ2) nhưng **không** cộng vào điểm nhóm khi chấm Hit@k (RQ3).
+- **Bộ S (structural, 17):** `request_count`, `transfer_bytes_total`, `script_requests`, `script_bytes`, `stylesheet_bytes`, `image_bytes`, `font_bytes`, `document_bytes`, `third_party_requests`, `third_party_bytes`, `origin_count`, `dom_elements`, `lcp_has_resource`, `lcp_lazy_loaded`, `lcp_not_discoverable` (3 cờ 0/1 thêm theo amendment 09/10/2026), `lcp_resource_bytes`, `lcp_request_low_priority` (post-hoc, amendment 09/10/2026 (5)).
+- **Bộ R (runtime, 16):** `mt_script_eval_ms`, `mt_script_parse_ms`, `mt_gc_ms`, `mt_style_layout_ms`, `mt_rendering_ms`, `mt_parse_html_ms`, `render_blocking_count`, `bootup_js_ms`, `third_party_main_thread_ms`, `unused_js_bytes`, `unused_css_bytes`, `server_response_time_ms` (amendment 09/10/2026; **không** gồm RTT giả lập 562,5 ms), `bytes_before_lcp_request` (post-hoc, amendment 09/10/2026 (5), nhóm `mixed`), `trace_long_task_count`, `trace_long_task_total_ms`, `trace_long_task_max_ms`.
+- **Nhóm `mixed`:** `request_count`, `transfer_bytes_total`, `mt_parse_html_ms`, `bytes_before_lcp_request` là tổng toàn trang, mọi cơ chế đều làm đổi ⇒ vẫn ở X (RQ1–RQ2) nhưng **không** cộng vào điểm nhóm khi chấm Hit@k (RQ3).
 - **Nhóm `server`:** chỉ `server_response_time_ms`. Testbed chạy localhost nên gần như hằng số và không có fault tương ứng ⇒ dùng khi giải thích site thật, **không** nằm trong 5 nhóm xếp hạng ở RQ3.
 - **Không đưa vào X** các đoạn phân rã LCP tính bằng ms (load delay, load duration, render delay): tổng của chúng bằng đúng LCP (leakage, cùng lý do L5).
 - Ablation RQ2: **S** so với **S+R**, cùng fold.
@@ -94,6 +94,19 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 
 **Metric:** RQ1–RQ2: MAE, RMSE, R² theo fold và site; so với median baseline; ΔMetric giữa S và S+R. RQ3: điểm nhóm = Σ φ của các feature trong nhóm (trừ `mixed`) so với baseline cùng trang → xếp hạng 5 nhóm → Hit@1, Hit@3, MRR (chance: 0,20 / 0,60); Jaccard top-3 giữa fold; liều–đáp ứng. Chỉ chấm cặp (fault, target) mà fault thật sự làm xấu target: Δmedian > 2 × IQR baseline và > 5%. Phép thử ghép cặp: tỷ lệ `main_thread_js` xếp trên `third_party` (và ngược lại) so với chance 0,5. RQ4: median/IQR trước–sau, % cải thiện, bootstrap CI.
 
+### 8.1 Cấu hình mô hình RQ1–RQ2 (chốt 09/10/2026, trước lần train đầu tiên)
+
+- **Dữ liệu vào mô hình:** dòng Shopify `status = ok` của trang có **≥ 4 lần hợp lệ**; site lockbox bị loại trước mọi bước.
+- **Đơn vị:** mỗi phép đo là một dòng; fold và bootstrap tính theo site.
+- **Target:** `lh_lcp_ms`, `tbt_30s_ms`, huấn luyện trên log1p(y), metric tính lại bằng ms (expm1). LCP ≥ 55 s được gắn cờ *sát cửa sổ*: giữ giá trị, kèm phân tích độ nhạy (chấm lại, không fit lại).
+- **Mô hình và lưới** (inner GroupKFold theo site k = 4, tối ưu MAE trên thang log; imputation median + cột chỉ báo thiếu, fit trong fold): *Baseline* median của fold train · *Ridge* log1p(feature) → chuẩn hóa → α ∈ {0,1; 1; 10; 100; 1000} · *Random Forest* 500 cây, min_samples_leaf ∈ {2, 5, 10}, max_features ∈ {0,33; 1,0} · *XGBoost* 300 vòng, max_depth ∈ {2, 4}, learning_rate ∈ {0,03; 0,1}, subsample = colsample = 0,8. Seed 42.
+- **Bộ feature:** **S** là claim *dự đoán trước khi chạy trang*; **S+R** chứa đại lượng đo cùng lần với target ⇒ *cận trên / mô hình giải thích*. Loại trừ L5 như §6.
+- **Sanity check:** (1) shuffled-label (1 hoán vị, cùng mô hình và lưới); (2) residual theo site; (3) assert không site nào ở cả train và test.
+- **Báo cáo:** MAE, RMSE, R², MdAPE theo fold và gộp out-of-fold; bootstrap 95% CI theo site (1.000 lần) cho MAE và ΔMAE so với baseline; RQ2: ΔMAE(S+R − S) cùng mô hình, bootstrap ghép cặp theo site.
+- **SHAP chỉ báo cáo cho cặp (mô hình, target) thắng baseline** với CI của ΔMAE không chứa 0.
+- **Lần chạy trước khi đóng băng dataset là *preliminary*:** chỉ kiểm tra pipeline; không đổi feature, lưới hay target dựa trên nó. Bug phát hiện được thì sửa và ghi §10.
+- `config.json` của mỗi lần chạy ghi git commit, sha256 dataset và mã pipeline, phiên bản thư viện.
+
 ## 9. Toàn vẹn dữ liệu
 
 - `measurement_id` duy nhất; mọi lần thử (kể cả lỗi) đều có `context.json`.
@@ -111,6 +124,11 @@ One-factor-at-a-time: trang testbed là template có *khe*; baseline điền m�
 | 09/10/2026 | Thêm 4 predictor: S + `lcp_has_resource`, `lcp_lazy_loaded`, `lcp_not_discoverable`; R + `server_response_time_ms` (S 12 → 15, R 14 → 15, tổng 26 → 30). Nhóm cause mới `server`, loại khỏi xếp hạng RQ3 như `mixed` | EDA cho thấy feature set chỉ phủ phần *render delay* và một phần *load duration* của LCP; TTFB và *resource load delay* (ảnh LCP lazy-load hoặc do JS chèn) không có biến nào. Cả 4 lấy từ report đã lưu (`npm run reparse`), không đo lại. Đoạn phân rã LCP không được thêm vì cộng lại bằng LCP. Quyết định trước khi huấn luyện mô hình nào |
 | 09/10/2026 (3) | EDA và leakage checklist **loại site lockbox** từ nay | **Công bố:** EDA ngày 08–09/10 (căn cứ thêm 4 predictor) đã dùng cả site lockbox ⇒ kết quả lockbox có thể hơi lạc quan. Feature thêm vào là feature cơ chế chuẩn của LCP, không chọn theo tương quan, nhưng vẫn ghi nhận |
 | 09/10/2026 (4) | **Sửa bug** tính `tbt_30s_ms` và `trace_long_task_*`: khi store redirect phía server, code lấy navigationStart *cuối cùng* có cờ main frame (thường là iframe chat/tracking lúc 47–58 s, khác process) thay cho lần tải trang. Nay chỉ xét navigation có URL tài liệu thật, lấy lần đầu, vẫn ưu tiên khớp chính xác URL. Có regression test | Phát hiện qua pinko.com: TBT30 = 0 trong khi Lighthouse TBT 9–18 s. Bug đo lường, không phải đổi thiết kế. Ảnh hưởng 27 dòng site thật ở 4 site; testbed 0 dòng. Dataset trước khi sửa (v0.3) bị thay bằng **v0.3.1** |
+| 09/10/2026 (2) | Chốt §8.1 (cấu hình mô hình). **Đo bù:** mỗi phép đo `error` của site thật được đo lại 1 lần sau wave 3, giữ nguyên `run`, `batch_id` mới, giới hạn cứng 150 → 300 s (`maxWaitForLoad`, throttling, cấu hình Lighthouse không đổi; kiểm tra `configSettings` trùng khớp trước khi gộp — `scripts/check-measurement-config-consistency.js`). Phép đo vẫn lỗi sau đo bù được báo cáo là thiếu không ngẫu nhiên theo tầng | Chốt trước lần train đầu tiên. Mọi lỗi collector thuộc tầng heavy, phần lớn do giới hạn cứng 150 s chứ không do cửa sổ tải 60 s |
+| 09/10/2026 (3) bổ sung | (a) imputation = median **+ cột chỉ báo thiếu** cho mọi mô hình; (b) báo cáo thêm ΔMAE(S+R − S); (d) độ nhạy LCP sát cửa sổ là *chấm lại* trên cùng dự đoán; (e) `config.json` ghi git commit và sha256 | (a) `third_party_main_thread_ms` thiếu ở các site nặng ⇒ thiếu là có thông tin. (b) §8 yêu cầu Δ giữa S và S+R |
+| 09/10/2026 (5) — **POST-HOC** | Thêm 3 predictor cho LCP: S + `lcp_resource_bytes`, `lcp_request_low_priority`; R + `bytes_before_lcp_request` (nhóm `mixed`). Tổng 30 → 33. Thêm metric MdAPE | **Quyết định sau khi đã xem kết quả preliminary** (LCP gần như không hơn baseline). Phân tích trên site dev, không đụng lockbox: thời gian tải chính tài nguyên LCP chiếm trung vị 58% LCP, trong khi `image_bytes` cộng mọi ảnh kể cả ảnh lazy dưới màn hình đầu. Thời điểm bắt đầu tải ảnh LCP **không** được dùng vì là một phần của LCP. Vì post-hoc, mọi cải thiện LCP trên dev chỉ là *exploratory*; **bằng chứng xác nhận duy nhất là lockbox** |
+| 09/10/2026 (6) | RQ1–RQ2 luôn dùng GroupKFold theo site (k = 5) trên tập dev | Một phương pháp chia cố định giúp các lần chạy so sánh được với nhau |
+| 13/10/2026 | Ghi nhận (không đổi luật): store pilot **bark.co** rơi vào lockbox theo luật hash. Giữ nguyên luật; khi mở lockbox, kết quả chính trên toàn bộ lockbox, kèm độ nhạy bỏ bark.co (chấm lại, không fit lại) | Dữ liệu pilot của bark.co đã dùng để ra quyết định thiết kế. Không đổi salt để bốc lại vì luật chia phải cố định trước khi biết kết quả |
 
 ## 11. Kết luận pilot làm căn cứ freeze
 

@@ -48,3 +48,20 @@ export async function buildPilotPlan({ manifest, sitesCsv, testbedBaseUrl, batch
     measurement_id: measurementId(batchId, item.url, item.run),
   }));
 }
+
+/**
+ * Kế hoạch đo bù (protocol §10, 09/10/2026 (2)): mỗi (trang, run) của site thật mà mọi phép đo đều `error`
+ * (không có report hoặc runtime error) được đo lại MỘT lần, GIỮ NGUYÊN chỉ số run, batch mới.
+ * `errorLog` = các dòng đã parse của data/logs/collector-error-log.jsonl; `okRuns` = Set "site|page|run" đã ok.
+ */
+export function buildRetryPlan({ manifest, errorLog, okRuns, batchId }) {
+  const seen = new Set();
+  const items = errorLog
+    .filter((e) => e.status === 'error' && e.site !== 'testbed' && !okRuns.has(`${e.site}|${e.page_type}|${e.run}`))
+    .filter((e) => !seen.has(`${e.site}|${e.page_type}|${e.run}`) && seen.add(`${e.site}|${e.page_type}|${e.run}`))
+    .map((e) => ({ site: e.site, site_type: 'shopify_storefront', page_type: e.page_type, url: e.url, run: e.run, ...NO_FAULT }));
+  return items.map((item, index) => ({
+    ...item, order_index: index + 1, batch_id: batchId, profile_id: manifest.measurement_profile.id,
+    measurement_id: measurementId(batchId, item.url, item.run),
+  }));
+}

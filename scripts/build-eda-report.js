@@ -28,7 +28,7 @@ const col = (subset, name) => subset.map((p) => p[name]);
 const sites = new Set(pages.map((p) => p.site));
 
 const lines = [
-  '# EDA ban đầu — dataset v0.3.1 (Shopify thật)', '',
+  '# EDA ban đầu — dataset v0.4 (Shopify thật)', '',
   '> Sinh tự động bởi `node scripts/build-eda-report.js`. Không sửa tay.',
   `> Đơn vị: **1 trang** (store × loại trang) = median các lần đo hợp lệ. ${sites.size} store · ${pages.length} trang · ${rows.length} phép đo hợp lệ.`,
   '> Site thuộc **lockbox** (protocol §8) bị loại khỏi EDA. Mọi con số là mô tả, chưa dùng để kết luận hay chọn feature.', '',

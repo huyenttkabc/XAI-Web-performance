@@ -24,13 +24,15 @@ src/
     host-contention-filter.js       # luật V4
     rebuild-dataset-from-raw.js     # raw → dataset (V1–V4)
   analysis/                  # thống kê mô tả, luật chia site (fold/lockbox), biểu đồ SVG
+  ml/                        # Python: dataset mô hình, 4 mô hình + lưới, GroupKFold theo site, metric + bootstrap
   pilot-plan-builder.js      # manifest + catalog → danh sách phép đo (xáo trộn có seed)
   run-pilot.js               # pipeline end-to-end
 scripts/                     # chọn mẫu, reparse, data dictionary, noise, leakage, QC (Gate G3), EDA, lint
 data/
   raw/                       # (gitignored) raw artifacts protocol v1.0
   processed/pilot-dataset.csv   # dataset hiện hành (dựng lại từ raw)
-  processed/dataset-v0.3.1.csv  # snapshot đóng băng khi Gate G3 đạt
+  processed/dataset-v0.*.csv    # snapshot đóng băng khi Gate G3 đạt (v0.3.1, v0.4)
+  processed/model-runs/<run>/   # config.json (seed, sha256), results.json, oof-predictions.csv
   logs/collector-error-log.jsonl
   archive/                   # dữ liệu tuần 1 (protocol cũ) — không trộn
 docs/                        # protocol, data dictionary, báo cáo (sinh tự động)
@@ -48,8 +50,16 @@ npm run pilot                # fault matrix (190) + 3 store × 2 trang × 5 lầ
 npm run pilot -- --scope=testbed
 npm run sample:sites -- --total=80 --extend   # rút mẫu store phân tầng → config/main-study-sites.csv
 npm run collect:wave1        # đo theo wave (resume: -- --resume=<batch_id>)
+npm run collect:retry        # đo bù phép đo lỗi 1 lần (hard cap 300 s)
 npm run reports              # reparse → dictionary → noise → leakage → QC (G3, snapshot) → EDA
+npm run ml:setup             # Python 3.14 venv + requirements.txt
+npm run ml:train -- --run-id=dev-cv-v0.4 --dataset=data/processed/dataset-v0.4.csv
+npm run test:ml              # unit test Python
 ```
+
+## Dataset v0.4 (tuần 4) — 80 store, 800/800 phép đo + mô hình preliminary
+
+- Xem [`docs/model-preliminary-report.md`](docs/model-preliminary-report.md) (RQ1/RQ2, GroupKFold theo site, 60 store dev).
 
 ## Dataset v0.3.1 (tuần 3) — 612 phép đo
 

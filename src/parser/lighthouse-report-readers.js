@@ -62,6 +62,34 @@ export function lcpDiscoveryFailure(lhr, check) {
   return typeof value === 'boolean' ? Number(!value) : null;
 }
 
+/**
+ * Request mạng của tài nguyên LCP. URL của nó là phần tử đầu của initiator path mà Lighthouse ghi trong
+ * `prioritize-lcp-image` (ứng viên LCP trong trace không mang URL). null nếu không tìm được.
+ */
+export function lcpRequest(lhr) {
+  const url = lhr?.audits?.['prioritize-lcp-image']?.details?.debugData?.initiatorPath?.[0]?.url;
+  if (!url) return null;
+  return auditItems(lhr, 'network-requests')?.find((item) => item.url === url) ?? null;
+}
+
+/**
+ * Giá trị suy ra từ request LCP; `textValue` khi LCP là chữ (không có tài nguyên để tải),
+ * null khi LCP là tài nguyên nhưng không xác định được request của nó.
+ */
+export function lcpRequestValue(lhr, derive, textValue) {
+  const hasResource = lcpHasResource(lhr);
+  if (hasResource === 0) return textValue;
+  const request = lcpRequest(lhr);
+  return hasResource === 1 && request ? derive(request, lhr) : null;
+}
+
+/** Tổng bytes của mọi request bắt đầu TRƯỚC request LCP: băng thông mà ảnh LCP phải tranh. */
+export function bytesBeforeRequest(request, lhr) {
+  return (auditItems(lhr, 'network-requests') ?? [])
+    .filter((item) => item.networkRequestTime < request.networkRequestTime)
+    .reduce((sum, item) => sum + (Number.isFinite(item.transferSize) ? item.transferSize : 0), 0);
+}
+
 /** Số host khác nhau đã kết nối (bỏ qua data:, blob:, chrome-extension:). */
 export function originCount(lhr) {
   const items = auditItems(lhr, 'network-requests');

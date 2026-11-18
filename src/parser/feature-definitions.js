@@ -9,6 +9,7 @@
 // excludeFor: các target mà feature này là leakage (tính từ cùng sự kiện / cùng ngưỡng với target đó)
 import {
   auditValue, auditItems, resourceSummary, mainThreadGroup, originCount, auditFieldSum, lcpHasResource, lcpDiscoveryFailure,
+  lcpRequestValue, bytesBeforeRequest,
 } from './lighthouse-report-readers.js';
 
 const TBT_TARGETS = ['tbt_30s_ms', 'lh_tbt_ms'];
@@ -56,7 +57,7 @@ const structural = feature('structural');
 const runtime = feature('runtime');
 
 export const FEATURE_COLUMNS = [
-  // Bộ S — structural (15)
+  // Bộ S — structural (17)
   structural('request_count', 'mixed', 'count', 'resource-summary', 'total network requests', (l) => resourceSummary(l, 'total', 'requestCount')),
   structural('transfer_bytes_total', 'mixed', 'bytes', 'resource-summary', 'total transferred bytes', (l) => resourceSummary(l, 'total', 'transferSize')),
   structural('script_requests', 'main_thread_js', 'count', 'resource-summary', 'JavaScript requests', (l) => resourceSummary(l, 'script', 'requestCount')),
@@ -73,8 +74,12 @@ export const FEATURE_COLUMNS = [
   structural('lcp_has_resource', 'lcp_resource', '0/1', 'lcp-breakdown-insight', 'LCP element loads a resource (image/video/background) rather than text', (l) => lcpHasResource(l)),
   structural('lcp_lazy_loaded', 'lcp_resource', '0/1', 'lcp-discovery-insight', 'LCP resource has loading="lazy" (0 for text LCP)', (l) => lcpDiscoveryFailure(l, 'eagerlyLoaded')),
   structural('lcp_not_discoverable', 'lcp_resource', '0/1', 'lcp-discovery-insight', 'LCP resource not discoverable in the initial HTML, e.g. injected by JS (0 for text LCP)', (l) => lcpDiscoveryFailure(l, 'requestDiscoverable')),
+  // Amendment 09/10/2026 (5), POST-HOC sau lần chạy preliminary: dung lượng và độ ưu tiên của ĐÚNG tài nguyên LCP
+  // (image_bytes cộng mọi ảnh, kể cả ảnh lazy dưới màn hình đầu); chỉ được xác nhận trên lockbox
+  structural('lcp_resource_bytes', 'lcp_resource', 'bytes', 'prioritize-lcp-image + network-requests', 'transferred bytes of the LCP resource (0 for text LCP)', (l) => lcpRequestValue(l, (r) => r.transferSize ?? null, 0)),
+  structural('lcp_request_low_priority', 'lcp_resource', '0/1', 'network-requests', 'LCP resource fetched below High priority (0 for text LCP)', (l) => lcpRequestValue(l, (r) => (r.priority ? Number(!['High', 'VeryHigh'].includes(r.priority)) : null), 0)),
 
-  // Bộ R — runtime (15)
+  // Bộ R — runtime (16)
   runtime('mt_script_eval_ms', 'main_thread_js', 'ms', 'mainthread-work-breakdown', 'script evaluation time (all tasks, no 50 ms threshold)', (l) => mainThreadGroup(l, 'scriptEvaluation')),
   runtime('mt_script_parse_ms', 'main_thread_js', 'ms', 'mainthread-work-breakdown', 'script parse & compile time', (l) => mainThreadGroup(l, 'scriptParseCompile')),
   runtime('mt_gc_ms', 'main_thread_js', 'ms', 'mainthread-work-breakdown', 'garbage collection time', (l) => mainThreadGroup(l, 'garbageCollection')),
@@ -86,6 +91,8 @@ export const FEATURE_COLUMNS = [
   runtime('third_party_main_thread_ms', 'third_party', 'ms', 'third-party-summary', 'main-thread time of third-party scripts (0 if none; null if audit failed)', (l) => auditFieldSum(l, 'third-party-summary', 'mainThreadTime')),
   runtime('unused_js_bytes', 'main_thread_js', 'bytes', 'unused-javascript', 'estimated unused JS transfer bytes (scripts wasting > 20 KiB only)', (l) => l?.audits?.['unused-javascript']?.details?.overallSavingsBytes ?? null),
   runtime('unused_css_bytes', 'render_blocking', 'bytes', 'unused-css-rules', 'estimated unused CSS transfer bytes (above Lighthouse threshold)', (l) => l?.audits?.['unused-css-rules']?.details?.overallSavingsBytes ?? null),
+  // Amendment 09/10/2026 (5): tranh chấp băng thông — tính trên toàn trang nên thuộc `mixed` (không vào điểm nhóm RQ3)
+  runtime('bytes_before_lcp_request', 'mixed', 'bytes', 'network-requests', 'bytes of requests started before the LCP request (null for text LCP)', (l) => lcpRequestValue(l, bytesBeforeRequest, null)),
   // Amendment 09/10/2026: thời gian server xử lý tài liệu chính; KHÔNG gồm RTT giả lập 562,5 ms
   runtime('server_response_time_ms', 'server', 'ms', 'server-response-time', 'main-document server response time (emulated network latency excluded)', (l) => auditValue(l, 'server-response-time')),
   runtime('trace_long_task_count', 'main_thread_js', 'count', 'raw trace', 'top-level tasks ≥ 50 ms in [navStart, +30 s]', (l, t) => t.trace_long_task_count, TBT_TARGETS),

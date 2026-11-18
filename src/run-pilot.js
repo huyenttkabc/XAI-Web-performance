@@ -4,6 +4,8 @@
 // Mỗi phép đo không ok (V1–V3 hoặc không có report) được ghi thêm vào data/logs/collector-error-log.jsonl.
 // Mỗi phép đo chạy trong tiến trình con riêng (collector/collect-one-measurement-process.js) để giải phóng bộ nhớ.
 // Đo tiếp batch bị ngắt: cùng tùy chọn + --resume=<batch_id> → cùng id, cùng thứ tự; phép đo đã có report được bỏ qua.
+// Đo bù phép đo lỗi của site thật một lần (protocol §10): --retry-errors [--hard-cap-ms=300000]. Đọc error log và
+// data/processed/pilot-dataset.csv (chạy `npm run reparse` trước) để không đo lại run đã ok.
 // CSV ở đây chỉ chứa batch hiện tại; `npm run reparse` dựng lại toàn bộ dataset (kèm luật V4) từ mọi raw artifact.
 import { readFile, writeFile, mkdir, appendFile, access } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
@@ -14,8 +16,8 @@ import { startTestbed } from './testbed/testbed-server.js';
 import { parseMeasurement } from './parser/lighthouse-report-parser.js';
 import { parseRawMeasurement } from './parser/rebuild-dataset-from-raw.js';
 import { ALL_COLUMNS } from './parser/feature-definitions.js';
-import { writeCsv } from './parser/csv-io.js';
-import { buildPilotPlan } from './pilot-plan-builder.js';
+import { writeCsv, readCsv } from './parser/csv-io.js';
+import { buildPilotPlan, buildRetryPlan } from './pilot-plan-builder.js';
 import { MEASUREMENT_TIMEOUT_MS } from './collector/lighthouse-collector.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -23,7 +25,6 @@ const RAW_DIR = path.join(ROOT, 'data/raw');
 const OUT_DIR = path.join(ROOT, 'data/processed');
 const ERROR_LOG = path.join(ROOT, 'data/logs/collector-error-log.jsonl');
 const CHILD = path.join(ROOT, 'src/collector/collect-one-measurement-process.js');
-const CHILD_TIMEOUT_MS = MEASUREMENT_TIMEOUT_MS + 90_000; // > chốt chặn của chính collector; chỉ cho con bị treo
 const run = promisify(execFile);
 const exists = (file) => access(file).then(() => true, () => false);
 const argValue = (name, fallback) => process.argv.find((arg) => arg.startsWith(`--${name}=`))?.split('=')[1] ?? fallback;
@@ -32,12 +33,22 @@ const seed = Number(argValue('seed', 42));
 const sitesCsv = path.resolve(ROOT, argValue('sites', 'config/pilot-sites.csv'));
 const waveArg = argValue('wave', undefined);
 const wave = waveArg === undefined ? undefined : Number(waveArg);
+const retryErrors = process.argv.includes('--retry-errors');
+const hardCapMs = Number(argValue('hard-cap-ms', MEASUREMENT_TIMEOUT_MS));
+const CHILD_TIMEOUT_MS = hardCapMs + 90_000; // > chốt chặn của chính collector; chỉ cho tiến trình con bị treo
 
 const manifest = JSON.parse(await readFile(path.join(ROOT, 'config/experiment-manifest.json'), 'utf8'));
 const batchId = argValue('resume', new Date().toISOString());
 const testbed = await startTestbed();
-const plan = await buildPilotPlan({ manifest, sitesCsv, testbedBaseUrl: testbed.baseUrl, batchId, scope, seed, wave });
-console.log(`batch ${batchId}: ${plan.length} measurements (scope=${scope}, seed=${seed}, sites=${path.relative(ROOT, sitesCsv)}, wave=${wave ?? 'all'})`);
+async function retryPlan() {
+  const errorLog = (await readFile(ERROR_LOG, 'utf8').catch(() => '')).split('\n').filter(Boolean).map((line) => JSON.parse(line));
+  const dataset = await readCsv(path.join(OUT_DIR, 'pilot-dataset.csv'));
+  const okRuns = new Set(dataset.filter((r) => r.status === 'ok').map((r) => `${r.site}|${r.page_type}|${r.run}`));
+  return buildRetryPlan({ manifest, errorLog, okRuns, batchId });
+}
+const plan = retryErrors ? await retryPlan()
+  : await buildPilotPlan({ manifest, sitesCsv, testbedBaseUrl: testbed.baseUrl, batchId, scope, seed, wave });
+console.log(`batch ${batchId}: ${plan.length} measurements (${retryErrors ? 'RETRY of failed runs' : `scope=${scope}, seed=${seed}, sites=${path.relative(ROOT, sitesCsv)}, wave=${wave ?? 'all'}`}, hard cap ${hardCapMs / 1000} s)`);
 await mkdir(path.dirname(ERROR_LOG), { recursive: true });
 
 /** Nhật ký lỗi collector: một dòng JSON cho mỗi phép đo không ok, giữ qua mọi batch. */
@@ -53,7 +64,7 @@ async function saveOutputs() {
   await mkdir(OUT_DIR, { recursive: true });
   await writeCsv(path.join(OUT_DIR, 'pilot-batch-latest.csv'), ALL_COLUMNS.map((c) => c.name), rows);
   await writeFile(path.join(OUT_DIR, 'pilot-run-log.json'), JSON.stringify({
-    batch_id: batchId, scope, seed, sites: path.relative(ROOT, sitesCsv), wave: wave ?? 'all', planned: plan.length, measured: rows.length, ok: rows.filter((r) => r.status === 'ok').length,
+    batch_id: batchId, retry_errors: retryErrors, hard_cap_ms: hardCapMs, scope, seed, sites: path.relative(ROOT, sitesCsv), wave: wave ?? 'all', planned: plan.length, measured: rows.length, ok: rows.filter((r) => r.status === 'ok').length,
   }, null, 2));
 }
 
@@ -64,7 +75,7 @@ try {
     if (await exists(path.join(measurementDir, 'lhr.json.gz'))) { console.log(`[${item.order_index}/${plan.length}] skip (already collected)`); continue; }
     let row;
     try {
-      const job = { url: item.url, measurementId: item.measurement_id, rawDir: RAW_DIR, context };
+      const job = { url: item.url, measurementId: item.measurement_id, rawDir: RAW_DIR, context, hardCapMs };
       const childError = await run(process.execPath, [CHILD, JSON.stringify(job)], { timeout: CHILD_TIMEOUT_MS, maxBuffer: 10 * 1024 * 1024 }).then(() => null, (e) => e);
       row = await parseRawMeasurement(measurementDir); // không có report → dòng error (lỗi lấy từ context.json)
       if (row.status === 'error' && !row.error_message) {

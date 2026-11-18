@@ -101,3 +101,27 @@ test('LCP-element and server-response features (amendment 2026-10-09)', () => {
   const missing = parseMeasurement(lhr, storefront); // insights absent → null, not 0
   assert.deepEqual([missing.server_response_time_ms, missing.lcp_has_resource, missing.lcp_lazy_loaded], [null, null, null]);
 });
+
+test('LCP-resource features: size, priority and competing bytes of THE LCP request (amendment 2026-10-09 (5))', () => {
+  const breakdown = (subparts) => ({ details: { type: 'list', items: [{ type: 'table', items: subparts.map((subpart) => ({ subpart, duration: 1 })) }] } });
+  const imageLcp = breakdown(['timeToFirstByte', 'resourceLoadDelay', 'resourceLoadDuration', 'elementRenderDelay']);
+  const requests = { details: { items: [
+    { url: 'https://www.shop.example.com/', statusCode: 200, networkRequestTime: 0, transferSize: 50_000 },
+    { url: 'https://cdn.shopify.com/s/files/theme.js', networkRequestTime: 100, transferSize: 300_000 },
+    { url: 'https://cdn.shopify.com/hero.jpg', networkRequestTime: 400, transferSize: 120_000, priority: 'Low' },
+    { url: 'https://cdn.shopify.com/below-fold.jpg', networkRequestTime: 900, transferSize: 900_000 },
+  ] } };
+  const withLcp = (extra) => ({ ...lhr, audits: { ...lhr.audits, 'network-requests': requests, ...extra } });
+  const prioritize = { details: { debugData: { initiatorPath: [{ url: 'https://cdn.shopify.com/hero.jpg' }, { url: 'https://www.shop.example.com/' }] } } };
+
+  const image = parseMeasurement(withLcp({ 'lcp-breakdown-insight': imageLcp, 'prioritize-lcp-image': prioritize }), storefront);
+  assert.equal(image.lcp_resource_bytes, 120_000); // the LCP image only, not all images
+  assert.equal(image.lcp_request_low_priority, 1);
+  assert.equal(image.bytes_before_lcp_request, 350_000); // document + script started earlier
+
+  const text = parseMeasurement(withLcp({ 'lcp-breakdown-insight': breakdown(['timeToFirstByte', 'elementRenderDelay']) }), storefront);
+  assert.deepEqual([text.lcp_resource_bytes, text.lcp_request_low_priority, text.bytes_before_lcp_request], [0, 0, null]);
+
+  const unknown = parseMeasurement(withLcp({ 'lcp-breakdown-insight': imageLcp }), storefront); // URL not recorded
+  assert.deepEqual([unknown.lcp_resource_bytes, unknown.lcp_request_low_priority], [null, null]);
+});

@@ -66,8 +66,8 @@
   "predictors": {
     "definitions": "src/parser/feature-definitions.js (FEATURE_COLUMNS) — documented in docs/data-dictionary.md",
     "sets": {
-      "S": "structural features (family=structural, 15; 3 LCP-element flags added by amendment 2026-10-09)",
-      "S+R": "structural + runtime features (family=runtime, 15; server_response_time_ms added by amendment 2026-10-09)"
+      "S": "structural features (family=structural, 17; 3 LCP-element flags by amendment 2026-10-09, lcp_resource_bytes + lcp_request_low_priority post-hoc by amendment 2026-10-09 (5))",
+      "S+R": "structural + runtime features (family=runtime, 16; server_response_time_ms by amendment 2026-10-09, bytes_before_lcp_request post-hoc by amendment 2026-10-09 (5))"
     },
     "never_in_X": [
       "all metadata (site, page_type, fault_*, severity_level, cause_group, run, order_index, benchmark_index, ...)",
@@ -75,7 +75,7 @@
       "other targets"
     ],
     "leakage_exclusions": "per-target excludeFor in feature-definitions.js (trace_long_task_* excluded for tbt_30s_ms and lh_tbt_ms); empirical check |Spearman ρ| ≥ 0.95 in docs/leakage-checklist.md",
-    "mixed_group": "request_count, transfer_bytes_total, mt_parse_html_ms: whole-page totals moved by every mechanism — kept in X, excluded from RQ3 group scores",
+    "mixed_group": "request_count, transfer_bytes_total, mt_parse_html_ms, bytes_before_lcp_request: whole-page totals moved by every mechanism — kept in X, excluded from RQ3 group scores",
     "server_group": "server_response_time_ms: constant on the localhost testbed, no matching fault — used for real-site explanations, excluded from RQ3 group ranking",
     "never_lcp_subparts": "LCP subpart durations (load delay / load duration / render delay) are never in X: they sum to LCP"
   },
@@ -106,5 +106,10 @@
   "reference_dataset": {
     "path": "data/external/lab_dataset.csv",
     "use": "sampling frame and prior only; different throttling (CDP, RTT 150 ms) → not merged with v1.0 data"
+  },
+  "modeling": {
+    "config": "docs/protocol-v1.0.md §8.1",
+    "code": "src/ml/ + scripts/train_preliminary_models.py (npm run ml:train)",
+    "seed": 42
   }
 }
