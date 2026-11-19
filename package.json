@@ -27,6 +27,9 @@
     "ml:learning-curve": ".venv/bin/python scripts/build_learning_curve.py",
     "ml:compare-size": ".venv/bin/python scripts/compare_training_set_size.py",
     "ml:rq1-rq2": ".venv/bin/python scripts/build_rq1_rq2_results.py",
+    "ml:rq2-sites": ".venv/bin/python scripts/build_rq2_site_analysis.py --run=dev-cv-261025-v1.0",
+    "ml:feature-mapping": ".venv/bin/python scripts/build_feature_cause_mapping.py",
+    "ml:freeze": ".venv/bin/python scripts/freeze_model_v1.py --run=dev-cv-261025-v1.0",
     "test:ml": ".venv/bin/python -m unittest discover -s test -p 'test_*.py'"
   },
   "dependencies": {
