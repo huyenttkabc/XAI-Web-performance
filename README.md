@@ -58,8 +58,19 @@ npm run ml:train -- --run-id=dev-cv-v1.0 --dataset=data/processed/dataset-v1.0.c
 npm run ml:rq1-rq2 -- --run=dev-cv-v1.0                    # Friedman/Wilcoxon + Figure 3
 npm run ml:learning-curve -- --dataset=data/processed/dataset-v0.4.csv
 npm run ml:compare-size -- --small=data/processed/dataset-v0.4.csv --large=data/processed/dataset-v1.0.csv
+npm run ml:rq2-sites          # RQ2 theo store / tầng / loại trang + Figure 4 (bias theo decile)
+npm run ml:feature-mapping    # mapping feature → cause group trên testbed (chuẩn bị RQ3)
+npm run ml:freeze            # model freeze v1.0 (từ chối ghi đè)
 npm run test:ml              # unit test Python
 ```
+
+## Model freeze v1.0 (tuần 6) — RQ1–RQ2 FROZEN
+
+- Run `dev-cv-261025-v1.0`, dataset v1.0, code trùng sha256 với run; manifest + danh sách fold: `data/processed/model-runs/model-freeze-v1.0/`.
+- Mô hình giải thích chính cho RQ3: **Random Forest S+R**; XGBoost S+R kiểm tra độ bền. Không tìm thêm hyperparameter (G6).
+- Theo store (RF S+R): MAE trung vị LCP 2.983 ms (77% store tốt hơn baseline), TBT30 1.142 ms (89%); tốt hơn baseline ở mọi tầng và cả hai loại trang.
+- Sai số co về trung bình: đoán cao trang nhanh, đoán thấp trang rất chậm — [`docs/rq2-site-error-analysis.md`](docs/rq2-site-error-analysis.md), Figure 4.
+- Mapping feature → cause group và 10 chồng lấn cần báo cáo ở RQ3: [`docs/feature-cause-group-mapping.md`](docs/feature-cause-group-mapping.md).
 
 ## Dataset v1.0 FROZEN (tuần 5) — 200 store, 1.920/2.000 phép đo hợp lệ
 

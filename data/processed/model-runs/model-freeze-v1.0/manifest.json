@@ -1,0 +1,186 @@
+{
+  "freeze": "model v1.0",
+  "frozen_at": "2026-11-01T07:19:18.606304+00:00",
+  "rule": "Changed only through a dated amendment for a methodological error (G6), never to improve numbers.",
+  "run_id": "dev-cv-261025-v1.0",
+  "seed": 42,
+  "dataset": {
+    "path": "data/processed/dataset-v1.0.csv",
+    "sha256": "05125d31b991516d0a332087004617c18a7b455361d1390171e4de44401c1543",
+    "dev_sites": 157,
+    "dev_rows": 1499,
+    "lockbox_sites": 42,
+    "lockbox_opened": false
+  },
+  "code_sha256": {
+    "requirements.txt": "f873c752a322565457ff0b1ccb27456cc2f5f9d195d2939c5ce28e8f425d37c5",
+    "scripts/train_preliminary_models.py": "183cf1dba1dcb83df84cdd889b978b6105c981f2f8067311d0fe6cc49c1e46b5",
+    "src/ml/evaluation_metrics.py": "b83904d291bf406c198ba5b3b7ca6c1128f2cae5c60a9b13a0a080ef67f07b2c",
+    "src/ml/group_cross_validation.py": "bdc5ba2265b8881357868e2ea28a1801ec8a733ccab32de71be54d6ff2739f0c",
+    "src/ml/learning_curve.py": "1c7bd1c44bb8de94ee0dbd0071343b18fdc646983360571503745123cb843c63",
+    "src/ml/learning_curve_report.py": "1968a479bb5980d246d89dbc9995156293f293c88fe5c37575c889f76af11f44",
+    "src/ml/model_report_writer.py": "a2ae02f734847aa461a3a6c572fe0915fb9cdae8a5216da2471e73e4ffed9b8d",
+    "src/ml/model_specs.py": "2d5356df4f6cff259dad339d9abf6fdb7b96be959feeb99a5ff8a7504b0c6696",
+    "src/ml/modeling_dataset.py": "6f9db04b44d250b948a8506a2362824e37b922ed62a843604932d54aee478aab",
+    "src/ml/paired_store_tests.py": "fee6ab4af2695064905d0ecb8968ef5b8badf87469cce646b1f833312e48291d",
+    "src/parser/feature-definitions.js": "b428f20b3197b6195b6ca9680ecab442166536c9ed6e6664169b59a9157b4321"
+  },
+  "versions": {
+    "python": "3.14.8",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1"
+  },
+  "grids": {
+    "baseline": {},
+    "ridge": {
+      "model__alpha": [
+        0.1,
+        1,
+        10,
+        100,
+        1000
+      ]
+    },
+    "random_forest": {
+      "model__min_samples_leaf": [
+        2,
+        5,
+        10
+      ],
+      "model__max_features": [
+        0.33,
+        1.0
+      ]
+    },
+    "xgboost": {
+      "model__max_depth": [
+        2,
+        4
+      ],
+      "model__learning_rate": [
+        0.03,
+        0.1
+      ]
+    }
+  },
+  "feature_sets": {
+    "lh_lcp_ms|S": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority"
+    ],
+    "lh_lcp_ms|S+R": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority",
+      "mt_script_eval_ms",
+      "mt_script_parse_ms",
+      "mt_gc_ms",
+      "mt_style_layout_ms",
+      "mt_rendering_ms",
+      "mt_parse_html_ms",
+      "render_blocking_count",
+      "bootup_js_ms",
+      "third_party_main_thread_ms",
+      "unused_js_bytes",
+      "unused_css_bytes",
+      "bytes_before_lcp_request",
+      "server_response_time_ms",
+      "trace_long_task_count",
+      "trace_long_task_total_ms",
+      "trace_long_task_max_ms"
+    ],
+    "tbt_30s_ms|S": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority"
+    ],
+    "tbt_30s_ms|S+R": [
+      "request_count",
+      "transfer_bytes_total",
+      "script_requests",
+      "script_bytes",
+      "stylesheet_bytes",
+      "image_bytes",
+      "font_bytes",
+      "document_bytes",
+      "third_party_requests",
+      "third_party_bytes",
+      "origin_count",
+      "dom_elements",
+      "lcp_has_resource",
+      "lcp_lazy_loaded",
+      "lcp_not_discoverable",
+      "lcp_resource_bytes",
+      "lcp_request_low_priority",
+      "mt_script_eval_ms",
+      "mt_script_parse_ms",
+      "mt_gc_ms",
+      "mt_style_layout_ms",
+      "mt_rendering_ms",
+      "mt_parse_html_ms",
+      "render_blocking_count",
+      "bootup_js_ms",
+      "third_party_main_thread_ms",
+      "unused_js_bytes",
+      "unused_css_bytes",
+      "bytes_before_lcp_request",
+      "server_response_time_ms"
+    ]
+  },
+  "artifacts_sha256": {
+    "config.json": "f926f789c8bde9d4d2bcfa75a499ea238c058cb7862f2330f9d49e7f7b28c504",
+    "results.json": "97fecf9cd847e96444d5569baf7bcb1e2d3d6a4f351d827d4e5ab665a7841d0e",
+    "oof-predictions.csv": "5fa3e9a5096c55b98a97f95b3c4529d11239db0828583e5a7b061010a4173407"
+  },
+  "folds_csv_sha256": "eee57616800c782d0c2aac6753b6bdc401ec25bab7213614957c6e013917e438",
+  "decisions": {
+    "primary_explanation_model": "random_forest, feature set S+R (G5: tied with XGBoost, Wilcoxon p_Holm = 1.0)",
+    "robustness_model": "xgboost, feature set S+R",
+    "hyperparameter_search": "closed; grids of protocol §8.1 only"
+  }
+}
