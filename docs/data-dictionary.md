@@ -1,7 +1,7 @@
 # Data dictionary — protocol v1.0
 
 > Sinh tự động bởi `npm run dictionary` từ `src/parser/feature-definitions.js`. Không sửa tay.
-> Dataset: `data/processed/pilot-dataset.csv` · grain: 1 dòng = 1 lần đo (url × điều kiện × run) · fill rate tính trên 941 dòng status=ok.
+> Dataset: `data/processed/pilot-dataset.csv` · grain: 1 dòng = 1 lần đo (url × điều kiện × run) · fill rate tính trên 2094 dòng status=ok.
 
 ## Metadata (không bao giờ vào X) — 24 cột
 
@@ -16,7 +16,7 @@
 | `final_url` |  | main document URL after redirects | 100% |
 | `fault_id` |  | injected fault id ("none" = baseline / observational) | 100% |
 | `fault_dose` |  | fault severity in the fault unit (see fault catalog) | 100% |
-| `fault_unit` |  | unit of fault_dose | 18% |
+| `fault_unit` |  | unit of fault_dose | 8% |
 | `severity_level` |  | 0 = baseline, 1–3 = low/medium/high | 100% |
 | `cause_group` |  | ground-truth cause group of the fault ("none" for baseline/observational) — NEVER a feature | 100% |
 | `run` |  | repetition index within one condition | 100% |
@@ -28,7 +28,7 @@
 | `benchmark_index` |  | Lighthouse host CPU benchmark — for noise analysis, never a feature | 100% |
 | `shopify_detected` |  | Shopify CDN assets seen in network requests (validity rule V3) | 100% |
 | `status` |  | ok | invalid (failed a validity rule) | error (no report) | 100% |
-| `quality_flags` |  | validity failures (cross_host_redirect, http_error, not_shopify, host_contention) and missing-metric codes | 45% |
+| `quality_flags` |  | validity failures (cross_host_redirect, http_error, not_shopify, host_contention) and missing-metric codes | 51% |
 | `error_message` |  | Lighthouse runtime error or exception message | 0% |
 | `raw_path` |  | folder with lhr.json.gz + trace.json.gz + context.json | 100% |
 
@@ -38,11 +38,11 @@
 |---|---|---|---|---|
 | `lh_lcp_ms` | primary | ms | Largest Contentful Paint | 100% |
 | `tbt_30s_ms` | primary | ms | blocking time Σmax(0,d−50) of top-level main-thread tasks in [FCP, navStart+30 s], from the raw trace | 100% |
-| `lh_tbt_ms` | secondary | ms | Lighthouse TBT (window FCP→TTI; missing when TTI not reached) | 91% |
+| `lh_tbt_ms` | secondary | ms | Lighthouse TBT (window FCP→TTI; missing when TTI not reached) | 86% |
 | `lh_fcp_ms` | secondary | ms | First Contentful Paint | 100% |
 | `lh_si_ms` | secondary | ms | Speed Index | 100% |
 | `lh_cls` | secondary | score | Cumulative Layout Shift | 100% |
-| `lh_perf_score` | secondary | 0–1 | Lighthouse performance score (composite) | 91% |
+| `lh_perf_score` | secondary | 0–1 | Lighthouse performance score (composite) | 86% |
 
 ## Predictors / X (danh sách chính thức v1.0) — 33 cột
 
@@ -73,10 +73,10 @@
 | `mt_parse_html_ms` | runtime | mixed | ms | mainthread-work-breakdown | HTML & CSS parsing time (moved by DOM and by CSS faults) | 100% |  |
 | `render_blocking_count` | runtime | render_blocking | count | render-blocking-insight | render-blocking requests finishing before first paint (0 if none) | 100% |  |
 | `bootup_js_ms` | runtime | main_thread_js | ms | bootup-time | CPU time of JavaScript per script, summed | 100% |  |
-| `third_party_main_thread_ms` | runtime | third_party | ms | third-party-summary | main-thread time of third-party scripts (0 if none; null if audit failed) | 91% |  |
+| `third_party_main_thread_ms` | runtime | third_party | ms | third-party-summary | main-thread time of third-party scripts (0 if none; null if audit failed) | 86% |  |
 | `unused_js_bytes` | runtime | main_thread_js | bytes | unused-javascript | estimated unused JS transfer bytes (scripts wasting > 20 KiB only) | 100% |  |
 | `unused_css_bytes` | runtime | render_blocking | bytes | unused-css-rules | estimated unused CSS transfer bytes (above Lighthouse threshold) | 100% |  |
-| `bytes_before_lcp_request` | runtime | mixed | bytes | network-requests | bytes of requests started before the LCP request (null for text LCP) | 87% |  |
+| `bytes_before_lcp_request` | runtime | mixed | bytes | network-requests | bytes of requests started before the LCP request (null for text LCP) | 88% |  |
 | `server_response_time_ms` | runtime | server | ms | server-response-time | main-document server response time (emulated network latency excluded) | 100% |  |
 | `trace_long_task_count` | runtime | main_thread_js | count | raw trace | top-level tasks ≥ 50 ms in [navStart, +30 s] | 100% | tbt_30s_ms, lh_tbt_ms |
 | `trace_long_task_total_ms` | runtime | main_thread_js | ms | raw trace | total duration of those long tasks | 100% | tbt_30s_ms, lh_tbt_ms |

@@ -1,21 +1,21 @@
 # Kết quả mô hình preliminary — RQ1/RQ2
 
 > Sinh tự động bởi `scripts/train_preliminary_models.py`. Không sửa tay.
-> Run `dev-cv-261011-v0.4` · dataset `data/processed/dataset-v0.4.csv` sha256 `3163db4de4fece62…` · seed 42 · artifacts `data/processed/model-runs/dev-cv-261011-v0.4`.
-> **PRELIMINARY (protocol §8.1):** chỉ để kiểm tra pipeline, dataset chưa đóng băng (v1.0). Không đổi feature, lưới hay target dựa trên các số này. Lockbox chưa mở.
+> Run `dev-cv-261025-v1.0` · dataset `data/processed/dataset-v1.0.csv` sha256 `05125d31b991516d…` · seed 42 · artifacts `data/processed/model-runs/dev-cv-261025-v1.0`.
+> **Kết quả trên tập development (protocol §8.1):** cross-validation theo site, chưa phải đánh giá xác nhận. Không đổi feature, lưới hay target dựa trên các số này. Lockbox chưa mở.
 
 ## 1. Dữ liệu
 
 | mục | giá trị |
 |---|---|
-| dòng hợp lệ (site thật) | 767 |
-| trang hợp lệ | 160 |
-| trang bị loại (< 4 lần hợp lệ) | 4 |
-| site lockbox (giữ lại) | 19 |
-| **dev:** site / trang / dòng | 60 / 118 / 570 |
-| site theo fold | {0: 8, 1: 12, 2: 14, 3: 14, 4: 12} |
-| site theo tầng | {'heavy': 18, 'light': 20, 'medium': 22} |
-| dòng LCP ≥ 55 s (sát cửa sổ) | 5 |
+| dòng hợp lệ (site thật) | 1920 |
+| trang hợp lệ | 399 |
+| trang bị loại (< 4 lần hợp lệ) | 7 |
+| site lockbox (giữ lại) | 42 |
+| **dev:** site / trang / dòng | 157 / 310 / 1499 |
+| site theo fold | {0: 29, 1: 30, 2: 37, 3: 29, 4: 32} |
+| site theo tầng | {'heavy': 50, 'light': 54, 'medium': 53} |
+| dòng LCP ≥ 55 s (sát cửa sổ) | 8 |
 
 ## 2. LCP (`lh_lcp_ms`)
 
@@ -23,50 +23,50 @@
 
 | bộ | mô hình | MAE (ms) | MAE CI95 | RMSE | R² | MdAPE | ΔMAE | ΔMAE CI95 | so với baseline | MAE shuffled |
 |---|---|---|---|---|---|---|---|---|---|---|
-| - | baseline | 6.273 | [5.209; 7.545] | 9.260 | -0.049 | 47% | 0 | [0; 0] | – | – |
-| S | ridge | 5.398 | [4.306; 6.757] | 8.551 | 0.105 | 39% | -875 | [-1.569; -145] | ✅ thắng | 6.396 |
-| S | random_forest | 4.755 | [3.744; 6.058] | 7.796 | 0.256 | 32% | -1.518 | [-2.246; -734] | ✅ thắng | 6.447 |
-| S | xgboost | 4.802 | [3.865; 5.987] | 7.719 | 0.271 | 36% | -1.470 | [-2.209; -718] | ✅ thắng | 6.460 |
-| S+R | ridge | 5.086 | [4.155; 6.337] | 7.885 | 0.239 | 38% | -1.186 | [-1.850; -487] | ✅ thắng | 6.400 |
-| S+R | random_forest | 4.563 | [3.577; 5.828] | 7.555 | 0.302 | 31% | -1.709 | [-2.379; -996] | ✅ thắng | 6.323 |
-| S+R | xgboost | 4.587 | [3.649; 5.747] | 7.472 | 0.317 | 32% | -1.685 | [-2.429; -896] | ✅ thắng | 6.402 |
+| - | baseline | 6.534 | [5.811; 7.306] | 9.880 | -0.077 | 47% | 0 | [0; 0] | – | – |
+| S | ridge | 4.969 | [4.293; 5.709] | 8.198 | 0.258 | 32% | -1.565 | [-2.007; -1.121] | ✅ thắng | 6.557 |
+| S | random_forest | 4.880 | [4.241; 5.626] | 8.093 | 0.277 | 31% | -1.654 | [-2.048; -1.262] | ✅ thắng | 6.483 |
+| S | xgboost | 4.692 | [4.082; 5.413] | 7.896 | 0.312 | 28% | -1.842 | [-2.285; -1.379] | ✅ thắng | 6.388 |
+| S+R | ridge | 4.852 | [4.230; 5.517] | 7.940 | 0.304 | 32% | -1.682 | [-2.117; -1.225] | ✅ thắng | 6.506 |
+| S+R | random_forest | 4.377 | [3.804; 5.018] | 7.410 | 0.394 | 28% | -2.156 | [-2.651; -1.716] | ✅ thắng | 6.480 |
+| S+R | xgboost | 4.356 | [3.761; 4.996] | 7.374 | 0.400 | 28% | -2.178 | [-2.647; -1.730] | ✅ thắng | 6.439 |
 
 **MAE theo fold (ms)**
 
-| bộ | mô hình | fold 0 (8 site) | fold 1 (12 site) | fold 2 (14 site) | fold 3 (14 site) | fold 4 (12 site) |
+| bộ | mô hình | fold 0 (29 site) | fold 1 (30 site) | fold 2 (37 site) | fold 3 (29 site) | fold 4 (32 site) |
 |---|---|---|---|---|---|---|
-| - | baseline | 7.460 | 5.809 | 4.255 | 7.382 | 7.097 |
-| S | ridge | 7.482 | 4.242 | 4.434 | 6.351 | 5.254 |
-| S | random_forest | 6.039 | 4.253 | 4.817 | 5.619 | 3.325 |
-| S | xgboost | 5.941 | 4.027 | 4.716 | 5.828 | 3.733 |
-| S+R | ridge | 5.480 | 4.754 | 4.183 | 6.213 | 4.919 |
-| S+R | random_forest | 5.555 | 4.269 | 4.174 | 5.356 | 3.743 |
-| S+R | xgboost | 5.233 | 3.601 | 4.429 | 5.459 | 4.329 |
+| - | baseline | 7.531 | 7.022 | 5.575 | 6.542 | 6.268 |
+| S | ridge | 5.773 | 5.394 | 4.084 | 5.190 | 4.656 |
+| S | random_forest | 5.557 | 5.249 | 4.363 | 5.059 | 4.337 |
+| S | xgboost | 5.321 | 4.958 | 4.478 | 4.876 | 3.925 |
+| S+R | ridge | 5.226 | 5.157 | 4.086 | 5.117 | 4.879 |
+| S+R | random_forest | 5.303 | 4.776 | 3.576 | 4.499 | 3.968 |
+| S+R | xgboost | 5.002 | 4.879 | 3.743 | 4.327 | 4.010 |
 
 **Độ nhạy:** MAE khi bỏ các dòng LCP ≥ 55 s khỏi đánh giá
 
 | bộ | mô hình | MAE đầy đủ | MAE bỏ dòng sát cửa sổ |
 |---|---|---|---|
-| - | baseline | 6.273 | 5.901 |
-| S | ridge | 5.398 | 5.004 |
-| S | random_forest | 4.755 | 4.388 |
-| S | xgboost | 4.802 | 4.436 |
-| S+R | ridge | 5.086 | 4.707 |
-| S+R | random_forest | 4.563 | 4.205 |
-| S+R | xgboost | 4.587 | 4.225 |
+| - | baseline | 6.534 | 6.310 |
+| S | ridge | 4.969 | 4.758 |
+| S | random_forest | 4.880 | 4.666 |
+| S | xgboost | 4.692 | 4.489 |
+| S+R | ridge | 4.852 | 4.667 |
+| S+R | random_forest | 4.377 | 4.201 |
+| S+R | xgboost | 4.356 | 4.167 |
 
-**Site có lỗi lớn nhất — random_forest / S+R** (bias > 0: dự đoán cao hơn thực tế)
+**Site có lỗi lớn nhất — xgboost / S+R** (bias > 0: dự đoán cao hơn thực tế)
 
 | site | tầng | dòng | LCP median | MAE | bias |
 |---|---|---|---|---|---|
-| miraggiolife.com | heavy | 10 | 29.930 | 24.778 | -20.262 |
-| www.beauteprivee.fr | heavy | 10 | 23.297 | 15.502 | -15.502 |
-| hatley.com | medium | 8 | 26.436 | 13.236 | -7.281 |
-| www.redapplefireworks.com | heavy | 10 | 1.087 | 12.572 | 12.572 |
-| jockey.com.au | medium | 8 | 22.821 | 11.933 | -11.933 |
-| www.quadlockcase.eu | light | 10 | 19.683 | 10.023 | -10.023 |
-| www.myfonts.com | medium | 9 | 15.610 | 8.876 | -8.876 |
-| seoidin.com | medium | 10 | 22.846 | 8.836 | -8.836 |
+| miraggiolife.com | heavy | 10 | 29.930 | 22.797 | -19.402 |
+| upway.de | heavy | 10 | 26.355 | 20.728 | -15.295 |
+| ajeworld.com.au | heavy | 10 | 27.443 | 17.226 | -13.590 |
+| sundrug-online.com | heavy | 10 | 27.827 | 15.133 | -15.133 |
+| corlection.com | light | 9 | 14.242 | 14.740 | -14.446 |
+| liftsafety.com | light | 10 | 22.706 | 13.333 | -13.333 |
+| gemsmagic.com | medium | 10 | 23.268 | 12.892 | -12.244 |
+| cbj-store.com | medium | 10 | 8.526 | 12.766 | -11.477 |
 
 ## 3. TBT30 (`tbt_30s_ms`)
 
@@ -74,38 +74,38 @@
 
 | bộ | mô hình | MAE (ms) | MAE CI95 | RMSE | R² | MdAPE | ΔMAE | ΔMAE CI95 | so với baseline | MAE shuffled |
 |---|---|---|---|---|---|---|---|---|---|---|
-| - | baseline | 2.599 | [2.204; 3.010] | 3.313 | -0.072 | 43% | 0 | [0; 0] | – | – |
-| S | ridge | 2.065 | [1.732; 2.412] | 2.758 | 0.257 | 33% | -534 | [-804; -270] | ✅ thắng | 2.613 |
-| S | random_forest | 2.045 | [1.705; 2.417] | 2.755 | 0.258 | 33% | -554 | [-804; -275] | ✅ thắng | 2.655 |
-| S | xgboost | 2.077 | [1.756; 2.426] | 2.746 | 0.263 | 35% | -522 | [-809; -228] | ✅ thắng | 2.743 |
-| S+R | ridge | 1.494 | [1.227; 1.779] | 2.107 | 0.566 | 23% | -1.105 | [-1.441; -752] | ✅ thắng | 2.657 |
-| S+R | random_forest | 1.525 | [1.221; 1.851] | 2.183 | 0.535 | 22% | -1.073 | [-1.322; -780] | ✅ thắng | 2.731 |
-| S+R | xgboost | 1.571 | [1.300; 1.859] | 2.150 | 0.548 | 24% | -1.028 | [-1.304; -710] | ✅ thắng | 2.792 |
+| - | baseline | 2.686 | [2.459; 2.905] | 3.459 | -0.049 | 42% | 0 | [0; 0] | – | – |
+| S | ridge | 2.088 | [1.895; 2.285] | 2.883 | 0.271 | 31% | -598 | [-800; -407] | ✅ thắng | 2.722 |
+| S | random_forest | 2.063 | [1.887; 2.242] | 2.827 | 0.299 | 32% | -623 | [-813; -440] | ✅ thắng | 2.724 |
+| S | xgboost | 2.059 | [1.885; 2.234] | 2.815 | 0.305 | 31% | -626 | [-825; -435] | ✅ thắng | 2.758 |
+| S+R | ridge | 1.397 | [1.263; 1.543] | 1.947 | 0.668 | 20% | -1.289 | [-1.509; -1.079] | ✅ thắng | 2.724 |
+| S+R | random_forest | 1.367 | [1.216; 1.519] | 1.974 | 0.658 | 18% | -1.319 | [-1.522; -1.119] | ✅ thắng | 2.744 |
+| S+R | xgboost | 1.373 | [1.231; 1.525] | 1.940 | 0.670 | 20% | -1.313 | [-1.514; -1.110] | ✅ thắng | 2.778 |
 
 **MAE theo fold (ms)**
 
-| bộ | mô hình | fold 0 (8 site) | fold 1 (12 site) | fold 2 (14 site) | fold 3 (14 site) | fold 4 (12 site) |
+| bộ | mô hình | fold 0 (29 site) | fold 1 (30 site) | fold 2 (37 site) | fold 3 (29 site) | fold 4 (32 site) |
 |---|---|---|---|---|---|---|
-| - | baseline | 2.312 | 2.745 | 2.992 | 2.437 | 2.351 |
-| S | ridge | 1.887 | 2.212 | 2.242 | 1.765 | 2.171 |
-| S | random_forest | 1.749 | 2.319 | 2.210 | 1.835 | 2.006 |
-| S | xgboost | 1.680 | 2.298 | 2.439 | 1.725 | 2.089 |
-| S+R | ridge | 1.804 | 1.391 | 1.529 | 1.315 | 1.568 |
-| S+R | random_forest | 1.231 | 1.611 | 1.782 | 1.288 | 1.599 |
-| S+R | xgboost | 1.314 | 1.653 | 2.006 | 1.338 | 1.405 |
+| - | baseline | 2.497 | 2.895 | 2.829 | 2.326 | 2.834 |
+| S | ridge | 1.953 | 2.083 | 2.133 | 1.784 | 2.455 |
+| S | random_forest | 1.869 | 2.172 | 2.156 | 1.766 | 2.313 |
+| S | xgboost | 1.882 | 2.142 | 2.007 | 1.902 | 2.362 |
+| S+R | ridge | 1.299 | 1.407 | 1.410 | 1.315 | 1.541 |
+| S+R | random_forest | 1.242 | 1.442 | 1.400 | 1.165 | 1.566 |
+| S+R | xgboost | 1.237 | 1.429 | 1.362 | 1.289 | 1.544 |
 
-**Site có lỗi lớn nhất — ridge / S+R** (bias > 0: dự đoán cao hơn thực tế)
+**Site có lỗi lớn nhất — random_forest / S+R** (bias > 0: dự đoán cao hơn thực tế)
 
 | site | tầng | dòng | TBT30 median | MAE | bias |
 |---|---|---|---|---|---|
-| www.revesderecho.com | heavy | 9 | 11.350 | 4.949 | -4.949 |
-| wearme.ua | heavy | 5 | 7.785 | 4.768 | 4.768 |
-| www.newera.mx | heavy | 10 | 12.148 | 4.196 | -4.196 |
-| www.jdsports.co.th | heavy | 10 | 10.802 | 3.874 | -3.252 |
-| pepperfield.cz | medium | 9 | 6.954 | 3.635 | 3.635 |
-| www.beauteprivee.fr | heavy | 10 | 7.272 | 3.446 | -3.446 |
-| www.livreeleve.com.br | medium | 10 | 7.258 | 3.100 | -3.100 |
-| rdstudio.co | medium | 10 | 10.442 | 2.977 | -2.975 |
+| store.seikowatches.com | heavy | 10 | 10.757 | 5.128 | -5.128 |
+| metamorphcenter.com | heavy | 10 | 14.254 | 4.211 | -4.183 |
+| www.revesderecho.com | heavy | 9 | 11.350 | 4.200 | -4.200 |
+| ebisujapan.com | heavy | 10 | 8.354 | 3.945 | -3.609 |
+| www.jdsports.co.th | heavy | 10 | 10.802 | 3.805 | -3.805 |
+| www.hypeelixir.com | heavy | 10 | 12.218 | 3.711 | -3.711 |
+| colorsoutlet.it | medium | 5 | 9.265 | 3.352 | -3.352 |
+| thebearhouse.com | heavy | 10 | 8.898 | 3.233 | -1.312 |
 
 ## 4. RQ2 — runtime features thêm được bao nhiêu (S+R so với S)
 
@@ -113,12 +113,12 @@
 
 | target | mô hình | ΔMAE (ms) | CI95 | kết luận |
 |---|---|---|---|---|
-| LCP | ridge | -311 | [-618; -4] | ✅ R giúp |
-| LCP | random_forest | -191 | [-502; 138] | ≈ không phân biệt |
-| LCP | xgboost | -215 | [-550; 123] | ≈ không phân biệt |
-| TBT30 | ridge | -571 | [-833; -293] | ✅ R giúp |
-| TBT30 | random_forest | -520 | [-679; -362] | ✅ R giúp |
-| TBT30 | xgboost | -506 | [-691; -320] | ✅ R giúp |
+| LCP | ridge | -117 | [-403; 193] | ≈ không phân biệt |
+| LCP | random_forest | -502 | [-818; -214] | ✅ R giúp |
+| LCP | xgboost | -336 | [-636; -66] | ✅ R giúp |
+| TBT30 | ridge | -692 | [-845; -550] | ✅ R giúp |
+| TBT30 | random_forest | -696 | [-799; -587] | ✅ R giúp |
+| TBT30 | xgboost | -686 | [-801; -567] | ✅ R giúp |
 
 ## 5. Sanity checks
 
