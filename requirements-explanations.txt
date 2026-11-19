@@ -1,0 +1,4 @@
+# Thư viện cho phần giải thích (RQ3–RQ4). Tách khỏi requirements.txt để file đó giữ đúng bản đã ghi checksum
+# trong model freeze v1.0 (RQ1–RQ2 không dùng shap). Cài: npm run ml:setup
+-r requirements.txt
+shap==0.54.1

@@ -53,7 +53,7 @@ npm run sample:sites -- --total=80 --extend   # rút mẫu store phân tầng �
 npm run collect:wave1        # đo theo wave 1–5 (resume: -- --resume=<batch_id>)
 npm run collect:retry        # đo bù phép đo lỗi 1 lần (hard cap 300 s)
 npm run reports              # reparse → dictionary → noise → leakage → QC (G3, snapshot) → EDA
-npm run ml:setup             # Python 3.14 venv + requirements.txt
+npm run ml:setup             # Python 3.14 venv + requirements-explanations.txt (requirements.txt + shap)
 npm run ml:train -- --run-id=dev-cv-v1.0 --dataset=data/processed/dataset-v1.0.csv
 npm run ml:rq1-rq2 -- --run=dev-cv-v1.0                    # Friedman/Wilcoxon + Figure 3
 npm run ml:learning-curve -- --dataset=data/processed/dataset-v0.4.csv
