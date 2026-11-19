@@ -61,8 +61,18 @@ npm run ml:compare-size -- --small=data/processed/dataset-v0.4.csv --large=data/
 npm run ml:rq2-sites          # RQ2 theo store / tầng / loại trang + Figure 4 (bias theo decile)
 npm run ml:feature-mapping    # mapping feature → cause group trên testbed (chuẩn bị RQ3)
 npm run ml:freeze            # model freeze v1.0 (từ chối ghi đè)
+npm run ml:rq3               # RQ3: fit lại RF/XGBoost/Ridge S+R trên testbed, SHAP, điểm nhóm (~4 phút)
+npm run ml:rq3-report        # Hit@1/Hit@3/MRR, độ ổn định, Table 8, Figure 5–6
 npm run test:ml              # unit test Python
 ```
+
+## RQ3 — kiểm chứng giải thích trên testbed (tuần 7)
+
+- Run `data/processed/model-runs/rq3-testbed-261108/`: SHAP interventional, background = phép đo baseline cùng loại trang; chia theo lần lặp (chính) và leave-one-severity-out (độ bền).
+- Random Forest S+R: LCP Hit@1 0,57 [0,39; 0,73], MRR 0,73; TBT30 Hit@1 0,58 [0,32; 0,86], MRR 0,79. Mức ngẫu nhiên MRR 0,46.
+- Vượt xa ngẫu nhiên nhưng **không tốt hơn xếp hạng tham chiếu không dùng mô hình** (MRR 0,83 / 0,78).
+- Đúng 100% khi lỗi có feature riêng (CSS chặn hiển thị, JS trang với TBT30, DOM với TBT30); sai khi lỗi làm tăng tổng dung lượng trang (ảnh LCP, script bên thứ ba); không phân biệt được long task của trang với của bên thứ ba (0/27).
+- Chi tiết: [`docs/rq3-explanation-validation.md`](docs/rq3-explanation-validation.md); Table 8, Figure 5–6 trong `docs/figures/`. Amendment 08/11 (protocol §10).
 
 ## Model freeze v1.0 (tuần 6) — RQ1–RQ2 FROZEN
 

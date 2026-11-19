@@ -1,0 +1,2849 @@
+{
+  "run": "rq3-testbed-261108",
+  "chance": {
+    "hit1": 0.2,
+    "hit3": 0.6,
+    "mrr": 0.45666666666666667
+  },
+  "validation": [
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "interventional",
+      "n": 37,
+      "hit1": 0.7837837837837838,
+      "hit3": 0.8378378378378378,
+      "mrr": 0.8400900900900901,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          1.0
+        ],
+        "hit3": [
+          0.6,
+          1.0
+        ],
+        "mrr": [
+          0.5980952380952381,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.7073529411764706,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 0.25,
+          "mrr": 0.26041666666666663,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "interventional_magnitude",
+      "n": 37,
+      "hit1": 0.7837837837837838,
+      "hit3": 1.0,
+      "mrr": 0.8693693693693693,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6761904761904761,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.9117647058823529,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3958333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "path_dependent",
+      "n": 37,
+      "hit1": 0.7297297297297297,
+      "hit3": 1.0,
+      "mrr": 0.8423423423423423,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          0.95
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6567401960784313,
+          0.975
+        ]
+      },
+      "stability_repetitions": 0.9705882352941176,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 0.8,
+          "hit3": 1.0,
+          "mrr": 0.9,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 8,
+            "third_party": 2
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3958333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "reference",
+      "variant": "model_free",
+      "n": 37,
+      "hit1": 0.7837837837837838,
+      "hit3": 1.0,
+      "mrr": 0.8918918918918919,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.7142857142857143,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.6779411764705882,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "ridge",
+      "variant": "interventional",
+      "n": 37,
+      "hit1": 0.0,
+      "hit3": 0.0,
+      "mrr": 0.21081081081081082,
+      "ci95": {
+        "hit1": [
+          0.0,
+          0.0
+        ],
+        "hit3": [
+          0.0,
+          0.0
+        ],
+        "mrr": [
+          0.20000000000000004,
+          0.22857142857142854
+        ]
+      },
+      "stability_repetitions": 0.8970588235294118,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.2,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 7,
+            "main_thread_js": 3
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.2,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 7,
+            "render_blocking": 3
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.2,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 6,
+            "third_party": 3
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.25,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 6,
+            "dom_layout": 2
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "ridge",
+      "variant": "interventional_magnitude",
+      "n": 37,
+      "hit1": 0.7837837837837838,
+      "hit3": 1.0,
+      "mrr": 0.8918918918918919,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.7142857142857143,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.8529411764705882,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "interventional",
+      "n": 37,
+      "hit1": 0.5945945945945946,
+      "hit3": 0.6486486486486487,
+      "mrr": 0.6914414414414414,
+      "ci95": {
+        "hit1": [
+          0.2564102564102564,
+          0.871875
+        ],
+        "hit3": [
+          0.3684210526315789,
+          0.8974358974358975
+        ],
+        "mrr": [
+          0.4366868183973447,
+          0.905128205128205
+        ]
+      },
+      "stability_repetitions": 0.6264705882352941,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 0.0,
+          "hit3": 0.2,
+          "mrr": 0.24333333333333335,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 9,
+            "third_party": 1
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.375,
+          "hit3": 0.375,
+          "mrr": 0.51875,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 4,
+            "third_party": 3,
+            "dom_layout": 1
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "interventional_magnitude",
+      "n": 37,
+      "hit1": 0.7837837837837838,
+      "hit3": 1.0,
+      "mrr": 0.8558558558558558,
+      "ci95": {
+        "hit1": [
+          0.42857142857142855,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.619047619047619,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.8676470588235294,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3333333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 7,
+            "dom_layout": 1
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "path_dependent",
+      "n": 37,
+      "hit1": 0.5405405405405406,
+      "hit3": 0.5945945945945946,
+      "mrr": 0.65,
+      "ci95": {
+        "hit1": [
+          0.1891891891891892,
+          0.8649537695590327
+        ],
+        "hit3": [
+          0.2564102564102564,
+          0.871875
+        ],
+        "mrr": [
+          0.38513513513513503,
+          0.8971501831501831
+        ]
+      },
+      "stability_repetitions": 0.7367647058823529,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.20500000000000002,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 6,
+            "third_party": 4
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "lcp_resource": 10
+          }
+        },
+        "render-blocking-css": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "render_blocking": 9
+          }
+        },
+        "third-party-scripts": {
+          "n": 8,
+          "hit1": 0.125,
+          "hit3": 0.375,
+          "mrr": 0.375,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 6,
+            "third_party": 1,
+            "dom_layout": 1
+          }
+        }
+      },
+      "origin_discrimination": null
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "interventional",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7777777777777778,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.5,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.675,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "interventional_magnitude",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7777777777777778,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.5,
+          1.0
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "path_dependent",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7037037037037037,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.3333333333333333,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.90625,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3333333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "reference",
+      "variant": "model_free",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7777777777777778,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.5,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.6468750000000001,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "ridge",
+      "variant": "interventional",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7777777777777778,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.5,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.715625,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "ridge",
+      "variant": "interventional_magnitude",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.75,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.4375,
+          1.0
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4375,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "interventional",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7407407407407408,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.41666666666666663,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.75625,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.41666666666666663,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "interventional_magnitude",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7037037037037037,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.3333333333333333,
+          1.0
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3333333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "leave_one_severity_out",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "path_dependent",
+      "n": 18,
+      "hit1": 0.5555555555555556,
+      "hit3": 1.0,
+      "mrr": 0.7037037037037037,
+      "ci95": {
+        "hit1": [
+          0.0,
+          1.0
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.3333333333333333,
+          1.0
+        ]
+      },
+      "stability_repetitions": 0.90625,
+      "per_fault": {
+        "js-long-task": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 10
+          }
+        },
+        "third-party-long-task": {
+          "n": 8,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3333333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5555555555555556
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "interventional",
+      "n": 115,
+      "hit1": 0.5652173913043478,
+      "hit3": 0.8173913043478261,
+      "mrr": 0.729855072463768,
+      "ci95": {
+        "hit1": [
+          0.3916095132743363,
+          0.7327586206896551
+        ],
+        "hit3": [
+          0.6578266787658803,
+          0.9482758620689655
+        ],
+        "mrr": [
+          0.6046313882532418,
+          0.836845238095238
+        ]
+      },
+      "stability_repetitions": 0.647142857142857,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.55,
+          "hit3": 1.0,
+          "mrr": 0.775,
+          "dose_response_rho": -0.8671099695241199,
+          "top1": {
+            "dom_layout": 11,
+            "main_thread_js": 8,
+            "third_party": 1
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 0.6666666666666666,
+          "hit3": 1.0,
+          "mrr": 0.8333333333333334,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 6,
+            "dom_layout": 2,
+            "third_party": 1
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 0.6551724137931034,
+          "hit3": 0.6551724137931034,
+          "mrr": 0.7241379310344828,
+          "dose_response_rho": 0.49629166698546506,
+          "top1": {
+            "lcp_resource": 19,
+            "dom_layout": 4,
+            "third_party": 3,
+            "main_thread_js": 2,
+            "render_blocking": 1
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.4143936760035535,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4666666666666667,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.11538461538461539,
+          "hit3": 0.5769230769230769,
+          "mrr": 0.44615384615384623,
+          "dose_response_rho": -0.6101702158477521,
+          "top1": {
+            "main_thread_js": 12,
+            "lcp_resource": 7,
+            "dom_layout": 4,
+            "third_party": 3
+          }
+        }
+      },
+      "origin_discrimination": 0.5714285714285714
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "interventional_magnitude",
+      "n": 115,
+      "hit1": 0.5652173913043478,
+      "hit3": 1.0,
+      "mrr": 0.7753623188405796,
+      "ci95": {
+        "hit1": [
+          0.3893567615007679,
+          0.7589285714285714
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6827284356725146,
+          0.8750090579710145
+        ]
+      },
+      "stability_repetitions": 0.8357142857142857,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.25,
+          "hit3": 1.0,
+          "mrr": 0.625,
+          "dose_response_rho": -0.8671099695241199,
+          "top1": {
+            "main_thread_js": 15,
+            "dom_layout": 5
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 0.6666666666666666,
+          "hit3": 1.0,
+          "mrr": 0.8333333333333334,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 6,
+            "dom_layout": 3
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 0.9655172413793104,
+          "hit3": 1.0,
+          "mrr": 0.9770114942528735,
+          "dose_response_rho": 0.49629166698546506,
+          "top1": {
+            "lcp_resource": 28,
+            "main_thread_js": 1
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.4143936760035535,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4333333333333333,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.48717948717948717,
+          "dose_response_rho": 0.5238835186571609,
+          "top1": {
+            "main_thread_js": 26
+          }
+        }
+      },
+      "origin_discrimination": 0.6428571428571429
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "random_forest",
+      "variant": "path_dependent",
+      "n": 115,
+      "hit1": 0.5217391304347826,
+      "hit3": 0.9043478260869565,
+      "mrr": 0.6959420289855073,
+      "ci95": {
+        "hit1": [
+          0.330363568215892,
+          0.7033898305084746
+        ],
+        "hit3": [
+          0.7758405172413793,
+          1.0
+        ],
+        "mrr": [
+          0.5657892258895827,
+          0.8160992596921877
+        ]
+      },
+      "stability_repetitions": 0.8085714285714286,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.55,
+          "hit3": 1.0,
+          "mrr": 0.7416666666666667,
+          "dose_response_rho": -0.8671099695241199,
+          "top1": {
+            "dom_layout": 11,
+            "main_thread_js": 6,
+            "third_party": 3
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 0.5555555555555556,
+          "hit3": 0.8888888888888888,
+          "mrr": 0.7259259259259259,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 5,
+            "dom_layout": 3,
+            "lcp_resource": 1
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 0.6551724137931034,
+          "hit3": 0.6551724137931034,
+          "mrr": 0.7241379310344828,
+          "dose_response_rho": 0.49629166698546506,
+          "top1": {
+            "lcp_resource": 19,
+            "main_thread_js": 9,
+            "dom_layout": 1
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 0.9615384615384616,
+          "hit3": 1.0,
+          "mrr": 0.9807692307692307,
+          "dose_response_rho": 0.4143936760035535,
+          "top1": {
+            "render_blocking": 25,
+            "main_thread_js": 1
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4666666666666667,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.37820512820512825,
+          "dose_response_rho": -0.5855168737932973,
+          "top1": {
+            "main_thread_js": 18,
+            "dom_layout": 8
+          }
+        }
+      },
+      "origin_discrimination": 0.5714285714285714
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "reference",
+      "variant": "model_free",
+      "n": 115,
+      "hit1": 0.6608695652173913,
+      "hit3": 1.0,
+      "mrr": 0.8304347826086956,
+      "ci95": {
+        "hit1": [
+          0.46017699115044247,
+          0.8260869565217391
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.7300884955752213,
+          0.9130434782608695
+        ]
+      },
+      "stability_repetitions": 0.7319047619047618,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8671099695241199,
+          "top1": {
+            "dom_layout": 20
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 9
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9495253559533846,
+          "top1": {
+            "lcp_resource": 29
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 0.6923076923076923,
+          "hit3": 1.0,
+          "mrr": 0.8461538461538461,
+          "dose_response_rho": 0.943474290675864,
+          "top1": {
+            "render_blocking": 18,
+            "lcp_resource": 8
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": 0.9429903335828895,
+          "top1": {
+            "main_thread_js": 26
+          }
+        }
+      },
+      "origin_discrimination": 0.6428571428571429
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "ridge",
+      "variant": "interventional",
+      "n": 115,
+      "hit1": 0.30434782608695654,
+      "hit3": 0.34782608695652173,
+      "mrr": 0.46782608695652184,
+      "ci95": {
+        "hit1": [
+          0.13910044977511243,
+          0.49148613193403284
+        ],
+        "hit3": [
+          0.16100938256658595,
+          0.5470289855072464
+        ],
+        "mrr": [
+          0.3330289240972735,
+          0.6144129894798365
+        ]
+      },
+      "stability_repetitions": 0.8266666666666667,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.20000000000000004,
+          "dose_response_rho": -0.8671099695241199,
+          "top1": {
+            "main_thread_js": 14,
+            "render_blocking": 6
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 9
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.20000000000000007,
+          "dose_response_rho": -0.9027189408090968,
+          "top1": {
+            "dom_layout": 16,
+            "main_thread_js": 8,
+            "render_blocking": 4,
+            "third_party": 1
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.7843541954920388,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.0,
+          "hit3": 0.0,
+          "mrr": 0.25,
+          "dose_response_rho": -0.9306636625556622,
+          "top1": {
+            "lcp_resource": 19,
+            "dom_layout": 7
+          }
+        }
+      },
+      "origin_discrimination": 0.6428571428571429
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "ridge",
+      "variant": "interventional_magnitude",
+      "n": 115,
+      "hit1": 0.6,
+      "hit3": 1.0,
+      "mrr": 0.7942028985507246,
+      "ci95": {
+        "hit1": [
+          0.4035050862450243,
+          0.7844827586206896
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6926161164693274,
+          0.8874643874643874
+        ]
+      },
+      "stability_repetitions": 0.9261904761904762,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8671099695241199,
+          "top1": {
+            "dom_layout": 20
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.3464101615137754,
+          "top1": {
+            "main_thread_js": 9
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9027189408090968,
+          "top1": {
+            "lcp_resource": 29
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 0.4230769230769231,
+          "hit3": 1.0,
+          "mrr": 0.7115384615384616,
+          "dose_response_rho": 0.7959796397976179,
+          "top1": {
+            "lcp_resource": 15,
+            "render_blocking": 11
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.3666666666666666,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": 0.8813569784467529,
+          "top1": {
+            "main_thread_js": 26
+          }
+        }
+      },
+      "origin_discrimination": 0.6428571428571429
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "interventional",
+      "n": 115,
+      "hit1": 0.6956521739130435,
+      "hit3": 0.8,
+      "mrr": 0.7878260869565217,
+      "ci95": {
+        "hit1": [
+          0.5516810344827586,
+          0.8378740347490347
+        ],
+        "hit3": [
+          0.6902654867256637,
+          0.8956521739130435
+        ],
+        "mrr": [
+          0.6893702708837773,
+          0.8848793859649121
+        ]
+      },
+      "stability_repetitions": 0.5495238095238095,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.6,
+          "hit3": 0.65,
+          "mrr": 0.7,
+          "dose_response_rho": -0.3815283865906128,
+          "top1": {
+            "dom_layout": 12,
+            "third_party": 4,
+            "lcp_resource": 2,
+            "main_thread_js": 2
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 0.6666666666666666,
+          "hit3": 0.7777777777777778,
+          "mrr": 0.7666666666666667,
+          "dose_response_rho": 0.8660254037844386,
+          "top1": {
+            "main_thread_js": 6,
+            "third_party": 2,
+            "dom_layout": 1
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9119464186899349,
+          "top1": {
+            "lcp_resource": 29
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8713545645377979,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.2692307692307692,
+          "hit3": 0.46153846153846156,
+          "mrr": 0.4692307692307693,
+          "dose_response_rho": -0.43759682146656964,
+          "top1": {
+            "main_thread_js": 13,
+            "third_party": 7,
+            "lcp_resource": 4,
+            "dom_layout": 2
+          }
+        }
+      },
+      "origin_discrimination": 0.42857142857142855
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "interventional_magnitude",
+      "n": 115,
+      "hit1": 0.6173913043478261,
+      "hit3": 1.0,
+      "mrr": 0.7797101449275361,
+      "ci95": {
+        "hit1": [
+          0.44245196523957586,
+          0.8034188034188035
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6768961736237145,
+          0.887017118161186
+        ]
+      },
+      "stability_repetitions": 0.9095238095238095,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.3,
+          "hit3": 1.0,
+          "mrr": 0.65,
+          "dose_response_rho": 0.780398972571708,
+          "top1": {
+            "main_thread_js": 14,
+            "dom_layout": 6
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.6062177826491071,
+          "top1": {
+            "main_thread_js": 9
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9119464186899349,
+          "top1": {
+            "lcp_resource": 29
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8713545645377979,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.39999999999999997,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.038461538461538464,
+          "hit3": 1.0,
+          "mrr": 0.4102564102564103,
+          "dose_response_rho": -0.018490006540840973,
+          "top1": {
+            "main_thread_js": 25,
+            "third_party": 1
+          }
+        }
+      },
+      "origin_discrimination": 0.6428571428571429
+    },
+    {
+      "split": "repetition",
+      "target": "lh_lcp_ms",
+      "model": "xgboost",
+      "variant": "path_dependent",
+      "n": 115,
+      "hit1": 0.6260869565217392,
+      "hit3": 0.8347826086956521,
+      "mrr": 0.7433333333333333,
+      "ci95": {
+        "hit1": [
+          0.453781512605042,
+          0.7948717948717948
+        ],
+        "hit3": [
+          0.7344694079951175,
+          0.9152542372881356
+        ],
+        "mrr": [
+          0.6268369807860958,
+          0.8548384533898304
+        ]
+      },
+      "stability_repetitions": 0.7423809523809523,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 20,
+          "hit1": 0.55,
+          "hit3": 0.7,
+          "mrr": 0.6708333333333333,
+          "dose_response_rho": -0.4162127853715776,
+          "top1": {
+            "dom_layout": 11,
+            "third_party": 6,
+            "main_thread_js": 2,
+            "lcp_resource": 1
+          }
+        },
+        "js-long-task": {
+          "n": 9,
+          "hit1": 0.3333333333333333,
+          "hit3": 0.3333333333333333,
+          "mrr": 0.4666666666666667,
+          "dose_response_rho": 0.4330127018922193,
+          "top1": {
+            "dom_layout": 5,
+            "main_thread_js": 3,
+            "third_party": 1
+          }
+        },
+        "lcp-heavy-image": {
+          "n": 29,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9325059216516371,
+          "top1": {
+            "lcp_resource": 29
+          }
+        },
+        "render-blocking-css": {
+          "n": 26,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.8713545645377979,
+          "top1": {
+            "render_blocking": 26
+          }
+        },
+        "third-party-long-task": {
+          "n": 5,
+          "hit1": 0.0,
+          "hit3": 0.8,
+          "mrr": 0.45,
+          "dose_response_rho": NaN,
+          "top1": {
+            "main_thread_js": 5
+          }
+        },
+        "third-party-scripts": {
+          "n": 26,
+          "hit1": 0.11538461538461539,
+          "hit3": 0.7692307692307693,
+          "mrr": 0.4083333333333333,
+          "dose_response_rho": -0.40678014389850137,
+          "top1": {
+            "main_thread_js": 19,
+            "dom_layout": 3,
+            "third_party": 3,
+            "render_blocking": 1
+          }
+        }
+      },
+      "origin_discrimination": 0.21428571428571427
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "interventional",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 1.0,
+      "mrr": 0.7897435897435897,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6558521078682369,
+          0.9285894660894661
+        ]
+      },
+      "stability_repetitions": 0.6833333333333333,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9416472308615167,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4938271604938272,
+          "dose_response_rho": 0.6367487371095164,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "interventional_magnitude",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 1.0,
+      "mrr": 0.7769230769230769,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6307475490196078,
+          0.9254079978893411
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9416472308615167,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.46296296296296297,
+          "dose_response_rho": 0.6367487371095164,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "random_forest",
+      "variant": "path_dependent",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 0.9230769230769231,
+      "mrr": 0.7128205128205128,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          0.8029545454545454,
+          1.0
+        ],
+        "mrr": [
+          0.5291095430107529,
+          0.9006113372531283
+        ]
+      },
+      "stability_repetitions": 0.825,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9416472308615167,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 0.8148148148148148,
+          "mrr": 0.308641975308642,
+          "dose_response_rho": 0.6309159242504979,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "reference",
+      "variant": "model_free",
+      "n": 65,
+      "hit1": 0.5692307692307692,
+      "hit3": 1.0,
+      "mrr": 0.7846153846153846,
+      "ci95": {
+        "hit1": [
+          0.31234879032258067,
+          0.8255311355311353
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6561743951612903,
+          0.9127655677655677
+        ]
+      },
+      "stability_repetitions": 0.715,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 0.9642857142857143,
+          "hit3": 1.0,
+          "mrr": 0.9821428571428571,
+          "dose_response_rho": 0.8835208585861144,
+          "top1": {
+            "main_thread_js": 27,
+            "dom_layout": 1
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.5,
+          "dose_response_rho": 0.9419992767314831,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "ridge",
+      "variant": "interventional",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 1.0,
+      "mrr": 0.7846153846153846,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6458250661375661,
+          0.9244952068236716
+        ]
+      },
+      "stability_repetitions": 0.6958333333333333,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9416472308615167,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.48148148148148145,
+          "dose_response_rho": 0.41283353235497394,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "ridge",
+      "variant": "interventional_magnitude",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 1.0,
+      "mrr": 0.7692307692307693,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.6216077828981055,
+          0.9191938920454544
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9416472308615167,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.4444444444444444,
+          "dose_response_rho": 0.41283353235497394,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "interventional",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 0.9384615384615385,
+      "mrr": 0.7276923076923077,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          0.8571428571428571,
+          1.0
+        ],
+        "mrr": [
+          0.558039670902574,
+          0.9054896670493686
+        ]
+      },
+      "stability_repetitions": 0.6775,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9311844838519442,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 0.8518518518518519,
+          "mrr": 0.3444444444444445,
+          "dose_response_rho": 0.3723278875006791,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "interventional_magnitude",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 1.0,
+      "mrr": 0.7410256410256411,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          1.0,
+          1.0
+        ],
+        "mrr": [
+          0.5754846643518517,
+          0.9100880456349206
+        ]
+      },
+      "stability_repetitions": 1.0,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9311844838519442,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 1.0,
+          "mrr": 0.37654320987654327,
+          "dose_response_rho": 0.39403891314258116,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    },
+    {
+      "split": "repetition",
+      "target": "tbt_30s_ms",
+      "model": "xgboost",
+      "variant": "path_dependent",
+      "n": 65,
+      "hit1": 0.5846153846153846,
+      "hit3": 0.9230769230769231,
+      "mrr": 0.7135897435897436,
+      "ci95": {
+        "hit1": [
+          0.31733630952380953,
+          0.8571986607142856
+        ],
+        "hit3": [
+          0.8029545454545454,
+          1.0
+        ],
+        "mrr": [
+          0.5322343830005121,
+          0.9013654401154401
+        ]
+      },
+      "stability_repetitions": 0.7875,
+      "per_fault": {
+        "dom-bloat": {
+          "n": 10,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": NaN,
+          "top1": {
+            "dom_layout": 10
+          }
+        },
+        "js-long-task": {
+          "n": 28,
+          "hit1": 1.0,
+          "hit3": 1.0,
+          "mrr": 1.0,
+          "dose_response_rho": 0.9364158573567304,
+          "top1": {
+            "main_thread_js": 28
+          }
+        },
+        "third-party-long-task": {
+          "n": 27,
+          "hit1": 0.0,
+          "hit3": 0.8148148148148148,
+          "mrr": 0.3104938271604939,
+          "dose_response_rho": 0.7057703559412349,
+          "top1": {
+            "main_thread_js": 27
+          }
+        }
+      },
+      "origin_discrimination": 0.509090909090909
+    }
+  ],
+  "rf_xgb_top3_jaccard": {
+    "lh_lcp_ms": 0.5478260869565217,
+    "tbt_30s_ms": 0.5953846153846154
+  },
+  "group_profile": {
+    "lh_lcp_ms": {
+      "dom-bloat": {
+        "n": 20,
+        "mean_score": {
+          "main_thread_js": 0.022245778989781688,
+          "dom_layout": 0.03023752047690013,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.00046621807766009506,
+          "third_party": 0.00022885922317071998,
+          "mixed": 0.11567628880986063,
+          "server": 0.007573556862310658
+        },
+        "abs_share": {
+          "main_thread_js": 0.20279060063442797,
+          "dom_layout": 0.1833001971085812,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0022093168807126853,
+          "third_party": 0.011922916136250034,
+          "mixed": 0.5634462639304519,
+          "server": 0.03633070530957634
+        }
+      },
+      "js-long-task": {
+        "n": 9,
+        "mean_score": {
+          "main_thread_js": 0.05627528277667187,
+          "dom_layout": 0.0028351211797901805,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.002591455455398389,
+          "mixed": 0.0064242746747266415,
+          "server": 0.006481722123849226
+        },
+        "abs_share": {
+          "main_thread_js": 0.6411242829539352,
+          "dom_layout": 0.11395440612095824,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.04013091735548241,
+          "mixed": 0.12157802271835608,
+          "server": 0.08321237085126813
+        }
+      },
+      "lcp-heavy-image": {
+        "n": 29,
+        "mean_score": {
+          "main_thread_js": 0.0006222452134300347,
+          "dom_layout": 0.00441435418735172,
+          "lcp_resource": 0.08665653804033437,
+          "render_blocking": 0.0,
+          "third_party": 0.001042728790435966,
+          "mixed": 1.379439797234227,
+          "server": 0.0007467683699569586
+        },
+        "abs_share": {
+          "main_thread_js": 0.003938958964355695,
+          "dom_layout": 0.005078402406117478,
+          "lcp_resource": 0.07017185660481548,
+          "render_blocking": 0.0,
+          "third_party": 0.0014837262419996966,
+          "mixed": 0.9178225961645551,
+          "server": 0.0015044596181566386
+        }
+      },
+      "render-blocking-css": {
+        "n": 26,
+        "mean_score": {
+          "main_thread_js": 0.0040898568752661835,
+          "dom_layout": 0.0047833211868306665,
+          "lcp_resource": 0.019135777767261036,
+          "render_blocking": 0.12530573011369983,
+          "third_party": 0.0015886748014730498,
+          "mixed": 0.9634486942998427,
+          "server": 0.00120841994229965
+        },
+        "abs_share": {
+          "main_thread_js": 0.010231247999016034,
+          "dom_layout": 0.006687065413236275,
+          "lcp_resource": 0.016894997961077806,
+          "render_blocking": 0.1106325585785345,
+          "third_party": 0.0027245081523953095,
+          "mixed": 0.850810910124844,
+          "server": 0.0020187117708960964
+        }
+      },
+      "third-party-long-task": {
+        "n": 5,
+        "mean_score": {
+          "main_thread_js": 0.1275178964770019,
+          "dom_layout": -0.003039065893729725,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.013192793406051301,
+          "mixed": 0.005483904026671767,
+          "server": -0.00023357550671785984
+        },
+        "abs_share": {
+          "main_thread_js": 0.8047587035722515,
+          "dom_layout": 0.04417396139512043,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.07512753727453225,
+          "mixed": 0.059027919742893335,
+          "server": 0.016911878015202424
+        }
+      },
+      "third-party-scripts": {
+        "n": 26,
+        "mean_score": {
+          "main_thread_js": 0.00037650505167294144,
+          "dom_layout": 0.00022850779905873658,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": -0.0022680737248055687,
+          "mixed": 0.333863469568314,
+          "server": 0.0003971089659805673
+        },
+        "abs_share": {
+          "main_thread_js": 0.08701991037781308,
+          "dom_layout": 0.0073004534995374,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.029726039499434892,
+          "mixed": 0.8715428576042681,
+          "server": 0.004410739018946441
+        }
+      }
+    },
+    "tbt_30s_ms": {
+      "dom-bloat": {
+        "n": 10,
+        "mean_score": {
+          "main_thread_js": 0.014384436997352142,
+          "dom_layout": 4.701080136775271,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.0004815937146000788,
+          "mixed": 0.07121238157900124,
+          "server": -0.00183499132399447
+        },
+        "abs_share": {
+          "main_thread_js": 0.008603816794480123,
+          "dom_layout": 0.974563874312301,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.0005868055076881717,
+          "mixed": 0.015618142421701002,
+          "server": 0.0006273609638295933
+        }
+      },
+      "js-long-task": {
+        "n": 28,
+        "mean_score": {
+          "main_thread_js": 6.412127098657514,
+          "dom_layout": -0.0006594796735347178,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": -0.0005174505401685559,
+          "mixed": -0.00011261354570925631,
+          "server": 0.0009021872059141239
+        },
+        "abs_share": {
+          "main_thread_js": 0.9981582003028662,
+          "dom_layout": 0.0008732166878212141,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.0002750685548192502,
+          "mixed": 0.0005137555853385382,
+          "server": 0.00017975886915483602
+        }
+      },
+      "third-party-long-task": {
+        "n": 27,
+        "mean_score": {
+          "main_thread_js": 6.493021974945153,
+          "dom_layout": -0.002067994448158001,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.019538394956737013,
+          "mixed": 8.557086528770268e-05,
+          "server": 0.0005165388511046853
+        },
+        "abs_share": {
+          "main_thread_js": 0.9957087100396355,
+          "dom_layout": 0.000858676008861826,
+          "lcp_resource": 0.0,
+          "render_blocking": 0.0,
+          "third_party": 0.002995002256230028,
+          "mixed": 0.00032651252196806897,
+          "server": 0.00011109917330449089
+        }
+      }
+    }
+  },
+  "local_cases": [
+    {
+      "fault": "lcp-heavy-image",
+      "target": "lh_lcp_ms",
+      "measurement_id": "f7acb871b0b83fe85bf1ae35f16ddb8ecb8f1954",
+      "run": 2,
+      "rank": 5,
+      "top_group": "render_blocking",
+      "base_ms": 1396.1988276801235,
+      "pred_ms": 6171.532576754871,
+      "obs_ms": 6133.681999999999,
+      "features": [
+        {
+          "name": "transfer_bytes_total",
+          "group": "mixed",
+          "phi": 1.5193978659808636
+        },
+        {
+          "name": "image_bytes",
+          "group": "lcp_resource",
+          "phi": -0.0169089097180403
+        },
+        {
+          "name": "lcp_resource_bytes",
+          "group": "lcp_resource",
+          "phi": -0.0119969754014164
+        },
+        {
+          "name": "mt_rendering_ms",
+          "group": "dom_layout",
+          "phi": -0.0070308349968399
+        },
+        {
+          "name": "mt_style_layout_ms",
+          "group": "dom_layout",
+          "phi": 0.0045974909771757
+        },
+        {
+          "name": "third_party_main_thread_ms",
+          "group": "third_party",
+          "phi": -0.0013997872883919
+        }
+      ],
+      "rest_phi": -0.0010189985405303094
+    },
+    {
+      "fault": "render-blocking-css",
+      "target": "lh_lcp_ms",
+      "measurement_id": "9718ae0a87ab577a654923dd27c4b5aeb6c31815",
+      "run": 2,
+      "rank": 1,
+      "top_group": "render_blocking",
+      "base_ms": 1396.1988276801235,
+      "pred_ms": 4129.699476762207,
+      "obs_ms": 4191.740999999996,
+      "features": [
+        {
+          "name": "transfer_bytes_total",
+          "group": "mixed",
+          "phi": 0.6818840522319078
+        },
+        {
+          "name": "bytes_before_lcp_request",
+          "group": "mixed",
+          "phi": 0.1208555386110674
+        },
+        {
+          "name": "stylesheet_bytes",
+          "group": "render_blocking",
+          "phi": 0.1162668597826268
+        },
+        {
+          "name": "unused_css_bytes",
+          "group": "render_blocking",
+          "phi": 0.101510364213027
+        },
+        {
+          "name": "lcp_request_low_priority",
+          "group": "lcp_resource",
+          "phi": 0.0247784578823484
+        },
+        {
+          "name": "mt_parse_html_ms",
+          "group": "mixed",
+          "phi": 0.0241512372303986
+        }
+      ],
+      "rest_phi": 0.01453077872429253
+    },
+    {
+      "fault": "dom-bloat",
+      "target": "lh_lcp_ms",
+      "measurement_id": "89998e47dc6404440d16778902c512b52f9ecd74",
+      "run": 1,
+      "rank": 1,
+      "top_group": "dom_layout",
+      "base_ms": 1397.9153427321287,
+      "pred_ms": 1573.6475427599994,
+      "obs_ms": 1569.7860000000003,
+      "features": [
+        {
+          "name": "mt_style_layout_ms",
+          "group": "dom_layout",
+          "phi": 0.035025032422709
+        },
+        {
+          "name": "trace_long_task_max_ms",
+          "group": "main_thread_js",
+          "phi": 0.0221932246022333
+        },
+        {
+          "name": "server_response_time_ms",
+          "group": "server",
+          "phi": 0.0210835209982178
+        },
+        {
+          "name": "mt_rendering_ms",
+          "group": "dom_layout",
+          "phi": 0.0185439584747655
+        },
+        {
+          "name": "mt_parse_html_ms",
+          "group": "mixed",
+          "phi": 0.0084855252644047
+        },
+        {
+          "name": "trace_long_task_total_ms",
+          "group": "main_thread_js",
+          "phi": 0.008321176712343
+        }
+      ],
+      "rest_phi": 0.004681802507547999
+    },
+    {
+      "fault": "js-long-task",
+      "target": "tbt_30s_ms",
+      "measurement_id": "ccec2adaf7a84bcac7bb7022016fd512902b44df",
+      "run": 3,
+      "rank": 1,
+      "top_group": "main_thread_js",
+      "base_ms": 0.0035547047870301204,
+      "pred_ms": 805.822474948879,
+      "obs_ms": 806.8590000000004,
+      "features": [
+        {
+          "name": "bootup_js_ms",
+          "group": "main_thread_js",
+          "phi": 6.366188884858275
+        },
+        {
+          "name": "mt_script_eval_ms",
+          "group": "main_thread_js",
+          "phi": 0.3220560203772038
+        },
+        {
+          "name": "third_party_main_thread_ms",
+          "group": "third_party",
+          "phi": 0.0014494866190943
+        },
+        {
+          "name": "mt_script_parse_ms",
+          "group": "main_thread_js",
+          "phi": 0.0003206395922461
+        },
+        {
+          "name": "server_response_time_ms",
+          "group": "server",
+          "phi": -0.0003044938202947
+        },
+        {
+          "name": "mt_rendering_ms",
+          "group": "dom_layout",
+          "phi": -0.000268443414825
+        }
+      ],
+      "rest_phi": 0.00011323043872839999
+    },
+    {
+      "fault": "third-party-long-task",
+      "target": "tbt_30s_ms",
+      "measurement_id": "7dbdf324dbc35678c05bd83edcb1a3c62dd6d5e5",
+      "run": 2,
+      "rank": 2,
+      "top_group": "main_thread_js",
+      "base_ms": 0.014044486937235718,
+      "pred_ms": 806.6826316188482,
+      "obs_ms": 805.7029999999999,
+      "features": [
+        {
+          "name": "bootup_js_ms",
+          "group": "main_thread_js",
+          "phi": 6.272527800756507
+        },
+        {
+          "name": "mt_script_eval_ms",
+          "group": "main_thread_js",
+          "phi": 0.379312262230087
+        },
+        {
+          "name": "third_party_main_thread_ms",
+          "group": "third_party",
+          "phi": 0.0255449715768918
+        },
+        {
+          "name": "mt_rendering_ms",
+          "group": "dom_layout",
+          "phi": 0.0016191335016628
+        },
+        {
+          "name": "mt_script_parse_ms",
+          "group": "main_thread_js",
+          "phi": 0.0010336112682125
+        },
+        {
+          "name": "mt_style_layout_ms",
+          "group": "dom_layout",
+          "phi": 0.0002242571790702
+        }
+      ],
+      "rest_phi": -3.955853753723204e-05
+    }
+  ]
+}

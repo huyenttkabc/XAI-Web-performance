@@ -1,0 +1,300 @@
+{
+  "run_id": "rq3-testbed-261108",
+  "created_at": "2026-11-08T09:56:57.776831+00:00",
+  "seed": 42,
+  "protocol": "docs/protocol-v1.0.md §8 (RQ3) + amendment 08/11/2026; manuscript §3.9",
+  "dataset": {
+    "path": "data/processed/dataset-v1.0.csv",
+    "sha256": "05125d31b991516d0a332087004617c18a7b455361d1390171e4de44401c1543",
+    "testbed_rows": 174
+  },
+  "ranked_groups": [
+    "main_thread_js",
+    "dom_layout",
+    "lcp_resource",
+    "render_blocking",
+    "third_party"
+  ],
+  "models": {
+    "random_forest": [
+      "interventional",
+      "path_dependent"
+    ],
+    "xgboost": [
+      "interventional",
+      "path_dependent"
+    ],
+    "ridge": [
+      "interventional"
+    ]
+  },
+  "fits": [
+    {
+      "target": "lh_lcp_ms",
+      "split": "repetition",
+      "fold": 1,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "lh_lcp_ms",
+      "split": "repetition",
+      "fold": 2,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.03,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "lh_lcp_ms",
+      "split": "repetition",
+      "fold": 3,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "lh_lcp_ms",
+      "split": "repetition",
+      "fold": 4,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 2,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "lh_lcp_ms",
+      "split": "repetition",
+      "fold": 5,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "lh_lcp_ms",
+      "split": "leave_one_severity_out",
+      "fold": 2,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 2,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "repetition",
+      "fold": 1,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "repetition",
+      "fold": 2,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 2,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "repetition",
+      "fold": 3,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "repetition",
+      "fold": 4,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.03,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "repetition",
+      "fold": 5,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    },
+    {
+      "target": "tbt_30s_ms",
+      "split": "leave_one_severity_out",
+      "fold": 2,
+      "best_params": [
+        {
+          "model__max_features": 1.0,
+          "model__min_samples_leaf": 2,
+          "model": "random_forest"
+        },
+        {
+          "model__learning_rate": 0.1,
+          "model__max_depth": 4,
+          "model": "xgboost"
+        },
+        {
+          "model__alpha": 0.1,
+          "model": "ridge"
+        }
+      ]
+    }
+  ],
+  "code_sha256": {
+    "src/ml/explanation_attributions.py": "10e8565b1e52fdf370606a6fa0404b0630dfb5c60c6389f7eec718cc8818357f",
+    "src/ml/explanation_metrics.py": "3d918886bcacd733dcb3d36a1bfa2730127e7bfc3804c6437f99496f5719f696",
+    "src/ml/model_specs.py": "2d5356df4f6cff259dad339d9abf6fdb7b96be959feeb99a5ff8a7504b0c6696",
+    "src/ml/group_cross_validation.py": "bdc5ba2265b8881357868e2ea28a1801ec8a733ccab32de71be54d6ff2739f0c",
+    "scripts/run_rq3_explanations.py": "c1b49baf76f0e0cf507966c486f76aa79e00ce3e7de4705b628ee56015fcb1e3",
+    "src/parser/feature-definitions.js": "b428f20b3197b6195b6ca9680ecab442166536c9ed6e6664169b59a9157b4321"
+  },
+  "versions": {
+    "python": "3.14.8",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "sklearn": "1.9.1",
+    "shap": "0.54.1"
+  }
+}
