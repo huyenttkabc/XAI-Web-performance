@@ -1,0 +1,58 @@
+{
+  "run_id": "rq4-diagnosis-261111-after",
+  "created_at": "2026-11-11T16:08:52.702098+00:00",
+  "seed": 42,
+  "protocol": "docs/protocol-v1.0.md, amendment 11/11/2026 (RQ4)",
+  "dataset": {
+    "path": "data/processed/dataset-v1.0.csv",
+    "sha256": "05125d31b991516d0a332087004617c18a7b455361d1390171e4de44401c1543",
+    "lockbox_opened": false
+  },
+  "case": {
+    "path": "data/processed/case-study/after.csv",
+    "sha256": "e3773534225e1cf17d5aab0ea1f1c7233ac1db6f3fddc85e15f0d47f1ea9ce64",
+    "ok_rows": 10
+  },
+  "fits": [
+    {
+      "target": "lh_lcp_ms",
+      "best_params": {
+        "model__max_features": 1.0,
+        "model__min_samples_leaf": 5
+      },
+      "dev_rows": 1499,
+      "dev_sites": 157
+    },
+    {
+      "target": "tbt_30s_ms",
+      "best_params": {
+        "model__max_features": 0.33,
+        "model__min_samples_leaf": 5
+      },
+      "dev_rows": 1499,
+      "dev_sites": 157
+    }
+  ],
+  "ranked_groups": [
+    "main_thread_js",
+    "dom_layout",
+    "lcp_resource",
+    "render_blocking",
+    "third_party"
+  ],
+  "code_sha256": {
+    "scripts/run_rq4_diagnosis.py": "e0a1e34adc73b3fa71499cf680424ee3e30e4d8bb4ab9ffb1696690d68857fd0",
+    "src/ml/explanation_attributions.py": "10e8565b1e52fdf370606a6fa0404b0630dfb5c60c6389f7eec718cc8818357f",
+    "src/ml/explanation_metrics.py": "3d918886bcacd733dcb3d36a1bfa2730127e7bfc3804c6437f99496f5719f696",
+    "src/ml/model_specs.py": "2d5356df4f6cff259dad339d9abf6fdb7b96be959feeb99a5ff8a7504b0c6696",
+    "src/ml/group_cross_validation.py": "bdc5ba2265b8881357868e2ea28a1801ec8a733ccab32de71be54d6ff2739f0c",
+    "src/parser/feature-definitions.js": "b428f20b3197b6195b6ca9680ecab442166536c9ed6e6664169b59a9157b4321"
+  },
+  "versions": {
+    "python": "3.14.8",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "sklearn": "1.9.1",
+    "shap": "0.54.1"
+  }
+}

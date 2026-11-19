@@ -1,0 +1,12 @@
+{
+  "batch_id": "2026-11-11T15:34:27.032Z",
+  "retry_errors": false,
+  "hard_cap_ms": 150000,
+  "scope": "real",
+  "seed": 42,
+  "sites": "config/case-study-sites.csv",
+  "wave": 1,
+  "planned": 10,
+  "measured": 10,
+  "ok": 10
+}

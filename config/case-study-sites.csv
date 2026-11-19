@@ -1,0 +1,3 @@
+site,page_type,url,stratum,wave,note
+rspknd-fe.myshopify.com,home,https://rspknd-fe.myshopify.com/,case_study,1,RQ4 case-study store; baseline (configuration frozen 11/11/2026)
+rspknd-fe.myshopify.com,product,https://rspknd-fe.myshopify.com/products/stylish-summer-neclace,case_study,1,RQ4 case-study store; first product of the store (fixed rule)

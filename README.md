@@ -63,8 +63,22 @@ npm run ml:feature-mapping    # mapping feature → cause group trên testbed (c
 npm run ml:freeze            # model freeze v1.0 (từ chối ghi đè)
 npm run ml:rq3               # RQ3: fit lại RF/XGBoost/Ridge S+R trên testbed, SHAP, điểm nhóm (~4 phút)
 npm run ml:rq3-report        # Hit@1/Hit@3/MRR, độ ổn định, Table 8, Figure 5–6
+npm run rq4:profile-stores   # thành phần trang của store dev → cấu hình store case study
+npm run collect:case-study   # đo store case study 2 trang × 5 lần (raw vào data/raw, KHÔNG vào dataset chính)
+npm run ml:rq4-diagnosis -- --run-id=<id> --case=data/processed/case-study/baseline.csv   # SHAP chẩn đoán
+npm run rq4:before-after     # trung vị / IQR / bootstrap CI trước–sau
+npm run rq4:report           # Table 9 + Figure 7
 npm run test:ml              # unit test Python
 ```
+
+## RQ4 — case study trên store Shopify (tuần 8)
+
+- Development store (Horizon, cấu hình theo dịch vụ phổ biến của 158 store dev, khóa trước baseline): [`docs/case-study-store-configuration.md`](docs/case-study-store-configuration.md).
+- Chẩn đoán (run `rq4-diagnosis-261111-fullbg`): SHAP xếp `lcp_resource` đầu ở LCP trang sản phẩm; trace xác nhận ảnh LCP 56 KB tải mất ~7 s vì chia băng thông với ảnh gallery ngoài màn hình và 4 thư viện tracking.
+- Hai điểm sửa (diff trong `data/processed/case-study/theme-changes/`): lazy-load ảnh gallery 2–6; trì hoãn tracking đến sau `load`.
+- Trang sản phẩm: LCP 8.320 → 5.767 ms (**−30,7%**, CI −3.072; −2.373), TBT30 −15,2%; trang chủ LCP −6,6%. Một store, hai điểm sửa cùng lúc.
+- Run `rq4-diagnosis-261111` chỉ giữ làm hồ sơ: chạy trước khi sửa cách chọn background SHAP (bị rút còn 100 dòng), nên checksum code trong config của nó không khớp code hiện tại — đúng như mong đợi. Run dùng cho kết quả là `-fullbg` và `-after`.
+- Chi tiết: [`docs/case-study-diagnosis.md`](docs/case-study-diagnosis.md); Table 9, Figure 7 trong `docs/figures/`. Amendment 11/11 (protocol §10).
 
 ## RQ3 — kiểm chứng giải thích trên testbed (tuần 7)
 

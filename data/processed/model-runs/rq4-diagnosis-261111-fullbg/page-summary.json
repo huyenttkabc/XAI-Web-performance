@@ -1,0 +1,346 @@
+{
+  "lh_lcp_ms|home": {
+    "observed_ms_median": 4286.857,
+    "predicted_ms_median": 4600.877434432531,
+    "dev_observed_ms_median": 11367.314999999999,
+    "shap": {
+      "group_score_median": {
+        "main_thread_js": 0.0068,
+        "dom_layout": 0.0121,
+        "lcp_resource": -0.7123,
+        "render_blocking": -0.0358,
+        "third_party": -0.0073
+      },
+      "group_ranking": [
+        "dom_layout",
+        "main_thread_js",
+        "third_party",
+        "render_blocking",
+        "lcp_resource"
+      ],
+      "top_features": [
+        {
+          "feature": "mt_style_layout_ms",
+          "group": "dom_layout",
+          "phi_median": 0.0373,
+          "value_median": 875.528,
+          "dev_median": 3105.9685
+        },
+        {
+          "feature": "mt_rendering_ms",
+          "group": "dom_layout",
+          "phi_median": 0.0188,
+          "value_median": 310.68,
+          "dev_median": 1454.7585
+        },
+        {
+          "feature": "script_requests",
+          "group": "main_thread_js",
+          "phi_median": 0.0113,
+          "value_median": 171.0,
+          "dev_median": 105.0
+        },
+        {
+          "feature": "unused_js_bytes",
+          "group": "main_thread_js",
+          "phi_median": 0.0061,
+          "value_median": 86966.0,
+          "dev_median": 322794.5
+        },
+        {
+          "feature": "server_response_time_ms",
+          "group": "server",
+          "phi_median": 0.0055,
+          "value_median": 562.5,
+          "dev_median": 33.913
+        },
+        {
+          "feature": "script_bytes",
+          "group": "main_thread_js",
+          "phi_median": 0.0051,
+          "value_median": 1440943.0,
+          "dev_median": 2279800.0
+        },
+        {
+          "feature": "third_party_main_thread_ms",
+          "group": "third_party",
+          "phi_median": 0.0045,
+          "value_median": 2721.241,
+          "dev_median": 6417.285
+        },
+        {
+          "feature": "transfer_bytes_total",
+          "group": "mixed",
+          "phi_median": 0.0031,
+          "value_median": 2775286.0,
+          "dev_median": 5896047.5
+        }
+      ]
+    },
+    "reference_ranking": [
+      "render_blocking",
+      "lcp_resource",
+      "third_party",
+      "dom_layout",
+      "main_thread_js"
+    ]
+  },
+  "lh_lcp_ms|product": {
+    "observed_ms_median": 8319.938,
+    "predicted_ms_median": 9205.931767234917,
+    "dev_observed_ms_median": 7653.223,
+    "shap": {
+      "group_score_median": {
+        "main_thread_js": 0.0465,
+        "dom_layout": -0.0118,
+        "lcp_resource": 0.1008,
+        "render_blocking": 0.007,
+        "third_party": 0.0212
+      },
+      "group_ranking": [
+        "lcp_resource",
+        "main_thread_js",
+        "third_party",
+        "render_blocking",
+        "dom_layout"
+      ],
+      "top_features": [
+        {
+          "feature": "lcp_resource_bytes",
+          "group": "lcp_resource",
+          "phi_median": 0.1737,
+          "value_median": 56760.0,
+          "dev_median": 39525.0
+        },
+        {
+          "feature": "bytes_before_lcp_request",
+          "group": "mixed",
+          "phi_median": 0.0528,
+          "value_median": 893777.0,
+          "dev_median": 457184.0
+        },
+        {
+          "feature": "script_requests",
+          "group": "main_thread_js",
+          "phi_median": 0.0524,
+          "value_median": 238.0,
+          "dev_median": 114.0
+        },
+        {
+          "feature": "third_party_bytes",
+          "group": "third_party",
+          "phi_median": 0.0131,
+          "value_median": 1654098.0,
+          "dev_median": 2727896.0
+        },
+        {
+          "feature": "mt_style_layout_ms",
+          "group": "dom_layout",
+          "phi_median": 0.0064,
+          "value_median": 1187.53,
+          "dev_median": 2435.034
+        },
+        {
+          "feature": "third_party_main_thread_ms",
+          "group": "third_party",
+          "phi_median": 0.0063,
+          "value_median": 3763.052,
+          "dev_median": 7377.8275
+        },
+        {
+          "feature": "script_bytes",
+          "group": "main_thread_js",
+          "phi_median": 0.0044,
+          "value_median": 1667089.0,
+          "dev_median": 2422310.0
+        },
+        {
+          "feature": "request_count",
+          "group": "mixed",
+          "phi_median": 0.0043,
+          "value_median": 465.0,
+          "dev_median": 341.0
+        }
+      ]
+    },
+    "reference_ranking": [
+      "lcp_resource",
+      "render_blocking",
+      "third_party",
+      "dom_layout",
+      "main_thread_js"
+    ]
+  },
+  "tbt_30s_ms|home": {
+    "observed_ms_median": 2182.581,
+    "predicted_ms_median": 2250.3216291079634,
+    "dev_observed_ms_median": 5121.003500000001,
+    "shap": {
+      "group_score_median": {
+        "main_thread_js": -0.6074,
+        "dom_layout": -0.1092,
+        "lcp_resource": 0.0178,
+        "render_blocking": 0.0081,
+        "third_party": -0.0161
+      },
+      "group_ranking": [
+        "lcp_resource",
+        "render_blocking",
+        "third_party",
+        "dom_layout",
+        "main_thread_js"
+      ],
+      "top_features": [
+        {
+          "feature": "transfer_bytes_total",
+          "group": "mixed",
+          "phi_median": 0.0415,
+          "value_median": 2775286.0,
+          "dev_median": 5896047.5
+        },
+        {
+          "feature": "image_bytes",
+          "group": "lcp_resource",
+          "phi_median": 0.0203,
+          "value_median": 329711.0,
+          "dev_median": 1321990.0
+        },
+        {
+          "feature": "third_party_bytes",
+          "group": "third_party",
+          "phi_median": 0.0113,
+          "value_median": 1279875.0,
+          "dev_median": 2677484.0
+        },
+        {
+          "feature": "mt_gc_ms",
+          "group": "main_thread_js",
+          "phi_median": 0.0078,
+          "value_median": 99.412,
+          "dev_median": 204.03
+        },
+        {
+          "feature": "stylesheet_bytes",
+          "group": "render_blocking",
+          "phi_median": 0.0056,
+          "value_median": 26380.0,
+          "dev_median": 64333.0
+        },
+        {
+          "feature": "origin_count",
+          "group": "third_party",
+          "phi_median": 0.0032,
+          "value_median": 24.0,
+          "dev_median": 34.0
+        },
+        {
+          "feature": "render_blocking_count",
+          "group": "render_blocking",
+          "phi_median": 0.0029,
+          "value_median": 0.0,
+          "dev_median": 2.0
+        },
+        {
+          "feature": "bytes_before_lcp_request",
+          "group": "mixed",
+          "phi_median": 0.0027,
+          "value_median": 832358.0,
+          "dev_median": 735163.5
+        }
+      ]
+    },
+    "reference_ranking": [
+      "render_blocking",
+      "lcp_resource",
+      "third_party",
+      "dom_layout",
+      "main_thread_js"
+    ]
+  },
+  "tbt_30s_ms|product": {
+    "observed_ms_median": 2281.407,
+    "predicted_ms_median": 3312.4341071736226,
+    "dev_observed_ms_median": 5351.363,
+    "shap": {
+      "group_score_median": {
+        "main_thread_js": -0.3283,
+        "dom_layout": -0.0726,
+        "lcp_resource": 0.0238,
+        "render_blocking": 0.0035,
+        "third_party": -0.0229
+      },
+      "group_ranking": [
+        "lcp_resource",
+        "render_blocking",
+        "third_party",
+        "dom_layout",
+        "main_thread_js"
+      ],
+      "top_features": [
+        {
+          "feature": "transfer_bytes_total",
+          "group": "mixed",
+          "phi_median": 0.0403,
+          "value_median": 3497126.0,
+          "dev_median": 4926392.0
+        },
+        {
+          "feature": "image_bytes",
+          "group": "lcp_resource",
+          "phi_median": 0.0186,
+          "value_median": 432448.0,
+          "dev_median": 612539.0
+        },
+        {
+          "feature": "mt_gc_ms",
+          "group": "main_thread_js",
+          "phi_median": 0.009,
+          "value_median": 130.621,
+          "dev_median": 207.762
+        },
+        {
+          "feature": "third_party_bytes",
+          "group": "third_party",
+          "phi_median": 0.0085,
+          "value_median": 1654098.0,
+          "dev_median": 2727896.0
+        },
+        {
+          "feature": "origin_count",
+          "group": "third_party",
+          "phi_median": 0.006,
+          "value_median": 26.0,
+          "dev_median": 37.0
+        },
+        {
+          "feature": "lcp_resource_bytes",
+          "group": "lcp_resource",
+          "phi_median": 0.0047,
+          "value_median": 56760.0,
+          "dev_median": 39525.0
+        },
+        {
+          "feature": "bytes_before_lcp_request",
+          "group": "mixed",
+          "phi_median": 0.003,
+          "value_median": 893777.0,
+          "dev_median": 457184.0
+        },
+        {
+          "feature": "stylesheet_bytes",
+          "group": "render_blocking",
+          "phi_median": 0.0028,
+          "value_median": 44194.0,
+          "dev_median": 90076.0
+        }
+      ]
+    },
+    "reference_ranking": [
+      "lcp_resource",
+      "render_blocking",
+      "third_party",
+      "dom_layout",
+      "main_thread_js"
+    ]
+  }
+}

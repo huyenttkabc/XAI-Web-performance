@@ -1,0 +1,20 @@
+\begin{tabular}{@{}llrrrc@{}}
+\toprule
+\textbf{Page} & \textbf{Metric} & \textbf{Before} & \textbf{After} & \textbf{Change} & \textbf{$\Delta$ median [95\% CI]} \\
+\midrule
+Home & LCP & 4,287 & 4,002 & $-$6.6\% & $-$285 [$-$496; $-$50] \\
+Home & TBT30 & 2,183 & 1,978 & $-$9.4\% & $-$205 [$-$1,177; $+$128] \\
+Home & FCP & 1,109 & 1,079 & $-$2.7\% & $-$30 [$-$101; $+$181] \\
+\midrule
+Product & LCP & 8,320 & 5,767 & $-$30.7\% & $-$2,553 [$-$3,072; $-$2,373] \\
+Product & TBT30 & 2,281 & 1,935 & $-$15.2\% & $-$346 [$-$508; $-$62] \\
+Product & FCP & 1,106 & 1,323 & $+$19.6\% & $+$217 [$-$327; $+$332] \\
+\midrule
+\multicolumn{6}{@{}l}{\textit{SHAP group scores for LCP of the product page (median of five runs, log scale)}} \\
+ & LCP resource & $+$0.101 & $+$0.034 & & \\
+ & Main-thread JS & $+$0.046 & $+$0.058 & & \\
+ & Third party & $+$0.021 & $+$0.025 & & \\
+ & Render-blocking & $+$0.007 & $+$0.008 & & \\
+ & DOM / layout & $-$0.012 & $-$0.009 & & \\
+\bottomrule
+\end{tabular}

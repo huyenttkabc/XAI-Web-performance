@@ -1,0 +1,12 @@
+batch 2026-11-11T15:34:27.032Z: 10 measurements (scope=real, seed=42, sites=config/case-study-sites.csv, wave=1, hard cap 150 s)
+[1/10] ok rspknd-fe.myshopify.com/home none:0 run=1 LCP=4287 TBT30=3155 
+[2/10] ok rspknd-fe.myshopify.com/product none:0 run=3 LCP=8602 TBT30=2270 load_timeout
+[3/10] ok rspknd-fe.myshopify.com/home none:0 run=4 LCP=4159 TBT30=2102 
+[4/10] ok rspknd-fe.myshopify.com/product none:0 run=1 LCP=8242 TBT30=1997 load_timeout
+[5/10] ok rspknd-fe.myshopify.com/home none:0 run=3 LCP=4186 TBT30=2183 
+[6/10] ok rspknd-fe.myshopify.com/home none:0 run=2 LCP=4297 TBT30=2079 
+[7/10] ok rspknd-fe.myshopify.com/product none:0 run=4 LCP=8257 TBT30=2382 load_timeout
+[8/10] ok rspknd-fe.myshopify.com/product none:0 run=5 LCP=8320 TBT30=2439 load_timeout
+[9/10] ok rspknd-fe.myshopify.com/home none:0 run=5 LCP=4387 TBT30=2465 
+[10/10] ok rspknd-fe.myshopify.com/product none:0 run=2 LCP=8581 TBT30=2281 load_timeout
+wrote 10 rows → data/processed/pilot-batch-latest.csv

@@ -1,0 +1,45 @@
+--- before-fix/product-media-gallery-content.liquid	2026-11-11 23:16:17
++++ after-fix/product-media-gallery-content.liquid	2026-11-11 23:16:17
+@@ -425,14 +425,19 @@
+               else
+                 assign media_sizes = sizes
+               endif
++              # RQ4 fix 1: only the first (LCP) image loads eagerly; the other slides are lazy-loaded
++              assign media_loading = 'lazy'
++              if forloop.first
++                assign media_loading = 'eager'
++              endif
+           -%}
+           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
+             <div
+               class="product-media-constraint-wrapper">
+-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
++              {%- render 'product-media', media: media, sizes: media_sizes, loading: media_loading, is_main_product_media: forloop.first -%}
+             </div>
+           {% else %}
+-            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
++            {%- render 'product-media', media: media, sizes: media_sizes, loading: media_loading, is_main_product_media: forloop.first -%}
+           {% endif %}
+         {% endcapture %}
+         {% capture class %}
+@@ -541,13 +546,18 @@
+               else
+                 assign media_sizes = sizes
+               endif
++              # RQ4 fix 1: only the first (LCP) image loads eagerly; the other slides are lazy-loaded
++              assign media_loading = 'lazy'
++              if forloop.first
++                assign media_loading = 'eager'
++              endif
+             -%}
+             {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
+               <div class="product-media-constraint-wrapper">
+-                {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
++                {%- render 'product-media', media: media, sizes: media_sizes, loading: media_loading, is_main_product_media: forloop.first -%}
+               </div>
+             {% else %}
+-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
++              {%- render 'product-media', media: media, sizes: media_sizes, loading: media_loading, is_main_product_media: forloop.first -%}
+             {% endif %}
+           </li>
+         {% endfor %}
