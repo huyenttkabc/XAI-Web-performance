@@ -13,6 +13,8 @@
     "collect:wave1": "node src/run-pilot.js --scope=real --sites=config/main-study-sites.csv --wave=1",
     "collect:wave2": "node src/run-pilot.js --scope=real --sites=config/main-study-sites.csv --wave=2",
     "collect:wave3": "node src/run-pilot.js --scope=real --sites=config/main-study-sites.csv --wave=3",
+    "collect:wave4": "node src/run-pilot.js --scope=real --sites=config/main-study-sites.csv --wave=4",
+    "collect:wave5": "node src/run-pilot.js --scope=real --sites=config/main-study-sites.csv --wave=5",
     "collect:retry": "node src/run-pilot.js --retry-errors --hard-cap-ms=300000",
     "sample:sites": "node scripts/build-main-study-site-sample.js",
     "reparse": "node scripts/reparse-raw-artifacts.js",
@@ -22,6 +24,9 @@
     "test": "node --test test/*.test.js",
     "ml:setup": "python3.14 -m venv .venv && .venv/bin/pip install -q -r requirements.txt",
     "ml:train": ".venv/bin/python scripts/train_preliminary_models.py",
+    "ml:learning-curve": ".venv/bin/python scripts/build_learning_curve.py",
+    "ml:compare-size": ".venv/bin/python scripts/compare_training_set_size.py",
+    "ml:rq1-rq2": ".venv/bin/python scripts/build_rq1_rq2_results.py",
     "test:ml": ".venv/bin/python -m unittest discover -s test -p 'test_*.py'"
   },
   "dependencies": {

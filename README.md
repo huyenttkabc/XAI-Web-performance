@@ -9,7 +9,7 @@ Protocol hiện hành: **v1.0 (FROZEN 06/10/2026)** — [`docs/protocol-v1.0.md`
 config/
   experiment-manifest.json   # protocol v1.0 dạng máy đọc: profile, outcomes, luật V1–V4, predictors, splits
   pilot-sites.csv            # 3 store pilot × (home, product)
-  main-study-sites.csv       # 80 store phân tầng light/medium/heavy, chia wave 0–3
+  main-study-sites.csv       # 200 store phân tầng light/medium/heavy, chia wave 0–5
 src/
   testbed/                   # testbed có kiểm soát
     fault-catalog.js         # 6 fault (5 cause group) × 3 mức, one-factor-at-a-time
@@ -24,14 +24,15 @@ src/
     host-contention-filter.js       # luật V4
     rebuild-dataset-from-raw.js     # raw → dataset (V1–V4)
   analysis/                  # thống kê mô tả, luật chia site (fold/lockbox), biểu đồ SVG
-  ml/                        # Python: dataset mô hình, 4 mô hình + lưới, GroupKFold theo site, metric + bootstrap
+  ml/                        # Python: dataset mô hình, 4 mô hình + lưới, GroupKFold theo site, metric + bootstrap,
+                             #   learning curve, kiểm định ghép cặp theo store (Friedman / Wilcoxon / Holm)
   pilot-plan-builder.js      # manifest + catalog → danh sách phép đo (xáo trộn có seed)
   run-pilot.js               # pipeline end-to-end
 scripts/                     # chọn mẫu, reparse, data dictionary, noise, leakage, QC (Gate G3), EDA, lint
 data/
   raw/                       # (gitignored) raw artifacts protocol v1.0
   processed/pilot-dataset.csv   # dataset hiện hành (dựng lại từ raw)
-  processed/dataset-v0.*.csv    # snapshot đóng băng khi Gate G3 đạt (v0.3.1, v0.4)
+  processed/dataset-v*.csv      # snapshot đóng băng khi Gate G3 đạt (v0.3.1, v0.4, **v1.0 FROZEN**)
   processed/model-runs/<run>/   # config.json (seed, sha256), results.json, oof-predictions.csv
   logs/collector-error-log.jsonl
   archive/                   # dữ liệu tuần 1 (protocol cũ) — không trộn
@@ -49,17 +50,27 @@ npm run testbed              # vd: /home.html?fault=lcp-heavy-image&dose=900
 npm run pilot                # fault matrix (190) + 3 store × 2 trang × 5 lần (30), seed 42
 npm run pilot -- --scope=testbed
 npm run sample:sites -- --total=80 --extend   # rút mẫu store phân tầng → config/main-study-sites.csv
-npm run collect:wave1        # đo theo wave (resume: -- --resume=<batch_id>)
+npm run collect:wave1        # đo theo wave 1–5 (resume: -- --resume=<batch_id>)
 npm run collect:retry        # đo bù phép đo lỗi 1 lần (hard cap 300 s)
 npm run reports              # reparse → dictionary → noise → leakage → QC (G3, snapshot) → EDA
 npm run ml:setup             # Python 3.14 venv + requirements.txt
-npm run ml:train -- --run-id=dev-cv-v0.4 --dataset=data/processed/dataset-v0.4.csv
+npm run ml:train -- --run-id=dev-cv-v1.0 --dataset=data/processed/dataset-v1.0.csv
+npm run ml:rq1-rq2 -- --run=dev-cv-v1.0                    # Friedman/Wilcoxon + Figure 3
+npm run ml:learning-curve -- --dataset=data/processed/dataset-v0.4.csv
+npm run ml:compare-size -- --small=data/processed/dataset-v0.4.csv --large=data/processed/dataset-v1.0.csv
 npm run test:ml              # unit test Python
 ```
 
+## Dataset v1.0 FROZEN (tuần 5) — 200 store, 1.920/2.000 phép đo hợp lệ
+
+- Dev 157 store / 1.499 dòng; lockbox 42 store **đóng**. sha256 `05125d31…` (protocol §10, amendment 25/10).
+- RQ1: LCP XGBoost S+R MAE 4.356 ms (baseline 6.534, R² 0,40); TBT30 Random Forest S+R 1.367 ms (baseline 2.686, R² 0,66).
+- Xem [`docs/model-preliminary-report.md`](docs/model-preliminary-report.md), [`docs/paired-store-tests-report.md`](docs/paired-store-tests-report.md),
+  [`docs/learning-curve-report.md`](docs/learning-curve-report.md), [`docs/training-set-size-comparison.md`](docs/training-set-size-comparison.md).
+
 ## Dataset v0.4 (tuần 4) — 80 store, 800/800 phép đo + mô hình preliminary
 
-- Xem [`docs/model-preliminary-report.md`](docs/model-preliminary-report.md) (RQ1/RQ2, GroupKFold theo site, 60 store dev).
+- Mô hình preliminary trên 60 store dev: run `data/processed/model-runs/dev-cv-261011-v0.4/`.
 
 ## Dataset v0.3.1 (tuần 3) — 612 phép đo
 

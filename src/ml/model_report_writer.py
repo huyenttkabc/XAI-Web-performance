@@ -28,8 +28,8 @@ def write_report(path: Path, config: dict, results: list[dict], rq2: list[dict],
         "> Sinh tự động bởi `scripts/train_preliminary_models.py`. Không sửa tay.",
         f"> Run `{config['run_id']}` · dataset `{d['dataset_csv']}` sha256 `{d['dataset_sha256'][:16]}…` · seed {config['seed']} · "
         f"artifacts `{run_dir}`.",
-        "> **PRELIMINARY (protocol §8.1):** chỉ để kiểm tra pipeline, dataset chưa đóng băng (v1.0). Không đổi feature, lưới hay "
-        "target dựa trên các số này. Lockbox chưa mở.", "",
+        "> **Kết quả trên tập development (protocol §8.1):** cross-validation theo site, chưa phải đánh giá xác nhận. "
+        "Không đổi feature, lưới hay target dựa trên các số này. Lockbox chưa mở.", "",
         "## 1. Dữ liệu", "",
         *_table(["mục", "giá trị"], [
             ["dòng hợp lệ (site thật)", d["valid_rows"]], ["trang hợp lệ", d["pages_valid"]],

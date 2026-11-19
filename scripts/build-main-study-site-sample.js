@@ -5,6 +5,9 @@
 //  extend  giữ nguyên mọi store đã có trong config/main-study-sites.csv (không probe lại), bỏ qua store từng bị
 //          loại, rồi rút TIẾP theo đúng thứ tự có seed cũ cho đến --total; store mới thành wave kế tiếp.
 //          Kết quả tương đương với việc rút --total store ngay từ đầu.
+//  replace=a.com,b.com (dùng kèm --extend) bỏ các store này khỏi mẫu — probe đã nhận nhưng không phép đo nào hợp lệ
+//          (vd redirect chỉ xảy ra trong trình duyệt sang host khác) — và rút store thay thế CÙNG TẦNG theo thứ tự có seed.
+//          Store bị thay được ghi log, không bao giờ được rút lại; raw của chúng vẫn nằm trong data/raw.
 // Ứng viên được probe theo thứ tự xen kẽ có seed cho đến khi đủ quota mọi tầng ⇒ tái lập được,
 // trừ những store đã đổi trạng thái (đóng cửa, bị chặn) kể từ lần chạy trước.
 import { readFile, writeFile } from 'node:fs/promises';
@@ -22,6 +25,8 @@ const SEED = arg('seed', 42);
 const EXTEND = process.argv.includes('--extend');
 const SITES_CSV = path.join(ROOT, 'config/main-study-sites.csv');
 const LOG_JSON = path.join(ROOT, 'data/processed/site-sampling-log.json');
+const REPLACE = (process.argv.find((a) => a.startsWith('--replace='))?.split('=')[1] ?? '').split(',').filter(Boolean);
+if (REPLACE.length && !EXTEND) throw new Error('--replace requires --extend');
 const PAUSE_MS = 1000; // nghỉ giữa các store: lịch sự với server
 
 const manifest = JSON.parse(await readFile(path.join(ROOT, 'config/experiment-manifest.json'), 'utf8'));
@@ -36,11 +41,18 @@ const quotas = stratumQuotas(TOTAL, pilot);
 console.log(`frame: ${stores.length} stores · TBT tertile cuts ${cuts.map(Math.round).join(' / ')} ms · quotas ${JSON.stringify(quotas)}`);
 
 // Mở rộng: store đã có trong mẫu được tính vào quota và không bao giờ probe lại.
-const existingRows = EXTEND ? await readCsv(SITES_CSV) : [];
+const sampleRows = EXTEND ? await readCsv(SITES_CSV) : [];
+const unknown = REPLACE.filter((site) => !sampleRows.some((r) => r.site === site && Number(r.wave) > 0));
+if (unknown.length) throw new Error(`--replace: not a sampled (wave > 0) store: ${unknown}`);
+const existingRows = sampleRows.filter((r) => !REPLACE.includes(r.site)); // store bị thay rời mẫu, quota tầng đó trống lại
 const previousLog = EXTEND ? JSON.parse(await readFile(LOG_JSON, 'utf8')) : null;
-const rejectedBefore = new Set((previousLog?.probes ?? []).filter((p) => !p.ok).map((p) => p.site));
+const rejectedBefore = new Set([
+  ...(previousLog?.probes ?? []).filter((p) => !p.ok).map((p) => p.site),
+  ...(previousLog?.extensions ?? []).flatMap((e) => e.replaced ?? []), // store đã bị thay ở lần trước
+  ...REPLACE,
+]);
 const kept = stores.filter((s) => existingRows.some((r) => r.site === s.site && Number(r.wave) > 0));
-const nextWave = Math.max(0, ...existingRows.map((r) => Number(r.wave))) + 1;
+const nextWave = Math.max(0, ...sampleRows.map((r) => Number(r.wave))) + 1; // tính cả store bị thay: wave mới luôn lớn hơn
 
 const accepted = [...kept];
 const log = [];
@@ -69,7 +81,7 @@ const rows = EXTEND ? [...existingRows, ...newRows] : [...pilotRows, ...newRows]
 await writeCsv(SITES_CSV, ['site', 'page_type', 'url', 'stratum', 'wave', 'note'], rows);
 const run = { generated_at: new Date().toISOString(), seed: SEED, total: TOTAL, frame_stores: stores.length, tbt_tertile_cuts_ms: cuts, quotas_after_pilot: quotas };
 await writeFile(LOG_JSON, JSON.stringify(EXTEND
-  ? { ...previousLog, extensions: [...(previousLog.extensions ?? []), { ...run, wave: nextWave, kept: kept.length }], probes: [...previousLog.probes, ...log] }
+  ? { ...previousLog, extensions: [...(previousLog.extensions ?? []), { ...run, wave: nextWave, kept: kept.length, ...(REPLACE.length && { replaced: REPLACE }) }], probes: [...previousLog.probes, ...log] }
   : { ...run, wave1: WAVE1, pilot, probes: log }, null, 2));
 const short = STRATA.filter((name) => accepted.filter((s) => s.stratum === name).length < quotas[name]);
 console.log(`${accepted.length} sampled + ${pilot.length} pilot stores (${accepted.length - kept.length} new${EXTEND ? `, wave ${nextWave}` : ''}) → config/main-study-sites.csv${short.length ? ` (frame exhausted for ${short})` : ''}`);

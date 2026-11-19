@@ -1,5 +1,5 @@
 // Báo cáo QC dataset (W3, Gate G3) → docs/dataset-qc-report.md và bản chụp đóng băng data/processed/dataset-<version>.csv
-// Cách dùng: node scripts/build-dataset-qc-report.js [--version=v0.4]
+// Cách dùng: node scripts/build-dataset-qc-report.js [--version=v1.0]
 //  (1) tái lập: dựng lại độc lập từ raw phải giống TỪNG BYTE với pilot-dataset.csv (do reparse ghi)
 //  (2) schema: header trùng feature-definitions.js
 //  (3) tiến độ so với kế hoạch  (4) trạng thái / lý do loại  (5) nhật ký lỗi collector
@@ -14,7 +14,7 @@ import { FEATURE_COLUMNS, TARGET_COLUMNS } from '../src/parser/feature-definitio
 import { toNumber, median, cv, fmt, groupBy } from '../src/analysis/descriptive-statistics.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const VERSION = process.argv.find((a) => a.startsWith('--version='))?.split('=')[1] ?? 'v0.4';
+const VERSION = process.argv.find((a) => a.startsWith('--version='))?.split('=')[1] ?? 'v1.0';
 const DATASET = path.join(ROOT, 'data/processed/pilot-dataset.csv');
 const OUTLIER_RATIO = 0.5; // lần đo lệch > 50% so với median của trang thì bị đánh dấu (không xóa)
 const manifest = JSON.parse(await readFile(path.join(ROOT, 'config/experiment-manifest.json'), 'utf8'));

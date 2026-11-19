@@ -8,9 +8,9 @@
     "shopify_storefront": {
       "role": "observational data for RQ1/RQ2",
       "pilot_sites": "config/pilot-sites.csv",
-      "main_study": "config/main-study-sites.csv (80 stores incl. 3 pilot; 27/27/26 per stratum; waves 0–3)",
+      "main_study": "config/main-study-sites.csv (200 stores incl. 3 pilot; 67/67/66 per stratum; waves 0–5; extended 80 → 200 by amendment 2026-10-25)",
       "sampling_frame": "reference_dataset (HTTP Archive Shopify origins, crawl 2026-08)",
-      "planned_real_measurements": 800
+      "planned_real_measurements": 2000
     },
     "controlled_testbed": {
       "role": "one-factor-at-a-time fault injection with known cause for RQ3 (ground truth)",
@@ -111,5 +111,13 @@
     "config": "docs/protocol-v1.0.md §8.1",
     "code": "src/ml/ + scripts/train_preliminary_models.py (npm run ml:train)",
     "seed": 42
+  },
+  "datasets": {
+    "v1.0": {
+      "status": "FROZEN",
+      "frozen_at": "2026-10-25",
+      "path": "data/processed/dataset-v1.0.csv",
+      "sha256": "05125d31b991516d0a332087004617c18a7b455361d1390171e4de44401c1543"
+    }
   }
 }
