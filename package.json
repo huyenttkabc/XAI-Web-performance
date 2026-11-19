@@ -32,6 +32,11 @@
     "ml:freeze": ".venv/bin/python scripts/freeze_model_v1.py --run=dev-cv-261025-v1.0",
     "ml:rq3": ".venv/bin/python scripts/run_rq3_explanations.py --run-id=rq3-testbed-261108",
     "ml:rq3-report": ".venv/bin/python scripts/build_rq3_report.py --run=rq3-testbed-261108",
+    "ml:rq4-diagnosis": ".venv/bin/python scripts/run_rq4_diagnosis.py",
+    "collect:case-study": "node src/run-pilot.js --scope=real --sites=config/case-study-sites.csv --wave=1",
+    "rq4:profile-stores": "python3 scripts/profile_development_store_composition.py",
+    "rq4:before-after": "python3 scripts/build_rq4_before_after.py",
+    "rq4:report": "python3 scripts/build_rq4_report.py",
     "test:ml": ".venv/bin/python -m unittest discover -s test -p 'test_*.py'"
   },
   "dependencies": {
